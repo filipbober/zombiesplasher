@@ -14,11 +14,6 @@ public class EnemySpawner : MonoBehaviour
 
     float _currentCooldown;
 
-    void Awake()
-    {
-        _currentCooldown = 0f;
-    }
-
     void Update()
     {
         _currentCooldown -= Time.deltaTime;
@@ -34,15 +29,13 @@ public class EnemySpawner : MonoBehaviour
     void SpawnEnemy()
     {
         Transform destination = ComputeDestination();
-        Transform returnDestination = transform;
-        float proximityRadius = 0.1f;
 
         GameObject go = _enemyPool.GetPooledObject();
         go.transform.position = transform.position;
-        go.SetActive(true);        
+        go.SetActive(true);
 
         EnemyController controller = go.GetComponent<EnemyController>();
-        controller.Initialize(destination, returnDestination, proximityRadius);
+        controller.Initialize(destination);
     }
 
     Transform ComputeDestination()
@@ -66,11 +59,6 @@ public class EnemySpawner : MonoBehaviour
         }
 
         return resultDestination;
-    }
-
-    Transform ComputeRandomDestination()
-    {
-        return _destinations[Random.Range(0, _destinations.Length)];
     }
 
 }

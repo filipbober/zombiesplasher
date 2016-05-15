@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface IEnemyMover 
+public interface IEnemyMover
 {
-    void Initialize(NavMeshAgent navAgent, Transform initialDestination, float speed);
-    void SetDestination(Transform destination);
+    void Initialize(Vector3 destinationPos, float speed);
+    void SetDestination(Vector3 destinationPos);
     void SetSpeed(float speed);
 }

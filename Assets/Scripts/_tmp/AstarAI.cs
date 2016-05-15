@@ -53,6 +53,7 @@ public class AstarAI : MonoBehaviour
         if (currentWaypoint >= path.vectorPath.Count)
         {
             Debug.Log("End Of Path Reached");
+            Destroy(gameObject);
             return;
         }
 
