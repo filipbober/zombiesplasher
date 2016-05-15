@@ -4,8 +4,11 @@ using Pathfinding;
 
 public class EnemyController : MonoBehaviour
 {
+    public static event System.EventHandler<EnemyPropertiesEventArgs> EnemyDown;
+
     private EnemyProperties _properties;
     private IEnemyMover _mover;
+    private IEnemyInputResponse _inputResponse;
     private Seeker _seeker;
 
     private Transform _destination;
@@ -18,17 +21,20 @@ public class EnemyController : MonoBehaviour
     {
         _properties = GetComponent<EnemyProperties>();
         _mover = GetComponent<IEnemyMover>();
+        _inputResponse = GetComponent<IEnemyInputResponse>();
         _seeker = GetComponent<Seeker>();
+
+        _inputResponse.Initialize(_properties);
     }
 
     void OnEnable()
     {
-
+        _inputResponse.EnemyClicked += EnemyClicked;
     }
 
     void OnDisable()
     {
-
+        _inputResponse.EnemyClicked -= EnemyClicked;
     }
 
     void Update()
@@ -98,4 +104,22 @@ public class EnemyController : MonoBehaviour
         _currentWaypoint = _path.vectorPath[_currentWaypointNo];
         _mover.SetDestination(_currentWaypoint);
     }
+
+    protected void EnemyClicked(object sender, EnemyPropertiesEventArgs e)
+    {
+        if (e.GameObj == gameObject)
+        {
+            OnEnemyDown(new EnemyPropertiesEventArgs(gameObject, _properties));
+            gameObject.SetActive(false);
+        }
+    }
+
+    protected void OnEnemyDown(EnemyPropertiesEventArgs e)
+    {
+        if (EnemyDown != null)
+        {
+            EnemyDown(this, e);
+        }
+    }
+
 }
