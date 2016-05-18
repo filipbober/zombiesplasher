@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     private IEnemyMover _mover;
     private IEnemyInputResponse _inputResponse;
     private Seeker _seeker;
+    private EnemyPhysicsEvents _physicsEvents;
 
     private Transform _destination;
     private Path _path;
@@ -23,18 +24,23 @@ public class EnemyController : MonoBehaviour
         _mover = GetComponent<IEnemyMover>();
         _inputResponse = GetComponent<IEnemyInputResponse>();
         _seeker = GetComponent<Seeker>();
+        _physicsEvents = GetComponent<EnemyPhysicsEvents>();
 
         _inputResponse.Initialize(_properties);
+        _physicsEvents.Initialize(_properties);
+
     }
 
     void OnEnable()
     {
         _inputResponse.EnemyClicked += EnemyClicked;
+        _physicsEvents.DestinationReached += DestinationReached;
     }
 
     void OnDisable()
     {
         _inputResponse.EnemyClicked -= EnemyClicked;
+        _physicsEvents.DestinationReached -= DestinationReached;
     }
 
     void Update()
@@ -83,7 +89,7 @@ public class EnemyController : MonoBehaviour
         if (_currentWaypointNo >= _path.vectorPath.Count)
         {
             Debug.Log("Destination reached!");
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
             return;
         }        
 
@@ -107,7 +113,7 @@ public class EnemyController : MonoBehaviour
 
     protected void EnemyClicked(object sender, EnemyPropertiesEventArgs e)
     {
-        if (e.GameObj == gameObject)
+        if (e.EnemyGameObj == gameObject)
         {
             OnEnemyDown(new EnemyPropertiesEventArgs(gameObject, _properties));
             gameObject.SetActive(false);
@@ -120,6 +126,11 @@ public class EnemyController : MonoBehaviour
         {
             EnemyDown(this, e);
         }
+    }
+
+    protected void DestinationReached(object sender, EnemyPropertiesEventArgs e)
+    {
+        gameObject.SetActive(false);
     }
 
 }

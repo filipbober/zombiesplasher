@@ -4,12 +4,12 @@ using System.Collections;
 public class EnemyPropertiesEventArgs : System.EventArgs
 {
 
-    public GameObject GameObj { get; set; }
+    public GameObject EnemyGameObj { get; set; }
     public EnemyProperties EnemyProperties;
 
-    public EnemyPropertiesEventArgs(GameObject go, EnemyProperties enemyProperties)
+    public EnemyPropertiesEventArgs(GameObject enemyGameObj, EnemyProperties enemyProperties)
     {
-        GameObj = go;
+        EnemyGameObj = enemyGameObj;
         EnemyProperties = enemyProperties;
     }
 }

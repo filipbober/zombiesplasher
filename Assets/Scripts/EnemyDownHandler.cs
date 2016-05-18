@@ -18,7 +18,7 @@ public class EnemyDownHandler : MonoBehaviour
     protected void SpawnEnemyCorpse(object sneder, EnemyPropertiesEventArgs e)
     {
         GameObject go = DefaultEnemyCorpsePool.GetPooledObject();
-        go.transform.position = e.GameObj.transform.position;
+        go.transform.position = e.EnemyGameObj.transform.position;
 
         //DeadEnemyController controller = go.GetComponent<DeadEnemyController>();
         //controller.Initialize(e.Destination, e.EnemyData);

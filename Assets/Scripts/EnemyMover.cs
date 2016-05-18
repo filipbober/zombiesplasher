@@ -24,8 +24,7 @@ public class EnemyMover : MonoBehaviour, IEnemyMover
     }
 
     void Update()
-    {
-        
+    {        
         Vector3 heading = _destinationPos - transform.position;
         transform.Translate(heading.normalized * _speed * Time.deltaTime);
     }
