@@ -24,8 +24,15 @@ public class EnemyMover : MonoBehaviour, IEnemyMover
     }
 
     void Update()
-    {        
+    {
         Vector3 heading = _destinationPos - transform.position;
         transform.Translate(heading.normalized * _speed * Time.deltaTime);
+
+
+        // TODO: Super slow - improve performance
+        //Rigidbody2D rb2d = GetComponent<Rigidbody2D>();
+        //Vector3 heading = _destinationPos - transform.position;
+        //Debug.Log(_destinationPos);
+        //rb2d.velocity = heading.normalized * _speed;
     }
 }

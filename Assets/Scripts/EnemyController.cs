@@ -46,6 +46,8 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         UpdatePathfinding();
+
+        TempUpdate();
     }
 
     public void Initialize(Transform destination)
@@ -132,5 +134,25 @@ public class EnemyController : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    // TODO: Temp - remove
+    private float _collisionRecalculateCooldown = 3f;
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (_collisionRecalculateCooldown <= 0)
+        {
+            Debug.Log("Recalculating collision");
+            _seeker.StartPath(transform.position, _destination.position, OnPathComplete);
+
+            _collisionRecalculateCooldown = 3f;
+        }
+    }
+
+    void TempUpdate()
+    {
+        _collisionRecalculateCooldown -= Time.deltaTime;
+    }
+
+    // --
 
 }
