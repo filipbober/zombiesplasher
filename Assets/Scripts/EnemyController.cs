@@ -47,7 +47,7 @@ public class EnemyController : MonoBehaviour
     {
         UpdatePathfinding();
 
-        TempUpdate();
+        //TempUpdate();
     }
 
     public void Initialize(Transform destination)
@@ -136,22 +136,29 @@ public class EnemyController : MonoBehaviour
     }
 
     // TODO: Temp - remove
-    private float _collisionRecalculateCooldown = 3f;
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (_collisionRecalculateCooldown <= 0)
-        {
-            Debug.Log("Recalculating collision");
-            _seeker.StartPath(transform.position, _destination.position, OnPathComplete);
+    //private float _collisionRecalculateCooldown = 3f;
+    //void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (_collisionRecalculateCooldown <= 0)
+    //    {
+    //        Debug.Log("Recalculating collision");
+    //        _seeker.StartPath(transform.position, _destination.position, OnPathComplete);
 
-            _collisionRecalculateCooldown = 3f;
-        }
-    }
+    //        _collisionRecalculateCooldown = 3f;
+    //    }
+    //}
 
-    void TempUpdate()
-    {
-        _collisionRecalculateCooldown -= Time.deltaTime;
-    }
+    //void TempUpdate()
+    //{
+    //    _collisionRecalculateCooldown -= Time.deltaTime;
+    //}
+
+
+    // Isometric
+    // Add -Y of the feet coordinate to the order layer
+    // to the whole sprite.
+    // Things like dragon tail can have a special modifier script
+    // so the tail is either on top or below the character
 
     // --
 
