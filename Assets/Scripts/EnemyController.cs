@@ -59,7 +59,7 @@ public class EnemyController : MonoBehaviour
     public void OnPathComplete(Path path)
     {
         if (!path.error)
-        {
+        {            
             _path = path;
             _currentWaypointNo = 0;
 

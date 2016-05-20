@@ -13,7 +13,6 @@ public class CameraClickAndDrag : MonoBehaviour
 
     private bool _hasInputStarted;
 
-
     void Start()
     {
         _isMouseEnabled = false;
@@ -92,10 +91,43 @@ public class CameraClickAndDrag : MonoBehaviour
 
     void HandleGeneralInput(Vector2 currentPos)
     {
-        Vector3 pos = Camera.main.ScreenToViewportPoint(currentPos - _dragOrigin);
-        Vector3 translation = new Vector3(pos.x * _dragSpeed, pos.y * _dragSpeed, 0f);
+        //// -----------------------
+        //Vector3 dir = Camera.main.ScreenToViewportPoint(currentPos - _dragOrigin);
+        //Vector3 translation = new Vector3(dir.x * _dragSpeed, dir.y * _dragSpeed, 0f);
+
+        //transform.Translate(translation, Space.World);
+        //// -----------------------
+
+        //// if camera currentPos - mouseCurrentPos < proximity -> return;
+        //Vector2 currentCameraPos = transform.position;
+        //Vector2 currentMousePos = Camera.main.ScreenToViewportPoint(currentPos);
+        //if (Vector2.Distance(currentCameraPos, currentMousePos) < 0.1) return;
+        //Debug.Log(Vector2.Distance(currentCameraPos, currentMousePos));
+
+
+        // Mose - move from A (origin) to B (currentPos) = translation
+        // Camera - move from A (transform.position) to B (transform.position + (-translation)
+
+
+
+
+
+
+
+        //Vector2 mouseTransition = currentPos - _dragOrigin;
+        //Vector2 cameraTransition = new Vector2(transform.position.x + mouseTransition.x, transform.position.y + mouseTransition.y);
+
+        //Debug.Log(mouseTransition);
+
+        //transform.Translate(cameraTransition, Space.World);
+
+
+        Vector3 dir = Camera.main.ScreenToViewportPoint(currentPos - _dragOrigin);
+        Vector3 translation = new Vector3(dir.x * _dragSpeed, dir.y * _dragSpeed, 0f);
+        _dragOrigin = currentPos;
 
         transform.Translate(translation, Space.World);
+
     }
 
 }
