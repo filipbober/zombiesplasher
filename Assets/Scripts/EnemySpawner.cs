@@ -3,6 +3,8 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public static event System.EventHandler<EnemyPropertiesEventArgs> EnemySpawned;
+
     [SerializeField]
     private ObjectPooler _enemyPool;
 
@@ -36,6 +38,9 @@ public class EnemySpawner : MonoBehaviour
 
         EnemyController controller = go.GetComponent<EnemyController>();
         controller.Initialize(destination);
+
+        EnemyProperties properties = go.GetComponent<EnemyProperties>();
+        OnEnemySpawned(new EnemyPropertiesEventArgs(go, properties));
     }
 
     Transform ComputeDestination()
@@ -59,6 +64,14 @@ public class EnemySpawner : MonoBehaviour
         }
 
         return resultDestination;
+    }
+
+    protected void OnEnemySpawned(EnemyPropertiesEventArgs e)
+    {
+        if (EnemySpawned != null)
+        {
+            EnemySpawned(this, e);
+        }
     }
 
 }

@@ -5,6 +5,7 @@ using Pathfinding;
 public class EnemyController : MonoBehaviour
 {
     public static event System.EventHandler<EnemyPropertiesEventArgs> EnemyDown;
+    public static event System.EventHandler<EnemyPropertiesEventArgs> DestinationWasReached;
 
     private EnemyProperties _properties;
     private IEnemyMover _mover;
@@ -130,8 +131,17 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    protected void OnDestinationWasReached(EnemyPropertiesEventArgs e)
+    {
+        if (DestinationWasReached != null)
+        {
+            DestinationWasReached(this, e);
+        }
+    }
+
     protected void DestinationReached(object sender, EnemyPropertiesEventArgs e)
     {
+        OnDestinationWasReached(e);
         gameObject.SetActive(false);
     }
 
