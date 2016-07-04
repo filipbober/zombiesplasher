@@ -28,8 +28,7 @@ public class EnemyController : MonoBehaviour
         _physicsEvents = GetComponent<EnemyPhysicsEvents>();
 
         _inputResponse.Initialize(_properties);
-        _physicsEvents.Initialize(_properties);
-
+        _physicsEvents.Initialize(_properties);        
     }
 
     void OnEnable()
