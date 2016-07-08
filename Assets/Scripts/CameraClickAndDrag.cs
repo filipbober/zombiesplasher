@@ -3,6 +3,11 @@ using System.Collections;
 
 public class CameraClickAndDrag : MonoBehaviour
 {
+    public enum CameraMode { Mode2D, Mode3D, Count };
+
+    [SerializeField]
+    CameraMode Mode = CameraMode.Mode2D;
+
     [SerializeField]
     private float _dragSpeed;
 
@@ -121,10 +126,20 @@ public class CameraClickAndDrag : MonoBehaviour
 
         //transform.Translate(cameraTransition, Space.World);
 
-
-        Vector3 dir = Camera.main.ScreenToViewportPoint(currentPos - _dragOrigin);
-        Vector3 translation = new Vector3(dir.x * _dragSpeed, dir.y * _dragSpeed, 0f);
-        _dragOrigin = currentPos;
+        Vector3 dir;
+        Vector3 translation;
+        if (Mode == CameraMode.Mode2D)
+        {
+            dir = Camera.main.ScreenToViewportPoint(currentPos - _dragOrigin);
+            translation = new Vector3(dir.x * _dragSpeed, dir.y * _dragSpeed, 0f);
+            _dragOrigin = currentPos;
+        }
+        else
+        {
+            dir = Camera.main.ScreenToViewportPoint(currentPos - _dragOrigin);
+            translation = new Vector3(dir.x * _dragSpeed, 0f, dir.y * _dragSpeed);
+            _dragOrigin = currentPos;
+        }
 
         transform.Translate(translation, Space.World);
 
