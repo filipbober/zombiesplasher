@@ -14,7 +14,7 @@ public class GameHUDManager : MonoBehaviour
 
     void OnDisable()
     {
-
+        GameManager.EnemySpawnedNotification -= UpdateEnemiesLeft;
     }
 
     void UpdateEnemiesLeft(object sender, EnemyPropertiesEventArgs e)

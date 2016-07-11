@@ -19,6 +19,7 @@ public class EnemyDownHandler : MonoBehaviour
     {
         GameObject go = DefaultEnemyCorpsePool.GetPooledObject();
         go.transform.position = e.EnemyGameObj.transform.position;
+        go.transform.rotation = e.EnemyGameObj.transform.rotation;
 
         //DeadEnemyController controller = go.GetComponent<DeadEnemyController>();
         //controller.Initialize(e.Destination, e.EnemyData);
