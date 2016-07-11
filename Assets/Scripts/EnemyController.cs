@@ -63,7 +63,7 @@ public class EnemyController : MonoBehaviour
             _path = path;
             _currentWaypointNo = 0;
 
-            _mover.Initialize(_currentWaypoint, _properties.Speed);
+            _mover.Initialize(_currentWaypoint, _properties.Speed, _properties.RotationSpeed);
             RefreshMover();
         }
     }
