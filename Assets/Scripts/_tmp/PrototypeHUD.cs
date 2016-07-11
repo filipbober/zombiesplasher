@@ -20,4 +20,9 @@ public class PrototypeHUD : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void OnPlay()
+    {
+        MainController.SwitchScene(Scenes.TESTSCENE);
+    }
 }
