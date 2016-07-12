@@ -5,8 +5,12 @@ using UnityEngine.UI;
 public class OffscreenEnemyIndicator : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _enemyIndicator;
+    private Canvas _hudCavas;
 
+    //[SerializeField]
+    //private GameObject _enemyIndicator;
+
+    [SerializeField]
     private ObjectPooler _enemyIndicatorPool;
 
     private List<GameObject> _enemyList;
@@ -48,9 +52,14 @@ public class OffscreenEnemyIndicator : MonoBehaviour
                 GameObject enemyIndicator;
                 if (_tmpInstatiated == null)
                 {
-                    enemyIndicator = Instantiate(_enemyIndicator);
-                    //GameObject enemyIndicator = _enemyIndicatorPool.GetPooledObject();
-                    enemyIndicator.transform.SetParent(gameObject.transform, false);    // false to scale image with Canvas
+                    //enemyIndicator = Instantiate(_enemyIndicator);
+                    enemyIndicator = _enemyIndicatorPool.GetPooledObject();
+                    enemyIndicator.SetActive(true);
+
+                    //enemyIndicator.transform.SetParent(gameObject.transform, false);    // false to scale image with Canvas
+                    enemyIndicator.transform.SetParent(_hudCavas.transform, false);     // false to scale image with Canvas
+                    //enemyIndicator.transform.SetParent(gameObject.transform, true);
+
                     _tmpInstatiated = enemyIndicator;
                 }
                 else
@@ -65,9 +74,9 @@ public class OffscreenEnemyIndicator : MonoBehaviour
                 CanvasScaler scaler = GetComponentInParent<CanvasScaler>();
 
                 float scaleX = scaler.referenceResolution.x / Screen.width;
-                float scaleY = scaler.referenceResolution.y / Screen.height;
+                float scaleY = scaler.referenceResolution.y / Screen.height;               
 
-                Vector2 imgSizeModifier = new Vector2(0f, 0f);
+               Vector2 imgSizeModifier = new Vector2(0f, 0f);
                 if (screenPos.x < 0)
                 {
                     imgSizeModifier.x += enemyIndicatorImage.rectTransform.rect.width / 2;
@@ -85,12 +94,15 @@ public class OffscreenEnemyIndicator : MonoBehaviour
                 {
                     imgSizeModifier.y -= enemyIndicatorImage.rectTransform.rect.height / 2;
                 }
+                
+                imgSizeModifier.x *= scaleX;
+                imgSizeModifier.y *= scaleY;
 
                 Vector2 borderPosition = new Vector2((indicatorPos.x * Screen.width - Screen.width / 2) * scaleX, (indicatorPos.y * Screen.height - Screen.height / 2) * scaleY);
                 borderPosition += imgSizeModifier;
                 enemyIndicatorImage.rectTransform.anchoredPosition = borderPosition;
 
-                //return;
+                return;
             }
         }
     }
