@@ -44,6 +44,8 @@ public class OffscreenEnemyIndicator : MonoBehaviour
             bool isOffscreen = !(screenPos.z > 0
                 && screenPos.x > 0 && screenPos.x < Screen.width
                 && screenPos.y > 0 && screenPos.y < Screen.height);
+            //TMP
+            isOffscreen = true;
 
             if (isOffscreen)
             {
@@ -78,6 +80,10 @@ public class OffscreenEnemyIndicator : MonoBehaviour
 
                 CanvasScaler scaler = GetComponentInParent<CanvasScaler>();
 
+                Debug.Log("viewPos = " + viewPos);
+                Debug.Log("Screen.height = " + Screen.height);
+                Debug.Log(Camera.main.ViewportToScreenPoint(viewPos));
+
                 float scaleX = scaler.referenceResolution.x / Screen.width;
                 float scaleY = scaler.referenceResolution.y / Screen.height;
 
@@ -110,9 +116,24 @@ public class OffscreenEnemyIndicator : MonoBehaviour
 
                 // In Progress
                 //Vector2 borderPosition = new Vector2((indicatorPos.x * Screen.width * scaleX * 0.5f - (Screen.width / 2 * scaleX)) , (indicatorPos.y * Screen.height * scaleY * 0.5f) );
-                Vector2 borderPosition = new Vector2((indicatorPos.x * Screen.width * scaleX), (indicatorPos.y * Screen.height * scaleY));
-                borderPosition += imgSizeModifier;      
+
+                //Vector2 borderPosition = new Vector2((indicatorPos.x * Screen.width * scaleX), (indicatorPos.y * Screen.height * scaleY));
+                //borderPosition += imgSizeModifier;      
+                //enemyIndicatorImage.rectTransform.anchoredPosition = borderPosition;
+
+
+
+                Vector3 screenPoint = Camera.main.ViewportToScreenPoint(viewPos);
+                Vector2 borderPosition = new Vector3(Mathf.Clamp(screenPoint.x, 0f, Screen.width), Mathf.Clamp(screenPoint.y, 0f, Screen.height), 0f);
+
+                borderPosition.x -= Screen.width / 2;
+                borderPosition.x *= scaleX;
+
+                borderPosition.y -= Screen.height / 2;
+                borderPosition.y *= scaleY;
+
                 enemyIndicatorImage.rectTransform.anchoredPosition = borderPosition;
+
 
                 //Debug.Log("Screen.width = " + Screen.width);
                 //Debug.Log("scaleX = " + scaleX);
