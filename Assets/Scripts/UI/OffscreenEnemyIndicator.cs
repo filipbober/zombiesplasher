@@ -67,50 +67,11 @@ public class OffscreenEnemyIndicator : MonoBehaviour
                     enemyIndicator = _tmpInstatiated;
                 }
 
-                Image enemyIndicatorImage = enemyIndicator.GetComponent<Image>();       // TODO: Make list with pooled objects
-                Vector3 viewPos = Camera.main.WorldToViewportPoint(go.transform.position);
-
-                CanvasScaler scaler = GetComponentInParent<CanvasScaler>();
-                float scaleX = scaler.referenceResolution.x / Screen.width;
-                //float scaleY = scaler.referenceResolution.y / Screen.height;
-                float scaleY = scaleX;      // Scaler matches width, so only scale in X matters               
-
-                Vector3 screenPoint = Camera.main.ViewportToScreenPoint(viewPos);
-                Vector2 borderPosition = new Vector3(Mathf.Clamp(screenPoint.x, 0f, Screen.width), Mathf.Clamp(screenPoint.y, 0f, Screen.height), 0f);
-
-                borderPosition.x -= Screen.width / 2;
-                borderPosition.x *= scaleX;
-
-                borderPosition.y -= Screen.height / 2;
-                borderPosition.y *= scaleY;
+                Image enemyIndicatorImage = enemyIndicator.GetComponent<Image>();       // TODO: Make list with pooled objects, and remove GetComponent calls!!!
 
                 // Adjust position for the image to fit the screen
-                Vector2 imageOffset;
-                Vector2 imageSize = new Vector2(enemyIndicatorImage.rectTransform.rect.width, enemyIndicatorImage.rectTransform.rect.height);
-
-                int offsetSignX = 0;
-                int offsetSignY = 0;
-                if (screenPos.x < 0)
-                {
-                    offsetSignX = 1;
-                }
-                else if (screenPos.x > Screen.width)
-                {
-                    offsetSignX = -1;
-                }
-
-                if (screenPos.y < 0)
-                {
-                    offsetSignY = 1;
-                }
-                else if (screenPos.y > Screen.height)
-                {
-                    offsetSignY = -1;
-                }
-
-                imageOffset = new Vector2(imageSize.x / 2, imageSize.y / 2);
-                imageOffset.x *= offsetSignX;
-                imageOffset.y *= offsetSignY;
+                Vector2 imageOffset = ComputeImageOffset(enemyIndicatorImage, screenPos);
+                Vector2 borderPosition = ComputeBorderPosition(go.transform.position);
                 borderPosition += imageOffset;
 
                 enemyIndicatorImage.rectTransform.anchoredPosition = borderPosition;
@@ -118,6 +79,59 @@ public class OffscreenEnemyIndicator : MonoBehaviour
                 return;
             }
         }
+    }
+
+    Vector2 ComputeBorderPosition(Vector3 enemyPos)
+    {
+        Vector3 viewPos = Camera.main.WorldToViewportPoint(enemyPos);
+
+        CanvasScaler scaler = GetComponentInParent<CanvasScaler>();
+        float scaleX = scaler.referenceResolution.x / Screen.width;
+        //float scaleY = scaler.referenceResolution.y / Screen.height;
+        float scaleY = scaleX;      // Scaler matches width, so only scale in X matters               
+
+        Vector3 screenPoint = Camera.main.ViewportToScreenPoint(viewPos);
+        Vector2 borderPosition = new Vector3(Mathf.Clamp(screenPoint.x, 0f, Screen.width), Mathf.Clamp(screenPoint.y, 0f, Screen.height), 0f);
+
+        borderPosition.x -= Screen.width / 2;
+        borderPosition.x *= scaleX;
+
+        borderPosition.y -= Screen.height / 2;
+        borderPosition.y *= scaleY;
+
+        return borderPosition;
+    }
+
+    Vector2 ComputeImageOffset(Image indicatorImage, Vector3 screenPos)
+    {
+        Vector2 imageOffset;
+        Vector2 imageSize = new Vector2(indicatorImage.rectTransform.rect.width, indicatorImage.rectTransform.rect.height);
+
+        int offsetSignX = 0;
+        int offsetSignY = 0;
+        if (screenPos.x < 0)
+        {
+            offsetSignX = 1;
+        }
+        else if (screenPos.x > Screen.width)
+        {
+            offsetSignX = -1;
+        }
+
+        if (screenPos.y < 0)
+        {
+            offsetSignY = 1;
+        }
+        else if (screenPos.y > Screen.height)
+        {
+            offsetSignY = -1;
+        }
+
+        imageOffset = new Vector2(imageSize.x / 2, imageSize.y / 2);
+        imageOffset.x *= offsetSignX;
+        imageOffset.y *= offsetSignY;
+
+        return imageOffset;
     }
 
     void AddEnemyToList(object sender, EnemyPropertiesEventArgs e)
