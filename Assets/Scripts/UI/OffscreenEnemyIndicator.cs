@@ -2,8 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 
+// TDOD:
+// - remove GetComponent calls
 public class OffscreenEnemyIndicator : MonoBehaviour
 {
+    //private struct EnemyIndicator
+    //{
+    //    public EnemyIndicator(GameObject gameObj, Image imageComponent)
+    //    {
+    //        GameObj = gameObj;
+    //        ImageComponent = imageComponent;          
+    //    }
+
+    //    public GameObject GameObj;
+    //    public Image ImageComponent;
+    //};
+
     [SerializeField]
     private Canvas _hudCavas;
 
@@ -13,15 +27,27 @@ public class OffscreenEnemyIndicator : MonoBehaviour
     [SerializeField]
     private ObjectPooler _enemyIndicatorPool;
 
-    private List<GameObject> _enemyList;
+    private List<GameObject> _enemies;
+    //private List<Image> _enemies;
+    //private List<Image> _indicatorImages; 
+    //private List<EnemyIndicator> _enemyIndicators;
+    private List<Image> _activeIndicators;
 
     private GameObject _tmpInstatiated;
 
+    private CanvasScaler _canvasScaler;
+    private Vector2 _referenceResolution;
+    private int _screenWidth;
+    private int _screenHeight;
+
     void Awake()
     {
-        _enemyList = new List<GameObject>();
+        _canvasScaler = _hudCavas.GetComponent<CanvasScaler>();
+        _enemies = new List<GameObject>();
+        //        _enemyIndicatorPool = GetComponent<ObjectPooler>();
+        //_enemyIndicators = new List<EnemyIndicator>();
 
-        //_enemyIndicatorPool = gameObject.AddComponent(ObjectPooler);
+        UpdateScreenData();
     }
 
     void OnEnable()
@@ -36,9 +62,14 @@ public class OffscreenEnemyIndicator : MonoBehaviour
 
     void Update()
     {
-        foreach (GameObject go in _enemyList)
+        UpdateScreenData();
+
+        foreach (GameObject go in _enemies)
+        //foreach (Image go in _enemies)
         {
-            if (!go.activeInHierarchy) return;
+            //GameObject go = indicator.GameObj;            
+
+            if (!go.gameObject.activeInHierarchy) return;
 
             Vector3 screenPos = Camera.main.WorldToScreenPoint(go.transform.position);
             bool isOffscreen = !(screenPos.z > 0
@@ -49,12 +80,12 @@ public class OffscreenEnemyIndicator : MonoBehaviour
 
             if (isOffscreen)
             {
+                
                 Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
 
                 GameObject enemyIndicator;
                 if (_tmpInstatiated == null)
-                {
-                    ;
+                {                    
                     enemyIndicator = _enemyIndicatorPool.GetPooledObject();
                     enemyIndicator.SetActive(true);
 
@@ -68,6 +99,7 @@ public class OffscreenEnemyIndicator : MonoBehaviour
                 }
 
                 Image enemyIndicatorImage = enemyIndicator.GetComponent<Image>();       // TODO: Make list with pooled objects, and remove GetComponent calls!!!
+                //Image enemyIndicatorImage = go;
 
                 // Adjust position for the image to fit the screen
                 Vector2 imageOffset = ComputeImageOffset(enemyIndicatorImage, screenPos);
@@ -81,12 +113,21 @@ public class OffscreenEnemyIndicator : MonoBehaviour
         }
     }
 
+    void UpdateScreenData()
+    {
+        _referenceResolution = _canvasScaler.referenceResolution;
+        _screenWidth = Screen.width;
+        _screenHeight = Screen.height;
+    }
+
     Vector2 ComputeBorderPosition(Vector3 enemyPos)
     {
         Vector3 viewPos = Camera.main.WorldToViewportPoint(enemyPos);
 
-        CanvasScaler scaler = GetComponentInParent<CanvasScaler>();
-        float scaleX = scaler.referenceResolution.x / Screen.width;
+        //CanvasScaler scaler = GetComponentInParent<CanvasScaler>();
+        //float scaleX = scaler.referenceResolution.x / Screen.width;
+        float scaleX = _referenceResolution.x / _screenWidth;
+
         //float scaleY = scaler.referenceResolution.y / Screen.height;
         float scaleY = scaleX;      // Scaler matches width, so only scale in X matters               
 
@@ -136,9 +177,21 @@ public class OffscreenEnemyIndicator : MonoBehaviour
 
     void AddEnemyToList(object sender, EnemyPropertiesEventArgs e)
     {
-        if (!_enemyList.Contains(e.EnemyGameObj))
+        if (!_enemies.Contains(e.EnemyGameObj))
         {
-            _enemyList.Add(e.EnemyGameObj);
+            _enemies.Add(e.EnemyGameObj);
+            //_indicatorImages.Add(e.EnemyGameObj.GetComponent<Image>());
+
+            //_enemyIndicators.Add(new EnemyIndicator(e.EnemyGameObj, e.EnemyGameObj.GetComponent<Image>()));
         }
+
+        //if (!_enemyIndicators.Contains(e.EnemyGameObj))
+        //{
+        //    _enemyList.Add(e.EnemyGameObj);
+        //}
+
+        //Dictionary<GameObject, Image> dict = new Dictionary<GameObject, Image>();
+        
+        
     }
 }
