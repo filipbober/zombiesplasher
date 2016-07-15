@@ -67,33 +67,56 @@ public class OffscreenEnemyIndicator : MonoBehaviour
 
 
         // --------------------------------------------
-        List<GameObject> offscreenEnemies;
-        offscreenEnemies = new List<GameObject>(_enemies.Count);
+        //List<GameObject> offscreenEnemies;
+        //offscreenEnemies = new List<GameObject>(_enemies.Count);
 
-        foreach (GameObject go in _enemies)
-        {
-            if (!go.gameObject.activeInHierarchy) return;
+        //foreach (GameObject go in _enemies)
+        //{
+        //    if (!go.gameObject.activeInHierarchy) return;
 
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(go.transform.position);
-            bool isOffscreen = !(screenPos.z > 0
-                && screenPos.x > 0 && screenPos.x < Screen.width
-                && screenPos.y > 0 && screenPos.y < Screen.height);
+        //    Vector3 screenPos = Camera.main.WorldToScreenPoint(go.transform.position);
+        //    bool isOffscreen = !(screenPos.z > 0
+        //        && screenPos.x > 0 && screenPos.x < Screen.width
+        //        && screenPos.y > 0 && screenPos.y < Screen.height);
 
-            if (!offscreenEnemies.Contains(go))
-            {
-                offscreenEnemies.Add(go);
-            }
+        //    if (isOffscreen && !offscreenEnemies.Contains(go))
+        //    {
+        //        offscreenEnemies.Add(go);
+        //    }
 
-        }
+        //}
 
-        //Vector3 screenCenter2 = new Vector3(_screenWidth / 2, _screenHeight / 2);
+        List<GameObject> offscreenEnemies = UpdateOffscreenEnemies();
 
-        foreach (GameObject indicator in _activeIndicators)
-        {
-            indicator.gameObject.SetActive(false);
-        }
-        _activeIndicators = new List<GameObject>(offscreenEnemies.Count);
+        //foreach (GameObject indicator in _activeIndicators)
+        //{
+        //    indicator.gameObject.SetActive(false);
+        //}
+        //_activeIndicators = new List<GameObject>(offscreenEnemies.Count);
 
+        UpdateActiveIndicators(offscreenEnemies.Count);
+
+        //foreach (GameObject go in offscreenEnemies)
+        //{
+        //    GameObject newIndicator = _enemyIndicatorPool.GetPooledObject();
+        //    newIndicator.SetActive(true);
+        //    newIndicator.transform.SetParent(_hudCavas.transform, false);
+        //    _activeIndicators.Add(newIndicator);
+
+        //    Image indicatorImage = newIndicator.GetComponent<Image>();
+        //    Vector3 screenPos = Camera.main.WorldToScreenPoint(go.transform.position);
+
+        //    Vector2 imageOffset = ComputeImageOffset(indicatorImage, screenPos);
+        //    Vector2 borderPosition = ComputeBorderPosition(go.transform.position);
+        //    borderPosition += imageOffset;
+
+        //    indicatorImage.rectTransform.anchoredPosition = borderPosition;
+        //}
+        DrawIndicators(offscreenEnemies);
+    }
+
+    void DrawIndicators(List<GameObject> offscreenEnemies)
+    {
         foreach (GameObject go in offscreenEnemies)
         {
             GameObject newIndicator = _enemyIndicatorPool.GetPooledObject();
@@ -110,57 +133,42 @@ public class OffscreenEnemyIndicator : MonoBehaviour
 
             indicatorImage.rectTransform.anchoredPosition = borderPosition;
         }
+    }
 
-        return;
-        // ---------------------------------------------
+    void UpdateActiveIndicators(int offscreenEnemiesCount)
+    {
+        foreach (GameObject indicator in _activeIndicators)
+        {
+            indicator.gameObject.SetActive(false);
+        }
+        //_activeIndicators = new List<GameObject>(offscreenEnemies.Count);
+        _activeIndicators = new List<GameObject>(offscreenEnemiesCount);
+    }
+
+    List<GameObject> UpdateOffscreenEnemies()
+    {
+        List<GameObject> offscreenEnemies;
+        offscreenEnemies = new List<GameObject>(_enemies.Count);
 
         foreach (GameObject go in _enemies)
-        //foreach (Image go in _enemies)
         {
-            //GameObject go = indicator.GameObj;            
-
-            if (!go.gameObject.activeInHierarchy) return;
-
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(go.transform.position);
-            bool isOffscreen = !(screenPos.z > 0
-                && screenPos.x > 0 && screenPos.x < Screen.width
-                && screenPos.y > 0 && screenPos.y < Screen.height);
-            //TMP
-            isOffscreen = true;
-
-            if (isOffscreen)
+            if (go.gameObject.activeInHierarchy)
             {
 
-                Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
+                Vector3 screenPos = Camera.main.WorldToScreenPoint(go.transform.position);
+                bool isOffscreen = !(screenPos.z > 0
+                    && screenPos.x > 0 && screenPos.x < Screen.width
+                    && screenPos.y > 0 && screenPos.y < Screen.height);
 
-                GameObject enemyIndicator;               
-                if (_tmpInstatiated == null)
+                if (isOffscreen && !offscreenEnemies.Contains(go))
                 {
-                    enemyIndicator = _enemyIndicatorPool.GetPooledObject();
-                    enemyIndicator.SetActive(true);
-
-                    enemyIndicator.transform.SetParent(_hudCavas.transform, false);     // false to scale image with Canvas
-
-                    _tmpInstatiated = enemyIndicator;
+                    offscreenEnemies.Add(go);
                 }
-                else
-                {
-                    enemyIndicator = _tmpInstatiated;
-                }
-
-                Image enemyIndicatorImage = enemyIndicator.GetComponent<Image>();       // TODO: Make list with pooled objects, and remove GetComponent calls!!!
-                //Image enemyIndicatorImage = go;
-
-                // Adjust position for the image to fit the screen
-                Vector2 imageOffset = ComputeImageOffset(enemyIndicatorImage, screenPos);
-                Vector2 borderPosition = ComputeBorderPosition(go.transform.position);
-                borderPosition += imageOffset;
-
-                enemyIndicatorImage.rectTransform.anchoredPosition = borderPosition;
-
-                return;
             }
+
         }
+
+        return offscreenEnemies;
     }
 
     void UpdateScreenData()
