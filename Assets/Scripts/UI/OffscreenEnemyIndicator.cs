@@ -2,38 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-// TDOD:
-// - remove GetComponent calls
+
 public class OffscreenEnemyIndicator : MonoBehaviour
 {
-    //private struct EnemyIndicator
-    //{
-    //    public EnemyIndicator(GameObject gameObj, Image imageComponent)
-    //    {
-    //        GameObj = gameObj;
-    //        ImageComponent = imageComponent;          
-    //    }
-
-    //    public GameObject GameObj;
-    //    public Image ImageComponent;
-    //};
-
     [SerializeField]
     private Canvas _hudCavas;
-
-    //[SerializeField]
-    //private GameObject _enemyIndicator;
 
     [SerializeField]
     private ObjectPooler _enemyIndicatorPool;
 
     private List<GameObject> _enemies;
-    //private List<Image> _enemies;
-    //private List<Image> _indicatorImages; 
-    //private List<EnemyIndicator> _enemyIndicators;
     private List<GameObject> _activeIndicators;
-
-    private GameObject _tmpInstatiated;
 
     private CanvasScaler _canvasScaler;
     private Vector2 _referenceResolution;
@@ -45,8 +24,6 @@ public class OffscreenEnemyIndicator : MonoBehaviour
         _canvasScaler = _hudCavas.GetComponent<CanvasScaler>();
         _enemies = new List<GameObject>();
         _activeIndicators = new List<GameObject>();
-        //        _enemyIndicatorPool = GetComponent<ObjectPooler>();
-        //_enemyIndicators = new List<EnemyIndicator>();
 
         UpdateScreenData();
     }
@@ -64,54 +41,9 @@ public class OffscreenEnemyIndicator : MonoBehaviour
     void Update()
     {
         UpdateScreenData();
-
-
-        // --------------------------------------------
-        //List<GameObject> offscreenEnemies;
-        //offscreenEnemies = new List<GameObject>(_enemies.Count);
-
-        //foreach (GameObject go in _enemies)
-        //{
-        //    if (!go.gameObject.activeInHierarchy) return;
-
-        //    Vector3 screenPos = Camera.main.WorldToScreenPoint(go.transform.position);
-        //    bool isOffscreen = !(screenPos.z > 0
-        //        && screenPos.x > 0 && screenPos.x < Screen.width
-        //        && screenPos.y > 0 && screenPos.y < Screen.height);
-
-        //    if (isOffscreen && !offscreenEnemies.Contains(go))
-        //    {
-        //        offscreenEnemies.Add(go);
-        //    }
-
-        //}
-
         List<GameObject> offscreenEnemies = UpdateOffscreenEnemies();
-
-        //foreach (GameObject indicator in _activeIndicators)
-        //{
-        //    indicator.gameObject.SetActive(false);
-        //}
-        //_activeIndicators = new List<GameObject>(offscreenEnemies.Count);
-
         UpdateActiveIndicators(offscreenEnemies.Count);
 
-        //foreach (GameObject go in offscreenEnemies)
-        //{
-        //    GameObject newIndicator = _enemyIndicatorPool.GetPooledObject();
-        //    newIndicator.SetActive(true);
-        //    newIndicator.transform.SetParent(_hudCavas.transform, false);
-        //    _activeIndicators.Add(newIndicator);
-
-        //    Image indicatorImage = newIndicator.GetComponent<Image>();
-        //    Vector3 screenPos = Camera.main.WorldToScreenPoint(go.transform.position);
-
-        //    Vector2 imageOffset = ComputeImageOffset(indicatorImage, screenPos);
-        //    Vector2 borderPosition = ComputeBorderPosition(go.transform.position);
-        //    borderPosition += imageOffset;
-
-        //    indicatorImage.rectTransform.anchoredPosition = borderPosition;
-        //}
         DrawIndicators(offscreenEnemies);
     }
 
@@ -141,7 +73,7 @@ public class OffscreenEnemyIndicator : MonoBehaviour
         {
             indicator.gameObject.SetActive(false);
         }
-        //_activeIndicators = new List<GameObject>(offscreenEnemies.Count);
+
         _activeIndicators = new List<GameObject>(offscreenEnemiesCount);
     }
 
@@ -181,11 +113,7 @@ public class OffscreenEnemyIndicator : MonoBehaviour
     Vector2 ComputeBorderPosition(Vector3 enemyPos)
     {
         Vector3 viewPos = Camera.main.WorldToViewportPoint(enemyPos);
-
-        //CanvasScaler scaler = GetComponentInParent<CanvasScaler>();
-        //float scaleX = scaler.referenceResolution.x / Screen.width;
         float scaleX = _referenceResolution.x / _screenWidth;
-
         //float scaleY = scaler.referenceResolution.y / Screen.height;
         float scaleY = scaleX;      // Scaler matches width, so only scale in X matters               
 
@@ -238,18 +166,8 @@ public class OffscreenEnemyIndicator : MonoBehaviour
         if (!_enemies.Contains(e.EnemyGameObj))
         {
             _enemies.Add(e.EnemyGameObj);
-            //_indicatorImages.Add(e.EnemyGameObj.GetComponent<Image>());
-
-            //_enemyIndicators.Add(new EnemyIndicator(e.EnemyGameObj, e.EnemyGameObj.GetComponent<Image>()));
         }
-
-        //if (!_enemyIndicators.Contains(e.EnemyGameObj))
-        //{
-        //    _enemyList.Add(e.EnemyGameObj);
-        //}
-
-        //Dictionary<GameObject, Image> dict = new Dictionary<GameObject, Image>();
-
-
     }
+
 }
+
