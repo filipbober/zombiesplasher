@@ -31,7 +31,7 @@ public class OffscreenEnemyIndicator : MonoBehaviour
     //private List<Image> _enemies;
     //private List<Image> _indicatorImages; 
     //private List<EnemyIndicator> _enemyIndicators;
-    private List<Image> _activeIndicators;
+    private List<GameObject> _activeIndicators;
 
     private GameObject _tmpInstatiated;
 
@@ -44,6 +44,7 @@ public class OffscreenEnemyIndicator : MonoBehaviour
     {
         _canvasScaler = _hudCavas.GetComponent<CanvasScaler>();
         _enemies = new List<GameObject>();
+        _activeIndicators = new List<GameObject>();
         //        _enemyIndicatorPool = GetComponent<ObjectPooler>();
         //_enemyIndicators = new List<EnemyIndicator>();
 
@@ -64,6 +65,55 @@ public class OffscreenEnemyIndicator : MonoBehaviour
     {
         UpdateScreenData();
 
+
+        // --------------------------------------------
+        List<GameObject> offscreenEnemies;
+        offscreenEnemies = new List<GameObject>(_enemies.Count);
+
+        foreach (GameObject go in _enemies)
+        {
+            if (!go.gameObject.activeInHierarchy) return;
+
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(go.transform.position);
+            bool isOffscreen = !(screenPos.z > 0
+                && screenPos.x > 0 && screenPos.x < Screen.width
+                && screenPos.y > 0 && screenPos.y < Screen.height);
+
+            if (!offscreenEnemies.Contains(go))
+            {
+                offscreenEnemies.Add(go);
+            }
+
+        }
+
+        //Vector3 screenCenter2 = new Vector3(_screenWidth / 2, _screenHeight / 2);
+
+        foreach (GameObject indicator in _activeIndicators)
+        {
+            indicator.gameObject.SetActive(false);
+        }
+        _activeIndicators = new List<GameObject>(offscreenEnemies.Count);
+
+        foreach (GameObject go in offscreenEnemies)
+        {
+            GameObject newIndicator = _enemyIndicatorPool.GetPooledObject();
+            newIndicator.SetActive(true);
+            newIndicator.transform.SetParent(_hudCavas.transform, false);
+            _activeIndicators.Add(newIndicator);
+
+            Image indicatorImage = newIndicator.GetComponent<Image>();
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(go.transform.position);
+
+            Vector2 imageOffset = ComputeImageOffset(indicatorImage, screenPos);
+            Vector2 borderPosition = ComputeBorderPosition(go.transform.position);
+            borderPosition += imageOffset;
+
+            indicatorImage.rectTransform.anchoredPosition = borderPosition;
+        }
+
+        return;
+        // ---------------------------------------------
+
         foreach (GameObject go in _enemies)
         //foreach (Image go in _enemies)
         {
@@ -80,12 +130,12 @@ public class OffscreenEnemyIndicator : MonoBehaviour
 
             if (isOffscreen)
             {
-                
+
                 Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
 
-                GameObject enemyIndicator;
+                GameObject enemyIndicator;               
                 if (_tmpInstatiated == null)
-                {                    
+                {
                     enemyIndicator = _enemyIndicatorPool.GetPooledObject();
                     enemyIndicator.SetActive(true);
 
@@ -191,7 +241,7 @@ public class OffscreenEnemyIndicator : MonoBehaviour
         //}
 
         //Dictionary<GameObject, Image> dict = new Dictionary<GameObject, Image>();
-        
-        
+
+
     }
 }
