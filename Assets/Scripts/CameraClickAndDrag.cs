@@ -137,11 +137,12 @@ public class CameraClickAndDrag : MonoBehaviour
         else
         {
             dir = Camera.main.ScreenToViewportPoint(currentPos - _dragOrigin);
-            translation = new Vector3(dir.x * _dragSpeed, 0f, dir.y * _dragSpeed);
+            translation = new Vector3(dir.x * _dragSpeed, 0f, dir.y * _dragSpeed);          
             _dragOrigin = currentPos;
         }
 
-        transform.Translate(translation, Space.World);
+        //transform.Translate(translation, Space.World);
+        transform.Translate(translation, Space.Self);
 
     }
 
