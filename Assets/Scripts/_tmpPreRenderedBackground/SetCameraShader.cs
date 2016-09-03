@@ -3,6 +3,7 @@ using System.Collections;
 
 //http://gamedev.stackexchange.com/questions/108391/unity3d-override-main-camera-rendering-for-compositing-effect
 
+[ExecuteInEditMode]
 public class SetCameraShader : MonoBehaviour
 {
     [SerializeField]
