@@ -35,11 +35,11 @@ public class DepthNormals : MonoBehaviour
 
         if (showNormalColors)
         {
-            mat.SetFloat("_showNormalColors", 1.0f);
+            mat.SetFloat("_DepthView", 1.0f);
         }
         else
         {
-            mat.SetFloat("_showNormalColors", 0.0f);
+            mat.SetFloat("_DepthView", 0.0f);
         }
     }
 

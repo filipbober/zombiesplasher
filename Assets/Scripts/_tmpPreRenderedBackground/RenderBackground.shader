@@ -1,6 +1,6 @@
 ﻿
 
-Shader "Custom/PreRenderedBackground" {
+Shader "Custom/RenderBackground" {
     Properties{
         _RGB("Base (RGB)", 2D) = "white" {}
     _DEPTH("Depth (RGB)", 2D) = "white" {}
