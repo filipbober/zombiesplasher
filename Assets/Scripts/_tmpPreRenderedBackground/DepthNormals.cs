@@ -15,14 +15,28 @@ public class DepthNormals : MonoBehaviour
     [SerializeField]
     Camera _depthCamera;
 
+    [SerializeField]
+    float _gradientValue = ShaderConfig.GradientShader.GradientDefaultValue;
+
+    private readonly string BgColorTextureProperty = ShaderConfig.GradientShader.BgColorReference;
+    private readonly string BgDepthTextureProperty = ShaderConfig.GradientShader.BgDepthReference;
+
+    private readonly string GradientProperty = ShaderConfig.GradientShader.GradientReference;
+    //private readonly float GradientValue = ShaderConfig.GradientShader.GradientDefaultValue;
+
+    private readonly string DepthColorViewProperty = ShaderConfig.GradientShader.DepthColorView;
+    private readonly float DepthViewOn = ShaderConfig.GradientShader.DepthViewOn;
+    private readonly float DepthViewOff = ShaderConfig.GradientShader.DepthViewOff;
+
     void Start()
     {
         GetComponent<Camera>().depthTextureMode = DepthTextureMode.DepthNormals;
 
-
         Camera camera = GetComponent<Camera>();
-        mat.SetTexture("_RGB", _colorCamera.targetTexture);
-        mat.SetTexture("_DEPTH", _depthCamera.targetTexture);
+        mat.SetTexture(BgColorTextureProperty, _colorCamera.targetTexture);
+        mat.SetTexture(BgDepthTextureProperty, _depthCamera.targetTexture);
+
+        //mat.SetFloat(GradientProperty, _gradientValue);
     }
 
     // Update is called once per frame
@@ -35,11 +49,11 @@ public class DepthNormals : MonoBehaviour
 
         if (showNormalColors)
         {
-            mat.SetFloat("_DepthView", 1.0f);
+            mat.SetFloat(DepthColorViewProperty, DepthViewOn);
         }
         else
         {
-            mat.SetFloat("_DepthView", 0.0f);
+            mat.SetFloat(DepthColorViewProperty, DepthViewOff);
         }
     }
 

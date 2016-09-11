@@ -20,6 +20,8 @@ public class SetCameraShader : MonoBehaviour
 
     public Material mat;
 
+    private readonly string ColorCameraView = ShaderConfig.BackgroundRenderShader.ColorCameraView;
+    private readonly string DepthCameraView = ShaderConfig.BackgroundRenderShader.DepthCameraView;
 
     // TODO:
     // Create RenderTexture manually and adjust its size to screen size
@@ -36,8 +38,8 @@ public class SetCameraShader : MonoBehaviour
         //mat.SetTexture("_RGB", _colorCamera.targetTexture);
         //mat.SetTexture("_DEPTH", _depthCamera.targetTexture);
 
-        mat.SetTexture("_RGB", _colorCamera.targetTexture);
-        mat.SetTexture("_DEPTH", _depthCamera.targetTexture);
+        mat.SetTexture(ColorCameraView, _colorCamera.targetTexture);
+        mat.SetTexture(DepthCameraView, _depthCamera.targetTexture);
     }
 
     void OnPostRender()
