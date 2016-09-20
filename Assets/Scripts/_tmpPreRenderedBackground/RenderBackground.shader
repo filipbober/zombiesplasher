@@ -1,6 +1,4 @@
-﻿
-
-Shader "Custom/RenderBackground" 
+﻿Shader "Custom/RenderBackground" 
 {
     Properties
 	{

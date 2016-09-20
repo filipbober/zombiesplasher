@@ -2,20 +2,9 @@
 using System.Collections;
 
 [ExecuteInEditMode]
-public class SetTextureSize : MonoBehaviour
+public class RenderTextureCreator : MonoBehaviour
 {
-    //[SerializeField]
-    //Camera _backgroundCamera;
-
-    //[SerializeField]
-    //Shader _backgroundShader;
-
-    //[SerializeField]
-    //GameObject _screenRect;
-
-    // Use this for initialization
-
-        // Before SetCameraShader, because it uses render textures definded here
+    // Before SetCameraShader, because it uses render textures definded here
     void Awake()
     {
         Camera camera = GetComponent<Camera>();
@@ -29,18 +18,5 @@ public class SetTextureSize : MonoBehaviour
 
         GetComponent<Camera>().targetTexture.width = resHeight;
         GetComponent<Camera>().targetTexture.height = resHeight;
-
-
-
-
-
-
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

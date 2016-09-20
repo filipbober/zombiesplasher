@@ -21,8 +21,4 @@ public static class ShaderConfig
         public const string ColorCameraView = "_Color";
         public const string DepthCameraView = "_Depth";
     }
-
-    
-
-    //public const string 
 }

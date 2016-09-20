@@ -12,54 +12,20 @@ public class SetCameraShader : MonoBehaviour
     [SerializeField]
     Camera _depthCamera;
 
-    //[SerializeField]
-    //Camera _camera;
-
-    //[SerializeField]
-    //Shader _shader;
-
     public Material mat;
 
     private readonly string ColorCameraView = ShaderConfig.BackgroundRenderShader.ColorCameraView;
     private readonly string DepthCameraView = ShaderConfig.BackgroundRenderShader.DepthCameraView;
 
-    // TODO:
-    // Create RenderTexture manually and adjust its size to screen size
-
-
-    // Use this for initialization
     void Start()
     {
-        //Camera.main.SetReplacementShader(Shader.Find("Your Shader"), "RenderType")
-        //GetComponent<Renderer>().material.SetTexture(
-
-        //_camera.SetReplacementShader(_shader, "RenderType");
-
-        //mat.SetTexture("_RGB", _colorCamera.targetTexture);
-        //mat.SetTexture("_DEPTH", _depthCamera.targetTexture);
-
         mat.SetTexture(ColorCameraView, _colorCamera.targetTexture);
         mat.SetTexture(DepthCameraView, _depthCamera.targetTexture);
-    }
-
-    void OnPostRender()
-    {
-        //_camera.SetReplacementShader(_shader, "RenderType");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //_camera.SetReplacementShader(_shader, "RenderType");
-        //mat.SetTexture("_RGB", _colorCamera.targetTexture);
-        //mat.SetTexture("_DEPTH", _depthCamera.targetTexture);
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
 
     {
-
-        //Graphics.Blit(null, destination, effectMaterial);
         Graphics.Blit(null, destination, mat);
     }
 
