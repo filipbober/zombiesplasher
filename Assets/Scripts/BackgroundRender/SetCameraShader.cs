@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 //http://gamedev.stackexchange.com/questions/108391/unity3d-override-main-camera-rendering-for-compositing-effect
 
@@ -24,7 +23,6 @@ public class SetCameraShader : MonoBehaviour
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
-
     {
         Graphics.Blit(null, destination, mat);
     }

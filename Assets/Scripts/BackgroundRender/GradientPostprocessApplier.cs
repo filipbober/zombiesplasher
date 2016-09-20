@@ -3,7 +3,7 @@ using System.Collections;
 //http://www.alanzucconi.com/2015/07/08/screen-shaders-and-postprocessing-effects-in-unity3d/
 
 [ExecuteInEditMode]
-public class DepthNormals : MonoBehaviour
+public class GradientPostprocessApplier : MonoBehaviour
 {
 
     public Material mat;
