@@ -23,7 +23,7 @@ public class EnemyPhysicsEvents : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(GameTags.DESTINATION))
+        if (other.CompareTag(GameTags.Destination))
         {
             OnDestinationReached(new EnemyPropertiesEventArgs(gameObject, _enemyPropreties));
         }
