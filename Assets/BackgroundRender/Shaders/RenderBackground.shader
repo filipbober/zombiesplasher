@@ -1,4 +1,6 @@
-﻿Shader "Custom/RenderBackground" 
+﻿// Copyright (C) 2016 Filip Cyrus Bober
+
+Shader "Custom/RenderBackground" 
 {
     Properties
 	{

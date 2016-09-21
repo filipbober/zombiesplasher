@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
-//http://www.alanzucconi.com/2015/07/08/screen-shaders-and-postprocessing-effects-in-unity3d/
+﻿// Copyright (C) 2016 Filip Cyrus Bober
+
+using UnityEngine;
 
 [ExecuteInEditMode]
 public class GradientPostprocess : MonoBehaviour

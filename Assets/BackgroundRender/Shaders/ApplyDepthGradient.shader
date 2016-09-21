@@ -1,4 +1,6 @@
-﻿Shader "Custom/ApplyDepthGradient" 
+﻿// Copyright (C) 2016 Filip Cyrus Bober
+
+Shader "Custom/ApplyDepthGradient" 
 {
     Properties
 	{

@@ -1,4 +1,6 @@
-﻿public static class ShaderConfig
+﻿// Copyright (C) 2016 Filip Cyrus Bober
+
+public static class ShaderConfig
 {
     public static class GradientShader
     {

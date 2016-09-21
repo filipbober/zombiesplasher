@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿// Copyright (C) 2016 Filip Cyrus Bober
+
+using UnityEngine;
 
 [ExecuteInEditMode]
 public class RenderTextureCreator : MonoBehaviour

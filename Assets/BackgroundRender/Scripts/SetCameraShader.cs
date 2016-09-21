@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿// Copyright (C) 2016 Filip Cyrus Bober
 
-//http://gamedev.stackexchange.com/questions/108391/unity3d-override-main-camera-rendering-for-compositing-effect
+using UnityEngine;
 
 [ExecuteInEditMode]
 public class SetCameraShader : MonoBehaviour
