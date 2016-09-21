@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public static class ShaderConfig
+﻿public static class ShaderConfig
 {
     public static class GradientShader
     {
