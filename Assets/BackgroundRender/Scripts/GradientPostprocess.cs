@@ -5,18 +5,19 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class GradientPostprocess : MonoBehaviour
 {
+    [SerializeField]
+    private Material _depthGradientMat;
+    
+    [SerializeField]
+    private RenderTextureCreator _colorCamera;
 
-    public Material mat;
+    [SerializeField]
+    private RenderTextureCreator _depthCamera;
+
+    [SerializeField]
+    private float _gradientValue = ShaderConfig.GradientShader.GradientDefaultValue;
+
     bool showNormalColors = true;
-
-    [SerializeField]
-    Camera _colorCamera;
-
-    [SerializeField]
-    Camera _depthCamera;
-
-    [SerializeField]
-    float _gradientValue = ShaderConfig.GradientShader.GradientDefaultValue;
 
     private readonly string BgColorTextureProperty = ShaderConfig.GradientShader.BgColorReference;
     private readonly string BgDepthTextureProperty = ShaderConfig.GradientShader.BgDepthReference;
@@ -32,8 +33,8 @@ public class GradientPostprocess : MonoBehaviour
         GetComponent<Camera>().depthTextureMode = DepthTextureMode.DepthNormals;
 
         Camera camera = GetComponent<Camera>();
-        mat.SetTexture(BgColorTextureProperty, _colorCamera.targetTexture);
-        mat.SetTexture(BgDepthTextureProperty, _depthCamera.targetTexture);
+        _depthGradientMat.SetTexture(BgColorTextureProperty, _colorCamera.GetCameraViewTexture());
+        _depthGradientMat.SetTexture(BgDepthTextureProperty, _depthCamera.GetCameraViewTexture());
     }
 
     void Update()
@@ -45,16 +46,16 @@ public class GradientPostprocess : MonoBehaviour
 
         if (showNormalColors)
         {
-            mat.SetFloat(DepthColorViewProperty, DepthViewOn);
+            _depthGradientMat.SetFloat(DepthColorViewProperty, DepthViewOn);
         }
         else
         {
-            mat.SetFloat(DepthColorViewProperty, DepthViewOff);
+            _depthGradientMat.SetFloat(DepthColorViewProperty, DepthViewOff);
         }
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        Graphics.Blit(source, destination, mat);
+        Graphics.Blit(source, destination, _depthGradientMat);
     }
 }

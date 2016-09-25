@@ -6,25 +6,26 @@ using UnityEngine;
 public class SetCameraShader : MonoBehaviour
 {
     [SerializeField]
-    Camera _colorCamera;
+    private RenderTextureCreator _colorCamera;
 
     [SerializeField]
-    Camera _depthCamera;
+    private RenderTextureCreator _depthCamera;
 
-    public Material mat;
+    [SerializeField]
+    private Material _backgroundRenderMat;
 
     private readonly string ColorCameraView = ShaderConfig.BackgroundRenderShader.ColorCameraView;
     private readonly string DepthCameraView = ShaderConfig.BackgroundRenderShader.DepthCameraView;
 
     void Start()
     {
-        mat.SetTexture(ColorCameraView, _colorCamera.targetTexture);
-        mat.SetTexture(DepthCameraView, _depthCamera.targetTexture);
+        _backgroundRenderMat.SetTexture(ColorCameraView, _colorCamera.GetCameraViewTexture());
+        _backgroundRenderMat.SetTexture(DepthCameraView, _depthCamera.GetCameraViewTexture());
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        Graphics.Blit(null, destination, mat);
+        Graphics.Blit(null, destination, _backgroundRenderMat);
     }
 
 }
