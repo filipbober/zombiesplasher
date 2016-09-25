@@ -2,7 +2,6 @@
 
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class RenderTextureCreator : MonoBehaviour
 {
     private RenderTexture _renderTexture;
