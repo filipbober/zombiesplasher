@@ -6,6 +6,8 @@ public class ObjectPooler : MonoBehaviour
 
     public static ObjectPooler CurrentInstance;
 
+    public GameObject PooledObject { get { return _pooledObject; } set { _pooledObject = value; } }
+
     [SerializeField]
     private GameObject _pooledObject;
 

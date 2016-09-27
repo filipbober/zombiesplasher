@@ -7,6 +7,9 @@ public class PoolManager : MonoBehaviour
     [SerializeField]
     GameObject _objectPoolPrefab;
 
+    [SerializeField]
+    GameObject _objectToBeStoredInPool;
+
     public static PoolManager Instance
     {
         get { return _instance; }
@@ -39,9 +42,10 @@ public class PoolManager : MonoBehaviour
 
         foreach (Enums.EnemyType enemyType in Enum.GetValues(typeof(Enums.EnemyType)))
         {
-            GameObject obj = (GameObject)Instantiate(_objectPoolPrefab);
+            GameObject obj = Instantiate(_objectPoolPrefab);
             obj.transform.SetParent(transform);
             ObjectPooler pooler = obj.GetComponent<ObjectPooler>();
+            pooler.PooledObject = _objectToBeStoredInPool;
 
             _poolDict.Add(enemyType, obj.GetComponent<ObjectPooler>());            
         }
