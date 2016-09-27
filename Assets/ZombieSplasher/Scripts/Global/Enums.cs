@@ -3,5 +3,5 @@ using System.Collections;
 
 namespace Enums
 {
-    public enum EnemyType { Good, Bad, Bomber, Count }
+    public enum EnemyType { Default, Count }
 }

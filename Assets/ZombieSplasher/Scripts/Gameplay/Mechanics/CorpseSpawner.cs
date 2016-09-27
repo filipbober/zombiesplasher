@@ -1,9 +1,17 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class EnemyDownHandler : MonoBehaviour
+public class CorpseSpawner : MonoBehaviour
 {
     public ObjectPooler DefaultEnemyCorpsePool;
+    [SerializeField]
+    private Enums.EnemyType _enemyType;
+
+    private ObjectPooler _corpsePool;
+
+    void Start()
+    {
+        //_corpsePool = PoolManager
+    }
 
     void OnEnable()
     {
@@ -21,12 +29,6 @@ public class EnemyDownHandler : MonoBehaviour
         go.transform.position = e.EnemyGameObj.transform.position;
         go.transform.rotation = e.EnemyGameObj.transform.rotation;
 
-        //DeadEnemyController controller = go.GetComponent<DeadEnemyController>();
-        //controller.Initialize(e.Destination, e.EnemyData);
-
-        //IEnemyMover mover = go.GetComponent<IEnemyMover>();
-        //mover.SetDestination(_returnDestination);
-        //mover.Initialize(null, e.Destination, e.EnemyData.Speed);
         go.SetActive(true);
     }
 

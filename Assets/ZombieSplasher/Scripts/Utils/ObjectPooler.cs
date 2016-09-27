@@ -23,6 +23,9 @@ public class ObjectPooler : MonoBehaviour
     //--------------------------------------------------------------------- 
     public GameObject GetPooledObject()
     {
+        if (_pooledObjects == null)
+            InitializePool();
+
         // Find inactive pool object and return it. 
         // Setting that object to active is not the responsibility of this method.
         for (int i = 0; i < _pooledObjects.Count; i++)
@@ -57,6 +60,12 @@ public class ObjectPooler : MonoBehaviour
 
     protected void Start()
     {
+        if (_pooledObjects == null)
+            InitializePool();
+    }
+
+    private void InitializePool()
+    {
         // Create a pool of objects.
         _pooledObjects = new List<GameObject>();
         for (int i = 0; i < _pooledAmount; i++)
@@ -68,4 +77,5 @@ public class ObjectPooler : MonoBehaviour
 
         }
     }
+
 }

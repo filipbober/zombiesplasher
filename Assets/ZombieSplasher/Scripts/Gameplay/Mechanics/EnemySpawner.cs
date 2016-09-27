@@ -9,12 +9,25 @@ public class EnemySpawner : MonoBehaviour
     private ObjectPooler _enemyPool;
 
     [SerializeField]
-    private Transform[] _destinations;
-
-    [SerializeField]
     float _spawnRate;
 
+    Transform[] _destinations;
+
     float _currentCooldown;
+
+    void Start()
+    {
+        //_enemyPool = PoolManager.Instance.GetPool(Enums.EnemyType.Default);
+
+        var destinations = GameObject.FindGameObjectsWithTag(GameTags.Destination);
+        _destinations = new Transform[destinations.Length];
+        Debug.Log("Creating destinations = " + _destinations.Length);
+        for (int i = 0; i < destinations.Length; i++)
+        {
+            _destinations[i] = destinations[i].transform;
+        }
+
+    }
 
     void Update()
     {
