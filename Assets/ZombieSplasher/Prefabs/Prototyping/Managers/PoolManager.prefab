@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012964756262}
+  - 114: {fileID: 114000012572492392}
   - 114: {fileID: 114000011078915968}
   m_Layer: 0
   m_Name: PoolManager
@@ -51,5 +52,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2ad61a262521b4a80ccf7e35b5f37a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectPoolPrefab: {fileID: 1000010552317422, guid: d78679ba605e3824dba8b750e7f37478,
+  _objectPoolPrefab: {fileID: 1000011286090590, guid: e0e78f8a1a2b251438428269837f0a14,
     type: 2}
+  _actors: []
+--- !u!114 &114000012572492392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011204754018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85ad9388cdf403448244c6681923fa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Actors: []

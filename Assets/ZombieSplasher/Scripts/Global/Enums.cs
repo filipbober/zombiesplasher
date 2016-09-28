@@ -3,5 +3,5 @@ using System.Collections;
 
 namespace Enums
 {
-    public enum EnemyType { Default, Count }
+    public enum ActorType { DefaultEnemy, DefaultEnemyCorpse, Count }
 }

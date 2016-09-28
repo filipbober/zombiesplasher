@@ -15,9 +15,10 @@ public class EnemySpawner : MonoBehaviour
 
     float _currentCooldown;
 
+    // void Start()
     void Start()
     {
-        _enemyPool = PoolManager.Instance.GetPool(Enums.EnemyType.Default);
+        _enemyPool = PoolManager.Instance.GetActorPool(Enums.ActorType.DefaultEnemy);
 
         var destinations = GameObject.FindGameObjectsWithTag(GameTags.Destination);
         _destinations = new Transform[destinations.Length];

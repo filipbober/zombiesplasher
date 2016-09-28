@@ -8,7 +8,7 @@ public class PoolManager : MonoBehaviour
     GameObject _objectPoolPrefab;
 
     [SerializeField]
-    GameObject _objectToBeStoredInPool;
+    private ActorLookup _actorLookup;
 
     public static PoolManager Instance
     {
@@ -17,15 +17,16 @@ public class PoolManager : MonoBehaviour
 
     private static PoolManager _instance;
 
-    private Dictionary<Enums.EnemyType, ObjectPooler> _poolDict = new Dictionary<Enums.EnemyType, ObjectPooler>();
+    private Dictionary<Enums.ActorType, ObjectPooler> _poolDict = new Dictionary<Enums.ActorType, ObjectPooler>();
 
-    public ObjectPooler GetPool(Enums.EnemyType type)
+    public ObjectPooler GetActorPool(Enums.ActorType type)
     {
         // TODO: check null
         ObjectPooler pool;
-        _poolDict.TryGetValue(type, out pool);
-        Debug.Log("Pool = " + pool);
-        return pool;
+        if (_poolDict.TryGetValue(type, out pool))
+            return pool;
+        else
+            return null;
     }
 
     void Awake()
@@ -39,17 +40,47 @@ public class PoolManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
 
-        foreach (Enums.EnemyType enemyType in Enum.GetValues(typeof(Enums.EnemyType)))
+    void Start()
+    {
+        Debug.Log("Start");
+        //var actorTypes = Enum.GetValues(typeof(Enums.ActorType));
+        Dictionary<Enums.ActorType, ActorProperties> actorProperties = new Dictionary<Enums.ActorType, ActorProperties>();
+        Debug.Log("Lookup = " + _actorLookup.Actors.Count);
+        foreach (var actor in _actorLookup.Actors)
         {
+            ActorProperties properties = actor.Value.GetComponent<ActorProperties>();
+            actorProperties.Add(properties.ActorType, properties);
+        }
+        Debug.Log("actorProperties dict = " + actorProperties.Count);
+
+        foreach (Enums.ActorType enemyType in Enum.GetValues(typeof(Enums.ActorType)))
+        {
+            Debug.Log("Invoking foreach for: " + enemyType);
+            ActorProperties properties;
+            if (!actorProperties.TryGetValue(enemyType, out properties))
+                continue;
+
             GameObject obj = Instantiate(_objectPoolPrefab);
             obj.transform.SetParent(transform);
-            ObjectPooler pooler = obj.GetComponent<ObjectPooler>();
-            pooler.PooledObject = _objectToBeStoredInPool;
+            ObjectPooler pool = obj.GetComponent<ObjectPooler>();
 
-            _poolDict.Add(enemyType, obj.GetComponent<ObjectPooler>());            
+            GameObject newPoolObject;
+            if (_actorLookup.Actors.TryGetValue(enemyType, out newPoolObject))
+            {
+                pool.PooledObject = newPoolObject;
+
+
+                if (actorProperties.TryGetValue(enemyType, out properties))
+                {
+                    _poolDict.Add(enemyType, obj.GetComponent<ObjectPooler>());
+                    Debug.Log("Creating new pool");
+                }
+            }
+
+
         }
-
     }
 
 }
