@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2ad61a262521b4a80ccf7e35b5f37a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectPoolPrefab: {fileID: 1000011286090590, guid: e0e78f8a1a2b251438428269837f0a14,
+  _objectPoolPrefab: {fileID: 1000013959295108, guid: a2a4e3ad886358e4da5af0793e3abcee,
     type: 2}
   _actorLookup: {fileID: 114000012572492392}
 --- !u!114 &114000012572492392

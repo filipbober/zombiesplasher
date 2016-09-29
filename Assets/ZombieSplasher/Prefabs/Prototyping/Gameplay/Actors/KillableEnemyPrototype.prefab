@@ -743,3 +743,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActorType: 0
+  PoolAmout: 100

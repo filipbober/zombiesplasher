@@ -4,7 +4,8 @@ using UnityEngine.Assertions;
 
 public class ActorLookup : MonoBehaviour
 {
-    public Dictionary<Enums.ActorType, GameObject> Actors = new Dictionary<Enums.ActorType, GameObject>();
+    public Dictionary<Enums.ActorType, GameObject> ActorsGameObjects = new Dictionary<Enums.ActorType, GameObject>();
+    public Dictionary<Enums.ActorType, ActorProperties> ActorsProperties = new Dictionary<Enums.ActorType, ActorProperties>();
 
     [SerializeField]
     private List<GameObject> _actors;
@@ -14,14 +15,20 @@ public class ActorLookup : MonoBehaviour
         foreach (var actor in _actors)
         {
             ActorProperties properties = actor.GetComponent<ActorProperties>();
-            GameObject newActor;
-            if (!Actors.TryGetValue(properties.ActorType, out newActor))
-            {
-                Actors.Add(properties.ActorType, actor);
-            }            
-        }
 
-        Debug.Log("Actors created = " + Actors.Count);
+            GameObject newActor;
+            if (!ActorsGameObjects.TryGetValue(properties.ActorType, out newActor))
+            {
+                ActorsGameObjects.Add(properties.ActorType, actor);
+            }
+
+            ActorProperties newProperties;
+            if (!ActorsProperties.TryGetValue(properties.ActorType, out newProperties))
+            {
+                ActorsProperties.Add(properties.ActorType, properties);
+            }
+
+        }
     }
 
 }

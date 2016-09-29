@@ -7,6 +7,8 @@ public class ObjectPooler : MonoBehaviour
     public static ObjectPooler CurrentInstance;
 
     public GameObject PooledObject { get { return _pooledObject; } set { _pooledObject = value; } }
+    public int PooledAmount { get { return _pooledAmount; } set { _pooledAmount = value; } }
+    public bool WillGrow { get { return _willGrow; } set { _willGrow = value; } }
 
     [SerializeField]
     private GameObject _pooledObject;
