@@ -22,7 +22,7 @@ public class CorpseSpawner : MonoBehaviour
         EnemyController.EnemyDown -= SpawnEnemyCorpse;
     }
 
-    protected void SpawnEnemyCorpse(object sneder, EnemyPropertiesEventArgs e)
+    protected void SpawnEnemyCorpse(object sneder, ActorPropertiesEventArgs e)
     {
         GameObject go = _actorManager.GetActorObj(_actorType);
 

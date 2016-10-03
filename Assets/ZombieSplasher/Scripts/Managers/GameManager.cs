@@ -5,8 +5,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
 
-    public static event System.EventHandler<EnemyPropertiesEventArgs> EnemySpawnedNotification;
-    public static event System.EventHandler<EnemyPropertiesEventArgs> EnemyDownNotification;
+    public static event System.EventHandler<ActorPropertiesEventArgs> EnemySpawnedNotification;
+    public static event System.EventHandler<ActorPropertiesEventArgs> EnemyDownNotification;
     public static event System.Action LiveLostNotification;
 
     void Awake()
@@ -20,18 +20,18 @@ public class GameManager : MonoBehaviour
     void OnEnable()
     {
         EnemyController.EnemyDown += EnemyDown;
-        EnemySpawner.EnemySpawned += EnemySpawned;
+        EnemySpawner.ActorSpawned += EnemySpawned;
         EnemyController.DestinationWasReached += LiveLost;
     }
 
     void OnDisable()
     {
         EnemyController.EnemyDown -= EnemyDown;
-        EnemySpawner.EnemySpawned -= EnemySpawned;
+        EnemySpawner.ActorSpawned -= EnemySpawned;
         EnemyController.DestinationWasReached -= LiveLost;
     }
 
-    void EnemyDown(object sender, EnemyPropertiesEventArgs e)
+    void EnemyDown(object sender, ActorPropertiesEventArgs e)
     {
         // UI -> subtract ZombiesLeft
 
@@ -42,17 +42,17 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void EnemySpawned(object sender, EnemyPropertiesEventArgs e)
+    void EnemySpawned(object sender, ActorPropertiesEventArgs e)
     {
         OnEnemySpawned(e);
     }
 
-    void LiveLost(object sender, EnemyPropertiesEventArgs e)
+    void LiveLost(object sender, ActorPropertiesEventArgs e)
     {
         OnLiveLost();
     }
 
-    protected void OnEnemySpawned(EnemyPropertiesEventArgs e)
+    protected void OnEnemySpawned(ActorPropertiesEventArgs e)
     {
         if (EnemySpawnedNotification != null)
         {
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    protected void OnEnemyDown(EnemyPropertiesEventArgs e)
+    protected void OnEnemyDown(ActorPropertiesEventArgs e)
     {
         if (EnemyDownNotification != null)
         {

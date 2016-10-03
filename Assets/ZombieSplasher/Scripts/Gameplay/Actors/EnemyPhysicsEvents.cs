@@ -2,18 +2,19 @@
 using System.Collections;
 using System;
 
+// TODO: Implement interface IEnemyPhysicsEvents
 public class EnemyPhysicsEvents : MonoBehaviour
 {
-    public event EventHandler<EnemyPropertiesEventArgs> DestinationReached;
+    public event EventHandler<ActorPropertiesEventArgs> DestinationReached;
 
-    private EnemyProperties _enemyPropreties;
+    private ActorProperties _actorProperties;
 
-    public void Initialize(EnemyProperties enemyProperties)
+    public void Initialize(ActorProperties actorProperties)
     {
-        _enemyPropreties = enemyProperties;
+        _actorProperties = actorProperties;
     }
 
-    public void OnDestinationReached(EnemyPropertiesEventArgs e)
+    public void OnDestinationReached(ActorPropertiesEventArgs e)
     {
         if (DestinationReached != null)
         {
@@ -25,7 +26,7 @@ public class EnemyPhysicsEvents : MonoBehaviour
     {
         if (other.CompareTag(GameTags.Destination))
         {
-            OnDestinationReached(new EnemyPropertiesEventArgs(gameObject, _enemyPropreties));
+            OnDestinationReached(new ActorPropertiesEventArgs(gameObject, _actorProperties));
         }
     }
 }

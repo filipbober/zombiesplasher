@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public static event System.EventHandler<EnemyPropertiesEventArgs> EnemySpawned;
+    public static event System.EventHandler<ActorPropertiesEventArgs> ActorSpawned;
 
     [SerializeField]
     private Enums.ActorType _actorType;
@@ -41,15 +41,15 @@ public class EnemySpawner : MonoBehaviour
         EnemyController controller = go.GetComponent<EnemyController>();
         controller.Initialize();
 
-        EnemyProperties properties = go.GetComponent<EnemyProperties>();
-        OnEnemySpawned(new EnemyPropertiesEventArgs(go, properties));
+        ActorProperties properties = go.GetComponent<ActorProperties>();
+        OnActorSpawned(new ActorPropertiesEventArgs(go, properties));
     }
 
-    protected void OnEnemySpawned(EnemyPropertiesEventArgs e)
+    protected void OnActorSpawned(ActorPropertiesEventArgs e)
     {
-        if (EnemySpawned != null)
+        if (ActorSpawned != null)
         {
-            EnemySpawned(this, e);
+            ActorSpawned(this, e);
         }
     }
 

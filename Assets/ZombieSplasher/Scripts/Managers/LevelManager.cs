@@ -30,7 +30,7 @@ public class LevelManager : MonoBehaviour
         GameManager.EnemySpawnedNotification -= EnemySpawned;
     }
 
-    void EnemySpawned(object sender, EnemyPropertiesEventArgs e)
+    void EnemySpawned(object sender, ActorPropertiesEventArgs e)
     {
         Debug.Log("LevelManager -> EnemySpawned()");
     }

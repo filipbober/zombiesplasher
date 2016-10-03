@@ -161,7 +161,7 @@ public class OffscreenEnemyIndicator : MonoBehaviour
         return imageOffset;
     }
 
-    void AddEnemyToList(object sender, EnemyPropertiesEventArgs e)
+    void AddEnemyToList(object sender, ActorPropertiesEventArgs e)
     {
         if (!_enemies.Contains(e.EnemyGameObj))
         {

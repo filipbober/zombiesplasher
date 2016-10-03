@@ -17,7 +17,7 @@ public class GameHUDManager : MonoBehaviour
         GameManager.EnemySpawnedNotification -= UpdateEnemiesLeft;
     }
 
-    void UpdateEnemiesLeft(object sender, EnemyPropertiesEventArgs e)
+    void UpdateEnemiesLeft(object sender, ActorPropertiesEventArgs e)
     {
         EnemiesLeftText.text = "-1";
     }

@@ -177,4 +177,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ActorType: 1
+  ActorGroup: 3
   PoolAmout: 100

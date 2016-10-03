@@ -3,18 +3,18 @@ using System.Collections;
 using System;
 using UnityEngine.EventSystems;
 
-public class EnemyInputResponse : MonoBehaviour, IPointerClickHandler, IEnemyInputResponse
+public class EnemyInputResponse : MonoBehaviour, IPointerClickHandler, IActorInputResponse
 {
-    public event EventHandler<EnemyPropertiesEventArgs> EnemyClicked;
+    public event EventHandler<ActorPropertiesEventArgs> EnemyClicked;
 
-    private EnemyProperties _properties;
+    private ActorProperties _properties;
 
-    public void Initialize(EnemyProperties enemyProperties)
+    public void Initialize(ActorProperties actorProperties)
     {
-        _properties = enemyProperties;
+        _properties = actorProperties;
     }
 
-    public void OnEnemyClicked(EnemyPropertiesEventArgs e)
+    public void OnActorClicked(ActorPropertiesEventArgs e)
     {
         if (EnemyClicked != null)
         {
@@ -24,6 +24,6 @@ public class EnemyInputResponse : MonoBehaviour, IPointerClickHandler, IEnemyInp
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        OnEnemyClicked(new EnemyPropertiesEventArgs(gameObject, _properties));
+        OnActorClicked(new ActorPropertiesEventArgs(gameObject, _properties));
     }
 }

@@ -3,12 +3,13 @@ using Pathfinding;
 
 public class EnemyController : MonoBehaviour, IActorController
 {
-    public static event System.EventHandler<EnemyPropertiesEventArgs> EnemyDown;
-    public static event System.EventHandler<EnemyPropertiesEventArgs> DestinationWasReached;
+    public static event System.EventHandler<ActorPropertiesEventArgs> EnemyDown;
+    public static event System.EventHandler<ActorPropertiesEventArgs> DestinationWasReached;
 
+    private ActorProperties _actorProperties;
     private EnemyProperties _properties;
     private IEnemyMover _mover;
-    private IEnemyInputResponse _inputResponse;
+    private IActorInputResponse _inputResponse;
     private Seeker _seeker;
     private EnemyPhysicsEvents _physicsEvents;
 
@@ -21,14 +22,15 @@ public class EnemyController : MonoBehaviour, IActorController
 
     void Awake()
     {
+        _actorProperties = GetComponent<ActorProperties>();
         _properties = GetComponent<EnemyProperties>();
         _mover = GetComponent<IEnemyMover>();
-        _inputResponse = GetComponent<IEnemyInputResponse>();
+        _inputResponse = GetComponent<IActorInputResponse>();
         _seeker = GetComponent<Seeker>();
         _physicsEvents = GetComponent<EnemyPhysicsEvents>();
 
-        _inputResponse.Initialize(_properties);
-        _physicsEvents.Initialize(_properties);
+        _inputResponse.Initialize(_actorProperties);
+        _physicsEvents.Initialize(_actorProperties);
 
         CreateDestinations(); 
     }
@@ -112,16 +114,16 @@ public class EnemyController : MonoBehaviour, IActorController
         _mover.SetDestination(_currentWaypoint);
     }
 
-    protected void EnemyClicked(object sender, EnemyPropertiesEventArgs e)
+    protected void EnemyClicked(object sender, ActorPropertiesEventArgs e)
     {
         if (e.EnemyGameObj == gameObject)
         {
-            OnEnemyDown(new EnemyPropertiesEventArgs(gameObject, _properties));
+            OnEnemyDown(new ActorPropertiesEventArgs(gameObject, _actorProperties));
             gameObject.SetActive(false);
         }
     }
 
-    protected void OnEnemyDown(EnemyPropertiesEventArgs e)
+    protected void OnEnemyDown(ActorPropertiesEventArgs e)
     {
         if (EnemyDown != null)
         {
@@ -129,7 +131,7 @@ public class EnemyController : MonoBehaviour, IActorController
         }
     }
 
-    protected void OnDestinationWasReached(EnemyPropertiesEventArgs e)
+    protected void OnDestinationWasReached(ActorPropertiesEventArgs e)
     {
         if (DestinationWasReached != null)
         {
@@ -137,7 +139,7 @@ public class EnemyController : MonoBehaviour, IActorController
         }
     }
 
-    protected void DestinationReached(object sender, EnemyPropertiesEventArgs e)
+    protected void DestinationReached(object sender, ActorPropertiesEventArgs e)
     {
         OnDestinationWasReached(e);
         gameObject.SetActive(false);
