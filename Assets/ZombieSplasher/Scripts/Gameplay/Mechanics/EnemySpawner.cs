@@ -11,22 +11,22 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     float _spawnRate;
 
-    Transform[] _destinations;
+    //Transform[] _destinations;
 
     float _currentCooldown;
 
     // void Start()
     void Start()
     {
-        _enemyPool = PoolManager.Instance.GetActorPool(Enums.ActorType.DefaultEnemy);
+        _enemyPool = ActorManager.Instance.GetActorPool(Enums.ActorType.DefaultEnemy);
 
-        var destinations = GameObject.FindGameObjectsWithTag(GameTags.Destination);
-        _destinations = new Transform[destinations.Length];
-        Debug.Log("Creating destinations = " + _destinations.Length);
-        for (int i = 0; i < destinations.Length; i++)
-        {
-            _destinations[i] = destinations[i].transform;
-        }
+        //var destinations = GameObject.FindGameObjectsWithTag(GameTags.Destination);
+        //_destinations = new Transform[destinations.Length];
+        //Debug.Log("Creating destinations = " + _destinations.Length);
+        //for (int i = 0; i < destinations.Length; i++)
+        //{
+        //    _destinations[i] = destinations[i].transform;
+        //}
 
     }
 
@@ -44,41 +44,42 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Transform destination = ComputeDestination();
+        //Transform destination = ComputeDestination();
 
         GameObject go = _enemyPool.GetPooledObject();
         go.transform.position = transform.position;
         go.SetActive(true);
 
         EnemyController controller = go.GetComponent<EnemyController>();
-        controller.Initialize(destination);
+        //controller.Initialize(destination);
+        controller.Initialize();
 
         EnemyProperties properties = go.GetComponent<EnemyProperties>();
         OnEnemySpawned(new EnemyPropertiesEventArgs(go, properties));
     }
 
-    Transform ComputeDestination()
-    {
-        return ComputeClosestDestination();
-    }
+    //Transform ComputeDestination()
+    //{
+    //    return ComputeClosestDestination();
+    //}
 
-    Transform ComputeClosestDestination()
-    {
-        Vector3 spawnPos = transform.position;
-        Transform resultDestination = transform;
-        float currentDistance = float.PositiveInfinity;
-        foreach (Transform currentDestination in _destinations)
-        {
-            float distance = Vector3.Distance(spawnPos, currentDestination.position);
-            if (distance <= currentDistance)
-            {
-                currentDistance = distance;
-                resultDestination = currentDestination;
-            }
-        }
+    //Transform ComputeClosestDestination()
+    //{
+    //    Vector3 spawnPos = transform.position;
+    //    Transform resultDestination = transform;
+    //    float currentDistance = float.PositiveInfinity;
+    //    foreach (Transform currentDestination in _destinations)
+    //    {
+    //        float distance = Vector3.Distance(spawnPos, currentDestination.position);
+    //        if (distance <= currentDistance)
+    //        {
+    //            currentDistance = distance;
+    //            resultDestination = currentDestination;
+    //        }
+    //    }
 
-        return resultDestination;
-    }
+    //    return resultDestination;
+    //}
 
     protected void OnEnemySpawned(EnemyPropertiesEventArgs e)
     {

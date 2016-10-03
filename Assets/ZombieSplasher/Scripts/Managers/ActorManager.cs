@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System;
 
-public class PoolManager : MonoBehaviour
+public class ActorManager : MonoBehaviour
 {
     [SerializeField]
     GameObject _objectPoolPrefab;
@@ -10,23 +10,33 @@ public class PoolManager : MonoBehaviour
     [SerializeField]
     private ActorLookup _actorLookup;
 
-    public static PoolManager Instance
+    public static ActorManager Instance
     {
         get { return _instance; }
     }
 
-    private static PoolManager _instance;
+    private static ActorManager _instance;
 
     private Dictionary<Enums.ActorType, ObjectPooler> _poolDict = new Dictionary<Enums.ActorType, ObjectPooler>();
 
     public ObjectPooler GetActorPool(Enums.ActorType type)
     {
-        // TODO: check null
         ObjectPooler pool;
         if (_poolDict.TryGetValue(type, out pool))
             return pool;
         else
             return null;
+    }
+
+    public GameObject GetActorObj(Enums.ActorType type)
+    {
+        ObjectPooler pool;
+        if (_poolDict.TryGetValue(type, out pool))
+        {
+            return pool.GetPooledObject();
+        }
+
+        return null;
     }
 
     void Awake()
@@ -67,7 +77,6 @@ public class PoolManager : MonoBehaviour
                     Debug.Log("Creating new pool");
                 }
             }
-
 
         }
     }

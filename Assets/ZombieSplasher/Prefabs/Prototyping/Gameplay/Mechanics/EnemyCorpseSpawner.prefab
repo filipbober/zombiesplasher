@@ -33,7 +33,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010590432954}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -51,5 +51,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bf33fe368410649ac8ac7debac7d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultEnemyCorpsePool: {fileID: 114000010881886188, guid: d78679ba605e3824dba8b750e7f37478,
-    type: 2}
+  _actorType: 1

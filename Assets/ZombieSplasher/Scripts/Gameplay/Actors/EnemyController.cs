@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Pathfinding;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IActorController
 {
     public static event System.EventHandler<EnemyPropertiesEventArgs> EnemyDown;
     public static event System.EventHandler<EnemyPropertiesEventArgs> DestinationWasReached;
@@ -13,6 +12,7 @@ public class EnemyController : MonoBehaviour
     private Seeker _seeker;
     private EnemyPhysicsEvents _physicsEvents;
 
+    Transform[] _destinations;
     private Transform _destination;
     private Path _path;
 
@@ -28,7 +28,9 @@ public class EnemyController : MonoBehaviour
         _physicsEvents = GetComponent<EnemyPhysicsEvents>();
 
         _inputResponse.Initialize(_properties);
-        _physicsEvents.Initialize(_properties);        
+        _physicsEvents.Initialize(_properties);
+
+        CreateDestinations(); 
     }
 
     void OnEnable()
@@ -46,13 +48,11 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         UpdatePathfinding();
-
-        //TempUpdate();
     }
 
-    public void Initialize(Transform destination)
-    {        
-        _destination = destination;
+    public void Initialize()
+    {
+        _destination = ComputeDestination();
         _seeker.StartPath(transform.position, _destination.position, OnPathComplete);
     }
 
@@ -84,7 +84,6 @@ public class EnemyController : MonoBehaviour
     {
         if (_path == null)
         {
-            //Debug.LogError("Path is null!");
             return;
         }
 
@@ -142,6 +141,42 @@ public class EnemyController : MonoBehaviour
     {
         OnDestinationWasReached(e);
         gameObject.SetActive(false);
+    }
+
+    protected Transform ComputeDestination()
+    {
+        return ComputeClosestDestination();
+    }
+
+    protected void CreateDestinations()
+    {
+        var destinations = GameObject.FindGameObjectsWithTag(GameTags.Destination);
+        _destinations = new Transform[destinations.Length];
+
+        Debug.Log("Creating destinations = " + _destinations.Length);
+
+        for (int i = 0; i < destinations.Length; i++)
+        {
+            _destinations[i] = destinations[i].transform;
+        }
+    }
+
+    private Transform ComputeClosestDestination()
+    {
+        Vector3 spawnPos = transform.position;
+        Transform resultDestination = transform;
+        float currentDistance = float.PositiveInfinity;
+        foreach (Transform currentDestination in _destinations)
+        {
+            float distance = Vector3.Distance(spawnPos, currentDestination.position);
+            if (distance <= currentDistance)
+            {
+                currentDistance = distance;
+                resultDestination = currentDestination;
+            }
+        }
+
+        return resultDestination;
     }
 
     // TODO: Temp - remove

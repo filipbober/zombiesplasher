@@ -2,16 +2,14 @@
 
 public class CorpseSpawner : MonoBehaviour
 {
-    public ObjectPooler DefaultEnemyCorpsePool;
     [SerializeField]
-    private Enums.ActorType _enemyType;
+    private Enums.ActorType _actorType;
 
-    private ObjectPooler _corpsePool;
+    private ActorManager _actorManager;
 
     void Start()
     {
-        //_corpsePool = PoolManager
-        _corpsePool = PoolManager.Instance.GetActorPool(_enemyType);
+        _actorManager = ActorManager.Instance;
     }
 
     void OnEnable()
@@ -26,8 +24,8 @@ public class CorpseSpawner : MonoBehaviour
 
     protected void SpawnEnemyCorpse(object sneder, EnemyPropertiesEventArgs e)
     {
-        //GameObject go = DefaultEnemyCorpsePool.GetPooledObject();
-        GameObject go = _corpsePool.GetPooledObject();
+        GameObject go = _actorManager.GetActorObj(_actorType);
+
         go.transform.position = e.EnemyGameObj.transform.position;
         go.transform.rotation = e.EnemyGameObj.transform.rotation;
 
