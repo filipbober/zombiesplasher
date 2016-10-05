@@ -128,6 +128,7 @@ public class EnemyController : MonoBehaviour, IActorController
         if (EnemyDown != null)
         {
             EnemyDown(this, e);
+            EventSystem.EventManager.Instance.Raise(new ActorPropertiesEvent(e.EnemyGameObj, e.ActorProperties, this));
         }
     }
 

@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿// Copyright (C) 2016 Filip Cyrus Bober
+
+using UnityEngine;
 
 namespace EventSystem
 {
