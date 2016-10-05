@@ -2,30 +2,33 @@
 
 using UnityEngine;
 
-[ExecuteInEditMode]
-public class SetCameraShader : MonoBehaviour
+namespace BackgroundRender
 {
-    [SerializeField]
-    private RenderTextureCreator _colorCamera;
-
-    [SerializeField]
-    private RenderTextureCreator _depthCamera;
-
-    [SerializeField]
-    private Material _backgroundRenderMat;
-
-    private readonly string ColorCameraView = ShaderConfig.BackgroundRenderShader.ColorCameraView;
-    private readonly string DepthCameraView = ShaderConfig.BackgroundRenderShader.DepthCameraView;
-
-    void Start()
+    [ExecuteInEditMode]
+    public class SetCameraShader : MonoBehaviour
     {
-        _backgroundRenderMat.SetTexture(ColorCameraView, _colorCamera.GetCameraViewTexture());
-        _backgroundRenderMat.SetTexture(DepthCameraView, _depthCamera.GetCameraViewTexture());
-    }
+        [SerializeField]
+        private RenderTextureCreator _colorCamera;
 
-    void OnRenderImage(RenderTexture source, RenderTexture destination)
-    {
-        Graphics.Blit(null, destination, _backgroundRenderMat);
-    }
+        [SerializeField]
+        private RenderTextureCreator _depthCamera;
 
+        [SerializeField]
+        private Material _backgroundRenderMat;
+
+        private readonly string ColorCameraView = ShaderConfig.BackgroundRenderShader.ColorCameraView;
+        private readonly string DepthCameraView = ShaderConfig.BackgroundRenderShader.DepthCameraView;
+
+        void Start()
+        {
+            _backgroundRenderMat.SetTexture(ColorCameraView, _colorCamera.GetCameraViewTexture());
+            _backgroundRenderMat.SetTexture(DepthCameraView, _depthCamera.GetCameraViewTexture());
+        }
+
+        void OnRenderImage(RenderTexture source, RenderTexture destination)
+        {
+            Graphics.Blit(null, destination, _backgroundRenderMat);
+        }
+
+    }
 }

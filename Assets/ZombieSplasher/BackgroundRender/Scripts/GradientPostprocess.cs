@@ -2,60 +2,63 @@
 
 using UnityEngine;
 
-[ExecuteInEditMode]
-public class GradientPostprocess : MonoBehaviour
+namespace BackgroundRender
 {
-    [SerializeField]
-    private Material _depthGradientMat;
-    
-    [SerializeField]
-    private RenderTextureCreator _colorCamera;
-
-    [SerializeField]
-    private RenderTextureCreator _depthCamera;
-
-    [SerializeField]
-    private float _gradientValue = ShaderConfig.GradientShader.GradientDefaultValue;
-
-    bool showNormalColors = true;
-
-    private readonly string BgColorTextureProperty = ShaderConfig.GradientShader.BgColorReference;
-    private readonly string BgDepthTextureProperty = ShaderConfig.GradientShader.BgDepthReference;
-
-    private readonly string GradientProperty = ShaderConfig.GradientShader.GradientReference;
-
-    private readonly string DepthColorViewProperty = ShaderConfig.GradientShader.DepthColorView;
-    private readonly float DepthViewOn = ShaderConfig.GradientShader.DepthViewOn;
-    private readonly float DepthViewOff = ShaderConfig.GradientShader.DepthViewOff;
-
-    void Start()
+    [ExecuteInEditMode]
+    public class GradientPostprocess : MonoBehaviour
     {
-        GetComponent<Camera>().depthTextureMode = DepthTextureMode.DepthNormals;
+        [SerializeField]
+        private Material _depthGradientMat;
 
-        Camera camera = GetComponent<Camera>();
-        _depthGradientMat.SetTexture(BgColorTextureProperty, _colorCamera.GetCameraViewTexture());
-        _depthGradientMat.SetTexture(BgDepthTextureProperty, _depthCamera.GetCameraViewTexture());
-    }
+        [SerializeField]
+        private RenderTextureCreator _colorCamera;
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
+        [SerializeField]
+        private RenderTextureCreator _depthCamera;
+
+        [SerializeField]
+        private float _gradientValue = ShaderConfig.GradientShader.GradientDefaultValue;
+
+        bool showNormalColors = true;
+
+        private readonly string BgColorTextureProperty = ShaderConfig.GradientShader.BgColorReference;
+        private readonly string BgDepthTextureProperty = ShaderConfig.GradientShader.BgDepthReference;
+
+        private readonly string GradientProperty = ShaderConfig.GradientShader.GradientReference;
+
+        private readonly string DepthColorViewProperty = ShaderConfig.GradientShader.DepthColorView;
+        private readonly float DepthViewOn = ShaderConfig.GradientShader.DepthViewOn;
+        private readonly float DepthViewOff = ShaderConfig.GradientShader.DepthViewOff;
+
+        void Start()
         {
-            showNormalColors = !showNormalColors;
+            GetComponent<Camera>().depthTextureMode = DepthTextureMode.DepthNormals;
+
+            Camera camera = GetComponent<Camera>();
+            _depthGradientMat.SetTexture(BgColorTextureProperty, _colorCamera.GetCameraViewTexture());
+            _depthGradientMat.SetTexture(BgDepthTextureProperty, _depthCamera.GetCameraViewTexture());
         }
 
-        if (showNormalColors)
+        void Update()
         {
-            _depthGradientMat.SetFloat(DepthColorViewProperty, DepthViewOn);
-        }
-        else
-        {
-            _depthGradientMat.SetFloat(DepthColorViewProperty, DepthViewOff);
-        }
-    }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                showNormalColors = !showNormalColors;
+            }
 
-    void OnRenderImage(RenderTexture source, RenderTexture destination)
-    {
-        Graphics.Blit(source, destination, _depthGradientMat);
+            if (showNormalColors)
+            {
+                _depthGradientMat.SetFloat(DepthColorViewProperty, DepthViewOn);
+            }
+            else
+            {
+                _depthGradientMat.SetFloat(DepthColorViewProperty, DepthViewOff);
+            }
+        }
+
+        void OnRenderImage(RenderTexture source, RenderTexture destination)
+        {
+            Graphics.Blit(source, destination, _depthGradientMat);
+        }
     }
 }
