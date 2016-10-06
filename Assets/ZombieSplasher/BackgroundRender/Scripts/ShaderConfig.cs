@@ -1,6 +1,6 @@
 ﻿// Copyright (C) 2016 Filip Cyrus Bober
 
-namespace BackgroundRender
+namespace FCB.BackgroundRender
 {
     public static class ShaderConfig
     {

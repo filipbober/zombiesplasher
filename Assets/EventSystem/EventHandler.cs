@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace EventSystem
+namespace FCB.EventSystem
 {
     public abstract class EventHandler : MonoBehaviour, IEventHandler
     {

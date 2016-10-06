@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public interface IActorController
+﻿public interface IActorController
 {
+    /// <summary>
+    /// Initialize object and set it active
+    /// </summary>
     void Initialize();
+    void Deactivate();
 }

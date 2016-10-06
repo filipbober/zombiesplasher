@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace BackgroundRender
+namespace FCB.BackgroundRender
 {
     [ExecuteInEditMode]
     public class GradientPostprocess : MonoBehaviour

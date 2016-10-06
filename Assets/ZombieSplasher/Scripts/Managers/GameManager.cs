@@ -1,13 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class GameManager : MonoBehaviour
+public class GameManager : FCB.EventSystem.EventHandler
 {
     public static GameManager Instance = null;
 
     public static event System.EventHandler<ActorPropertiesEventArgs> EnemySpawnedNotification;
     public static event System.EventHandler<ActorPropertiesEventArgs> EnemyDownNotification;
     public static event System.Action LiveLostNotification;
+
+    public override void SubscribeEvents()
+    {
+        //EventSystem
+    }
+
+    public override void UnsubscribeEvents()
+    {
+        
+    }
 
     void Awake()
     {
@@ -76,5 +87,5 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
+    
 }

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using Pathfinding;
+using System;
 
-public class EnemyController : MonoBehaviour, IActorController
+public class EnemyController : FCB.EventSystem.EventHandler, IActorController
 {
     public static event System.EventHandler<ActorPropertiesEventArgs> EnemyDown;
     public static event System.EventHandler<ActorPropertiesEventArgs> DestinationWasReached;
@@ -20,6 +21,32 @@ public class EnemyController : MonoBehaviour, IActorController
     private Vector3 _currentWaypoint;
     private int _currentWaypointNo = 0;
 
+    public override void SubscribeEvents()
+    {
+        //FCB.EventSystem.EventManager.Instance.AddListener<ActorClickedEvent>(OnEnemyClicked);
+        _inputResponse.ActorClicked += EnemyClicked;
+        _physicsEvents.DestinationReached += DestinationReached;
+    }
+
+    public override void UnsubscribeEvents()
+    {
+        //_inputResponse.ActorClicked -= EnemyClicked;
+        _physicsEvents.DestinationReached -= DestinationReached;
+    }
+
+    public void Initialize()
+    {
+        _destination = ComputeDestination();
+        _seeker.StartPath(transform.position, _destination.position, OnPathComplete);
+
+        gameObject.SetActive(true);
+    }
+
+    public void Deactivate()
+    {
+        gameObject.SetActive(false);
+    }
+
     void Awake()
     {
         _actorProperties = GetComponent<ActorProperties>();
@@ -35,27 +62,9 @@ public class EnemyController : MonoBehaviour, IActorController
         CreateDestinations(); 
     }
 
-    void OnEnable()
-    {
-        _inputResponse.EnemyClicked += EnemyClicked;
-        _physicsEvents.DestinationReached += DestinationReached;
-    }
-
-    void OnDisable()
-    {
-        _inputResponse.EnemyClicked -= EnemyClicked;
-        _physicsEvents.DestinationReached -= DestinationReached;
-    }
-
     void Update()
     {
         UpdatePathfinding();
-    }
-
-    public void Initialize()
-    {
-        _destination = ComputeDestination();
-        _seeker.StartPath(transform.position, _destination.position, OnPathComplete);
     }
 
     public void OnPathComplete(Path path)
@@ -115,11 +124,14 @@ public class EnemyController : MonoBehaviour, IActorController
     }
 
     protected void EnemyClicked(object sender, ActorPropertiesEventArgs e)
+    //protected void OnEnemyClicked(ActorPropertiesEvent e)
     {
-        if (e.EnemyGameObj == gameObject)
+        if (e.Sender == gameObject)
         {
+            //FCB.EventSystem.EventManager.Instance.Raise(new SpawnCorpseEvent(gameObject, _actorProperties));
             OnEnemyDown(new ActorPropertiesEventArgs(gameObject, _actorProperties));
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            Deactivate();
         }
     }
 
@@ -128,7 +140,8 @@ public class EnemyController : MonoBehaviour, IActorController
         if (EnemyDown != null)
         {
             EnemyDown(this, e);
-            EventSystem.EventManager.Instance.Raise(new ActorPropertiesEvent(e.EnemyGameObj, e.ActorProperties, this));
+            //FCB.EventSystem.EventManager.Instance.Raise(new 
+            FCB.EventSystem.EventManager.Instance.Raise(new SpawnCorpseEvent(e.Sender, e.ActorProperties));
         }
     }
 
@@ -181,6 +194,8 @@ public class EnemyController : MonoBehaviour, IActorController
 
         return resultDestination;
     }
+
+
 
     // TODO: Temp - remove
     //private float _collisionRecalculateCooldown = 3f;

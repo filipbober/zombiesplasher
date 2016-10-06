@@ -163,9 +163,9 @@ public class OffscreenEnemyIndicator : MonoBehaviour
 
     void AddEnemyToList(object sender, ActorPropertiesEventArgs e)
     {
-        if (!_enemies.Contains(e.EnemyGameObj))
+        if (!_enemies.Contains(e.Sender))
         {
-            _enemies.Add(e.EnemyGameObj);
+            _enemies.Add(e.Sender);
         }
     }
 

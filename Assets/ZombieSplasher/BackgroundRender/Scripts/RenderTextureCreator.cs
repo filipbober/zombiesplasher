@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace BackgroundRender
+namespace FCB.BackgroundRender
 {
     public class RenderTextureCreator : MonoBehaviour
     {

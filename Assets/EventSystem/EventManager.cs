@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-namespace EventSystem
+namespace FCB.EventSystem
 {
     /// <summary>
     /// This class is a minor variation on<http://www.willrmiller.com/?p=87>
