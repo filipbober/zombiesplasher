@@ -25,6 +25,8 @@ public class EnemyController : FCB.EventSystem.EventHandler, IActorController
     {
         //FCB.EventSystem.EventManager.Instance.AddListener<ActorClickedEvent>(OnEnemyClicked);
         _inputResponse.ActorClicked += EnemyClicked;
+        FCB.EventSystem.SingleEventManager.Instance.AddListener<ActorClickedEvent>(gameObject.GetInstanceID(), OnEnemyClicked);
+
         _physicsEvents.DestinationReached += DestinationReached;
     }
 
@@ -131,8 +133,13 @@ public class EnemyController : FCB.EventSystem.EventHandler, IActorController
             //FCB.EventSystem.EventManager.Instance.Raise(new SpawnCorpseEvent(gameObject, _actorProperties));
             OnEnemyDown(new ActorPropertiesEventArgs(gameObject, _actorProperties));
             //gameObject.SetActive(false);
-            Deactivate();
+            Deactivate();            
         }
+    }
+
+    protected void OnEnemyClicked(ActorPropertiesEvent e)
+    {
+        Debug.Log("OnEnemyClicked, id =" + gameObject.GetInstanceID());
     }
 
     protected void OnEnemyDown(ActorPropertiesEventArgs e)
@@ -168,8 +175,8 @@ public class EnemyController : FCB.EventSystem.EventHandler, IActorController
     {
         var destinations = GameObject.FindGameObjectsWithTag(GameTags.Destination);
         _destinations = new Transform[destinations.Length];
-
-        Debug.Log("Creating destinations = " + _destinations.Length);
+        
+        //Debug.Log("Creating destinations = " + _destinations.Length);
 
         for (int i = 0; i < destinations.Length; i++)
         {
