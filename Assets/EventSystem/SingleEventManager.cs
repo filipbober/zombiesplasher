@@ -38,6 +38,7 @@ namespace FCB.EventSystem
         public delegate void EventDelegate<T>(T e) where T : GameEvent;
         private delegate void EventDelegate(GameEvent e);
 
+        // TODO: Remove delegateLookup and replace int with SingleEvent hash
         private Dictionary<int, EventDelegate> delegates = new Dictionary<int, EventDelegate>();
         private Dictionary<System.Delegate, EventDelegate> delegateLookup = new Dictionary<System.Delegate, EventDelegate>();
 

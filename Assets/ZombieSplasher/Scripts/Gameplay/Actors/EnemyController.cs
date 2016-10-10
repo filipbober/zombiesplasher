@@ -25,6 +25,9 @@ public class EnemyController : FCB.EventSystem.EventHandler, IActorController
     {
         //FCB.EventSystem.EventManager.Instance.AddListener<ActorClickedEvent>(OnEnemyClicked);
         _inputResponse.ActorClicked += EnemyClicked;
+
+        // TODO: id should be Event owner id, not current gameobject (in this case it is the same)
+        // Maybe implement interface ISingleEvent, which contains event and gameobject
         FCB.EventSystem.SingleEventManager.Instance.AddListener<ActorClickedEvent>(gameObject.GetInstanceID(), OnEnemyClicked);
 
         _physicsEvents.DestinationReached += DestinationReached;
@@ -32,7 +35,9 @@ public class EnemyController : FCB.EventSystem.EventHandler, IActorController
 
     public override void UnsubscribeEvents()
     {
-        //_inputResponse.ActorClicked -= EnemyClicked;
+        _inputResponse.ActorClicked -= EnemyClicked;
+        FCB.EventSystem.SingleEventManager.Instance.RemoveListener<ActorClickedEvent>(gameObject.GetInstanceID(), OnEnemyClicked);
+
         _physicsEvents.DestinationReached -= DestinationReached;
     }
 
