@@ -9,10 +9,32 @@ namespace FCB.EventSystem
         public int Id;
         public GameEvent Event;
 
+        private System.Type _eventType;
+
         public SingleEvent(int id, GameEvent @event)
         {
             Id = id;
             Event = @event;
+
+            _eventType = Event.GetType();
+        }
+
+        protected bool Equals(SingleEvent other)
+        {
+            return Id == other.Id && _eventType == other._eventType;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((SingleEvent)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked { return (Id * 397) ^ _eventType.GetHashCode(); }
         }
     }
 
