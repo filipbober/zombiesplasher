@@ -4,21 +4,20 @@ using System.Collections.Generic;
 
 namespace FCB.EventSystem
 {
-    public class SingleEvent
+    public class SingleEvent<T> where T : GameEvent
     {
         public int Id;
-        public GameEvent Event;
 
         private System.Type _eventType;
 
-        public SingleEvent(int id, GameEvent gameEvent)
+        // TODO: int id can be IObjectId interface get { return id}
+        public SingleEvent(int id)
         {
             Id = id;
-            Event = gameEvent;
-            _eventType = gameEvent.GetType();
+            _eventType = typeof(T);
         }
 
-        protected bool Equals(SingleEvent other)
+        protected bool Equals(SingleEvent<T> other)
         {
             return Id == other.Id && _eventType == other._eventType;
         }
@@ -28,7 +27,7 @@ namespace FCB.EventSystem
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((SingleEvent)obj);
+            return Equals((SingleEvent<T>)obj);
         }
 
         public override int GetHashCode()
@@ -61,16 +60,18 @@ namespace FCB.EventSystem
 
         // TODO: Remove delegateLookup and replace int with SingleEvent hash
         //private Dictionary<int, EventDelegate> delegates = new Dictionary<int, EventDelegate>();
-        private Dictionary<SingleEvent, EventDelegate> delegates = new Dictionary<SingleEvent, EventDelegate>();
+        private Dictionary<int, EventDelegate> delegates = new Dictionary<int, EventDelegate>();
         //private Dictionary<System.Delegate, EventDelegate> delegateLookup = new Dictionary<System.Delegate, EventDelegate>();
 
         //public void AddListener<T>(SingleEvent id, EventDelegate<T> eventListener) where T : GameEvent
-        public void AddListener<T>(SingleEvent id, EventDelegate<T> eventListener) where T : GameEvent
+        //public void AddListener<T>(SingleEvent id, EventDelegate<T> eventListener) where T : GameEvent
+        public void AddListener<T>(int objId, EventDelegate<T> eventListener) where T : GameEvent
         {
             //if (delegateLookup.ContainsKey(eventListener))            
             //    return;
 
-            
+            int id = new SingleEvent<T>(objId).GetHashCode();
+
             if (delegates.ContainsKey(id))
                 return;
 
@@ -91,8 +92,10 @@ namespace FCB.EventSystem
             }
         }
 
-        public void RemoveListener<T>(SingleEvent id, EventDelegate<T> eventListener) where T : GameEvent
+        public void RemoveListener<T>(int objId, EventDelegate<T> eventListener) where T : GameEvent
         {
+            int id = new SingleEvent<T>(objId).GetHashCode();
+
             EventDelegate internalDelegate;
             //if (delegateLookup.TryGetValue(eventListener, out internalDelegate))
             if (delegates.TryGetValue(id, out internalDelegate))
@@ -116,13 +119,16 @@ namespace FCB.EventSystem
             }
         }
 
-        public void Raise(SingleEvent e)
+        //public void Raise<T>(int objId, GameEvent e) where T : GameEvent
+        public void Raise<T>(int objId, T e) where T : GameEvent
         {
-            int key = e.Id;
+            System.Type type = e.GetType();
+            int key = new SingleEvent<T>(objId).GetHashCode();
+
             EventDelegate eventInvoker;
-            if (delegates.TryGetValue(e, out eventInvoker))
+            if (delegates.TryGetValue(key, out eventInvoker))
             {
-                eventInvoker.Invoke(e.Event);
+                eventInvoker.Invoke(e);
             }
 
 

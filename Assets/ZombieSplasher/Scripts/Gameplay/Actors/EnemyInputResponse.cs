@@ -24,7 +24,10 @@ public class EnemyInputResponse : MonoBehaviour, IPointerClickHandler, IActorInp
     public void OnPointerClick(PointerEventData eventData)
     {
         //FCB.EventSystem.EventManager.Instance.Raise(new ActorClickedEvent(gameObject, _properties));
-        FCB.EventSystem.SingleEventManager.Instance.Raise(new FCB.EventSystem.SingleEvent(gameObject.GetInstanceID(), new ActorClickedEvent(gameObject, _properties)));
+        //FCB.EventSystem.SingleEventManager.Instance.Raise(new FCB.EventSystem.SingleEvent(gameObject.GetInstanceID(), new ActorClickedEvent(gameObject, _properties)));
+        FCB.EventSystem.SingleEventManager.Instance.Raise(gameObject.GetInstanceID(), new ActorClickedEvent(gameObject, _properties));
+
+
         OnActorClicked(new ActorPropertiesEventArgs(gameObject, _properties));
     }
 }
