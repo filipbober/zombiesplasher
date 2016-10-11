@@ -147,6 +147,7 @@ public class EnemyController : FCB.EventSystem.EventHandler, IActorController
     protected void OnEnemyClicked(ActorPropertiesEvent e)
     {
         Debug.Log("OnEnemyClicked, id =" + gameObject.GetInstanceID());
+        Debug.Log("Sender = " + e.Sender.GetInstanceID());
     }
 
     protected void OnEnemyDown(ActorPropertiesEventArgs e)
