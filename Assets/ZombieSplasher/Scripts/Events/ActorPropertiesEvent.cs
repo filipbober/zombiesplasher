@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 
-public class ActorPropertiesEventArgs : System.EventArgs
+public class ActorPropertiesEvent : FCB.EventSystem.GameEvent
 {
-
     public GameObject Sender { get; set; }
     public ActorProperties ActorProperties;
 
-    public ActorPropertiesEventArgs(GameObject sender, ActorProperties actorProperties)
+    public ActorPropertiesEvent(GameObject sender, ActorProperties actorProperties)
     {
         Sender = sender;
         ActorProperties = actorProperties;
     }
 }
+

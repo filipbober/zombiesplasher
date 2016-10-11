@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 using UnityEngine.EventSystems;
 
 public class EnemyInputResponse : MonoBehaviour, IPointerClickHandler, IActorInputResponse
 {
-    public event EventHandler<ActorPropertiesEventArgs> EnemyClicked;
+    public event EventHandler<ActorPropertiesEventArgs> ActorClicked;
 
     private ActorProperties _properties;
 
@@ -16,14 +15,19 @@ public class EnemyInputResponse : MonoBehaviour, IPointerClickHandler, IActorInp
 
     public void OnActorClicked(ActorPropertiesEventArgs e)
     {
-        if (EnemyClicked != null)
+        if (ActorClicked != null)
         {
-            EnemyClicked(this, e);
+            ActorClicked(this, e);
         }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        //FCB.EventSystem.EventManager.Instance.Raise(new ActorClickedEvent(gameObject, _properties));
+        //FCB.EventSystem.SingleEventManager.Instance.Raise(new FCB.EventSystem.SingleEvent(gameObject.GetInstanceID(), new ActorClickedEvent(gameObject, _properties)));
+        FCB.EventSystem.SingleEventManager.Instance.Raise(gameObject.GetInstanceID(), new ActorClickedEvent(gameObject, _properties));
+
+
         OnActorClicked(new ActorPropertiesEventArgs(gameObject, _properties));
     }
 }

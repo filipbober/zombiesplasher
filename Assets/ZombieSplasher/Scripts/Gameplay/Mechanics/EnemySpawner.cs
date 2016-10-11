@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class EnemySpawner : MonoBehaviour
     {
         _currentCooldown -= Time.deltaTime;
 
+        // TODO: Make it coroutine
         if (_currentCooldown <= 0f)
         {
             _currentCooldown = _spawnRate;
@@ -36,7 +38,6 @@ public class EnemySpawner : MonoBehaviour
     {
         GameObject go = _actorManager.GetActorObj(_actorType);
         go.transform.position = transform.position;
-        go.SetActive(true);
 
         EnemyController controller = go.GetComponent<EnemyController>();
         controller.Initialize();
@@ -52,5 +53,4 @@ public class EnemySpawner : MonoBehaviour
             ActorSpawned(this, e);
         }
     }
-
 }
