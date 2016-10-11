@@ -11,12 +11,11 @@ namespace FCB.EventSystem
 
         private System.Type _eventType;
 
-        public SingleEvent(int id, GameEvent @event)
+        public SingleEvent(int id, GameEvent gameEvent)
         {
             Id = id;
-            Event = @event;
-
-            _eventType = Event.GetType();
+            Event = gameEvent;
+            _eventType = gameEvent.GetType();
         }
 
         protected bool Equals(SingleEvent other)
@@ -53,7 +52,7 @@ namespace FCB.EventSystem
             }
         }
 
-        public int ListenerCount { get { return delegateLookup.Count; } }
+        //public int ListenerCount { get { return delegateLookup.Count; } }
 
         private static SingleEventManager _instance = null;
 
@@ -61,20 +60,23 @@ namespace FCB.EventSystem
         private delegate void EventDelegate(GameEvent e);
 
         // TODO: Remove delegateLookup and replace int with SingleEvent hash
-        private Dictionary<int, EventDelegate> delegates = new Dictionary<int, EventDelegate>();
-        private Dictionary<System.Delegate, EventDelegate> delegateLookup = new Dictionary<System.Delegate, EventDelegate>();
+        //private Dictionary<int, EventDelegate> delegates = new Dictionary<int, EventDelegate>();
+        private Dictionary<SingleEvent, EventDelegate> delegates = new Dictionary<SingleEvent, EventDelegate>();
+        //private Dictionary<System.Delegate, EventDelegate> delegateLookup = new Dictionary<System.Delegate, EventDelegate>();
 
-        public void AddListener<T>(int id, EventDelegate<T> eventListener) where T : GameEvent
+        //public void AddListener<T>(SingleEvent id, EventDelegate<T> eventListener) where T : GameEvent
+        public void AddListener<T>(SingleEvent id, EventDelegate<T> eventListener) where T : GameEvent
         {
-            if (delegateLookup.ContainsKey(eventListener))            
-                return;
+            //if (delegateLookup.ContainsKey(eventListener))            
+            //    return;
+
             
             if (delegates.ContainsKey(id))
                 return;
 
             EventDelegate internalDelegate = (e) => eventListener((T)e);
 
-            delegateLookup[eventListener] = internalDelegate;
+            //delegateLookup[eventListener] = internalDelegate;
 
             System.Type eventType = typeof(T);
             EventDelegate eventInvoker;
@@ -89,10 +91,11 @@ namespace FCB.EventSystem
             }
         }
 
-        public void RemoveListener<T>(int id, EventDelegate<T> eventListener) where T : GameEvent
+        public void RemoveListener<T>(SingleEvent id, EventDelegate<T> eventListener) where T : GameEvent
         {
             EventDelegate internalDelegate;
-            if (delegateLookup.TryGetValue(eventListener, out internalDelegate))
+            //if (delegateLookup.TryGetValue(eventListener, out internalDelegate))
+            if (delegates.TryGetValue(id, out internalDelegate))
             {
                 System.Type eventType = typeof(T);
                 EventDelegate eventInvoker;
@@ -109,7 +112,7 @@ namespace FCB.EventSystem
                     }
                 }
 
-                delegateLookup.Remove(eventListener);
+                //delegateLookup.Remove(eventListener);
             }
         }
 
@@ -117,7 +120,7 @@ namespace FCB.EventSystem
         {
             int key = e.Id;
             EventDelegate eventInvoker;
-            if (delegates.TryGetValue(key, out eventInvoker))
+            if (delegates.TryGetValue(e, out eventInvoker))
             {
                 eventInvoker.Invoke(e.Event);
             }
