@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Enums
+namespace ZombieSplasher
 {
-    public enum ActorType { DefaultEnemy, DefaultEnemyCorpse, Count }
-    public enum ActorGroup { Enemies, Neutral, Friends, Env, Count }
+    namespace Enums
+    {
+        public enum ActorType { DefaultEnemy, DefaultEnemyCorpse, Count }
+        public enum ActorGroup { Enemies, Neutral, Friends, Env, Count }
+    }
 }

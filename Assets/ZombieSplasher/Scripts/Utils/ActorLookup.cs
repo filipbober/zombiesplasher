@@ -2,33 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine.Assertions;
 
-public class ActorLookup : MonoBehaviour
+namespace ZombieSplasher
 {
-    public Dictionary<Enums.ActorType, GameObject> ActorsGameObjects = new Dictionary<Enums.ActorType, GameObject>();
-    public Dictionary<Enums.ActorType, ActorProperties> ActorsProperties = new Dictionary<Enums.ActorType, ActorProperties>();
-
-    [SerializeField]
-    private List<GameObject> _actors;
-
-    void Awake()
+    public class ActorLookup : MonoBehaviour
     {
-        foreach (var actor in _actors)
+        public Dictionary<Enums.ActorType, GameObject> ActorsGameObjects = new Dictionary<Enums.ActorType, GameObject>();
+        public Dictionary<Enums.ActorType, ActorProperties> ActorsProperties = new Dictionary<Enums.ActorType, ActorProperties>();
+
+        [SerializeField]
+        private List<GameObject> _actors;
+
+        void Awake()
         {
-            ActorProperties properties = actor.GetComponent<ActorProperties>();
-
-            GameObject newActor;
-            if (!ActorsGameObjects.TryGetValue(properties.ActorType, out newActor))
+            foreach (var actor in _actors)
             {
-                ActorsGameObjects.Add(properties.ActorType, actor);
-            }
+                ActorProperties properties = actor.GetComponent<ActorProperties>();
 
-            ActorProperties newProperties;
-            if (!ActorsProperties.TryGetValue(properties.ActorType, out newProperties))
-            {
-                ActorsProperties.Add(properties.ActorType, properties);
-            }
+                GameObject newActor;
+                if (!ActorsGameObjects.TryGetValue(properties.ActorType, out newActor))
+                {
+                    ActorsGameObjects.Add(properties.ActorType, actor);
+                }
 
+                ActorProperties newProperties;
+                if (!ActorsProperties.TryGetValue(properties.ActorType, out newProperties))
+                {
+                    ActorsProperties.Add(properties.ActorType, properties);
+                }
+
+            }
         }
-    }
 
+    }
 }

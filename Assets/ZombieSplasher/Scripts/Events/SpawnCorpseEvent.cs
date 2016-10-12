@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 
-public class SpawnCorpseEvent : ActorPropertiesEvent
+namespace ZombieSplasher
 {
-    public SpawnCorpseEvent(GameObject sender, ActorProperties actorProperties) : base(sender, actorProperties)
+    public class SpawnCorpseEvent : ActorPropertiesEvent
     {
+        public SpawnCorpseEvent(GameObject sender, ActorProperties actorProperties) : base(sender, actorProperties)
+        {
+        }
     }
 }

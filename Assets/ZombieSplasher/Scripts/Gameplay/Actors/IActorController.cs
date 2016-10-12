@@ -1,8 +1,11 @@
-﻿public interface IActorController
+﻿namespace ZombieSplasher
 {
-    /// <summary>
-    /// Initialize object and set it active
-    /// </summary>
-    void Initialize();
-    void Deactivate();
+    public interface IActorController
+    {
+        /// <summary>
+        /// Initialize object and set it active
+        /// </summary>
+        void Initialize();
+        void Deactivate();
+    }
 }

@@ -2,32 +2,35 @@
 using System;
 using UnityEngine.EventSystems;
 
-public class EnemyInputResponse : MonoBehaviour, IPointerClickHandler, IActorInputResponse
+namespace ZombieSplasher
 {
-    public event EventHandler<ActorPropertiesEventArgs> ActorClicked;
-
-    private ActorProperties _properties;
-
-    public void Initialize(ActorProperties actorProperties)
+    public class EnemyInputResponse : MonoBehaviour, IPointerClickHandler, IActorInputResponse
     {
-        _properties = actorProperties;
-    }
+        public event EventHandler<ActorPropertiesEventArgs> ActorClicked;
 
-    public void OnActorClicked(ActorPropertiesEventArgs e)
-    {
-        if (ActorClicked != null)
+        private ActorProperties _properties;
+
+        public void Initialize(ActorProperties actorProperties)
         {
-            ActorClicked(this, e);
+            _properties = actorProperties;
         }
-    }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        //FCB.EventSystem.EventManager.Instance.Raise(new ActorClickedEvent(gameObject, _properties));
-        //FCB.EventSystem.SingleEventManager.Instance.Raise(new FCB.EventSystem.SingleEvent(gameObject.GetInstanceID(), new ActorClickedEvent(gameObject, _properties)));
-        FCB.EventSystem.SingleEventManager.Instance.Raise(gameObject.GetInstanceID(), new ActorClickedEvent(gameObject, _properties));
+        public void OnActorClicked(ActorPropertiesEventArgs e)
+        {
+            if (ActorClicked != null)
+            {
+                ActorClicked(this, e);
+            }
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            //FCB.EventSystem.EventManager.Instance.Raise(new ActorClickedEvent(gameObject, _properties));
+            //FCB.EventSystem.SingleEventManager.Instance.Raise(new FCB.EventSystem.SingleEvent(gameObject.GetInstanceID(), new ActorClickedEvent(gameObject, _properties)));
+            FCB.EventSystem.SingleEventManager.Instance.Raise(gameObject.GetInstanceID(), new ActorClickedEvent(gameObject, _properties));
 
 
-        OnActorClicked(new ActorPropertiesEventArgs(gameObject, _properties));
+            OnActorClicked(new ActorPropertiesEventArgs(gameObject, _properties));
+        }
     }
 }

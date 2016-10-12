@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 
-public class ActorClickedEvent : ActorPropertiesEvent
+namespace ZombieSplasher
 {
-    public ActorClickedEvent(GameObject sender, ActorProperties actorProperties) : base(sender, actorProperties)
+    public class ActorClickedEvent : ActorPropertiesEvent
     {
+        public ActorClickedEvent(GameObject sender, ActorProperties actorProperties) : base(sender, actorProperties)
+        {
+        }
     }
 }

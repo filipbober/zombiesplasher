@@ -2,31 +2,34 @@
 using System.Collections;
 using System;
 
-// TODO: Implement interface IEnemyPhysicsEvents
-public class EnemyPhysicsEvents : MonoBehaviour
+namespace ZombieSplasher
 {
-    public event EventHandler<ActorPropertiesEventArgs> DestinationReached;
-
-    private ActorProperties _actorProperties;
-
-    public void Initialize(ActorProperties actorProperties)
+    // TODO: Implement interface IEnemyPhysicsEvents
+    public class EnemyPhysicsEvents : MonoBehaviour
     {
-        _actorProperties = actorProperties;
-    }
+        public event EventHandler<ActorPropertiesEventArgs> DestinationReached;
 
-    public void OnDestinationReached(ActorPropertiesEventArgs e)
-    {
-        if (DestinationReached != null)
+        private ActorProperties _actorProperties;
+
+        public void Initialize(ActorProperties actorProperties)
         {
-            DestinationReached(this, e);
+            _actorProperties = actorProperties;
         }
-    }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag(GameTags.Destination))
+        public void OnDestinationReached(ActorPropertiesEventArgs e)
         {
-            OnDestinationReached(new ActorPropertiesEventArgs(gameObject, _actorProperties));
+            if (DestinationReached != null)
+            {
+                DestinationReached(this, e);
+            }
+        }
+
+        void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag(GameTags.Destination))
+            {
+                OnDestinationReached(new ActorPropertiesEventArgs(gameObject, _actorProperties));
+            }
         }
     }
 }

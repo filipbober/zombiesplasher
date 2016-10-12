@@ -1,44 +1,47 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LevelManager : MonoBehaviour
+namespace ZombieSplasher
 {
-    [SerializeField]
-    private int _startingLives;
-    private int _livesLeft;
-
-    [SerializeField]
-    private int _startingDefaultEnemies;
-    private int _defaultEnemiesLeft;
-
-    void Awake()
+    public class LevelManager : MonoBehaviour
     {
-        _livesLeft = _startingLives;
-        _defaultEnemiesLeft = _startingDefaultEnemies;
-    }
+        [SerializeField]
+        private int _startingLives;
+        private int _livesLeft;
 
-    void OnEnable()
-    {
-        // Subscribe to GameManager events
-        GameManager.LiveLostNotification += LiveLost;
-        GameManager.EnemySpawnedNotification += EnemySpawned;
-    }
+        [SerializeField]
+        private int _startingDefaultEnemies;
+        private int _defaultEnemiesLeft;
 
-    void OnDisable()
-    {
-        GameManager.LiveLostNotification -= LiveLost;
-        GameManager.EnemySpawnedNotification -= EnemySpawned;
-    }
+        void Awake()
+        {
+            _livesLeft = _startingLives;
+            _defaultEnemiesLeft = _startingDefaultEnemies;
+        }
 
-    void EnemySpawned(object sender, ActorPropertiesEventArgs e)
-    {
-        Debug.Log("LevelManager -> EnemySpawned()");
-    }
+        void OnEnable()
+        {
+            // Subscribe to GameManager events
+            GameManager.LiveLostNotification += LiveLost;
+            GameManager.EnemySpawnedNotification += EnemySpawned;
+        }
 
-    void LiveLost()
-    {
-        Debug.Log("LevelManager -> LiveLost()");
-    }
+        void OnDisable()
+        {
+            GameManager.LiveLostNotification -= LiveLost;
+            GameManager.EnemySpawnedNotification -= EnemySpawned;
+        }
 
-    
+        void EnemySpawned(object sender, ActorPropertiesEventArgs e)
+        {
+            Debug.Log("LevelManager -> EnemySpawned()");
+        }
+
+        void LiveLost()
+        {
+            Debug.Log("LevelManager -> LiveLost()");
+        }
+
+
+    }
 }

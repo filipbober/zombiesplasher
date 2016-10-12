@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
 
-public class ActorPropertiesEventArgs : System.EventArgs
+namespace ZombieSplasher
 {
-
-    public GameObject Sender { get; set; }
-    public ActorProperties ActorProperties;
-
-    public ActorPropertiesEventArgs(GameObject sender, ActorProperties actorProperties)
+    public class ActorPropertiesEventArgs : System.EventArgs
     {
-        Sender = sender;
-        ActorProperties = actorProperties;
+
+        public readonly GameObject Sender;
+        public readonly ActorProperties ActorProperties;
+
+        public ActorPropertiesEventArgs(GameObject sender, ActorProperties actorProperties)
+        {
+            Sender = sender;
+            ActorProperties = actorProperties;
+        }
     }
 }
