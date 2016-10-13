@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿// Copyright (C) 2016 Filip Cyrus Bober
+
+using UnityEngine;
 using Pathfinding;
-using System;
 
 namespace ZombieSplasher
 {
@@ -31,7 +32,7 @@ namespace ZombieSplasher
             // TODO: id should be Event owner id, not current gameobject (in this case it is the same)
             // Maybe implement interface ISingleEvent, which contains event and gameobject
             //FCB.EventSystem.SingleEventManager.Instance.AddListener<ActorClickedEvent>(new FCB.EventSystem.SingleEvent(gameObject.GetInstanceID(), new ActorClickedEvent(gameObject, _actorProperties)), OnEnemyClicked);
-            FCB.EventSystem.SingleEventManager.Instance.AddListener<ActorClickedEvent>(gameObject.GetInstanceID(), OnEnemyClicked);
+            FCB.EventSystem.SingleEventManager.Instance.AddListener<ActorClickedSingleEvent>(gameObject.GetInstanceID(), OnEnemyClicked);
 
             _physicsEvents.DestinationReached += DestinationReached;
         }
@@ -40,7 +41,7 @@ namespace ZombieSplasher
         {
             _inputResponse.ActorClicked -= EnemyClicked;
             //FCB.EventSystem.SingleEventManager.Instance.RemoveListener<ActorClickedEvent>(gameObject.GetInstanceID(), OnEnemyClicked);
-            FCB.EventSystem.SingleEventManager.Instance.RemoveListener<ActorClickedEvent>(gameObject.GetInstanceID(), OnEnemyClicked);
+            FCB.EventSystem.SingleEventManager.Instance.RemoveListener<ActorClickedSingleEvent>(gameObject.GetInstanceID(), OnEnemyClicked);
 
             _physicsEvents.DestinationReached -= DestinationReached;
         }

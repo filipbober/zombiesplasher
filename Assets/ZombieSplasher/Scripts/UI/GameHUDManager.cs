@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿// Copyright (C) 2016 Filip Cyrus Bober
+
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace ZombieSplasher
