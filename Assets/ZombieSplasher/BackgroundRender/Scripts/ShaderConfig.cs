@@ -10,7 +10,7 @@ namespace FCB.BackgroundRender
             public const string BgDepthReference = "_BgDepth";
 
             public const string GradientReference = "_Gradient";
-            public const float GradientDefaultValue = 0f;
+            public const float GradientDefaultValue = -0.18f;
 
             public const string DepthColorView = "_DepthView";
             public const float DepthViewOn = 1f;

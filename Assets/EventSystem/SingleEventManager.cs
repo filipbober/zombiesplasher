@@ -87,7 +87,6 @@ namespace FCB.EventSystem
             EventDelegate internalDelegate;
             if (delegates.TryGetValue(key, out internalDelegate))
             {
-                System.Type eventType = typeof(T);
                 EventDelegate eventInvoker;
                 if (delegates.TryGetValue(key, out eventInvoker))
                 {

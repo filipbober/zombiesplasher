@@ -20,7 +20,7 @@ namespace ZombieSplasher
         private CanvasScaler _canvasScaler;
         private Vector2 _referenceResolution;
         private int _screenWidth;
-        private int _screenHeight;
+        //private int _screenHeight;
 
         void Awake()
         {
@@ -110,7 +110,7 @@ namespace ZombieSplasher
         {
             _referenceResolution = _canvasScaler.referenceResolution;
             _screenWidth = Screen.width;
-            _screenHeight = Screen.height;
+            //_screenHeight = Screen.height;
         }
 
         Vector2 ComputeBorderPosition(Vector3 enemyPos)

@@ -52,7 +52,7 @@ namespace ZombieSplasher
         {
             //transform.Rotate(heading, Space.World);
 
-            Vector3 target = heading;
+            //Vector3 target = heading;
 
             //Quaternion _lookRotation = Quaternion.LookRotation(target);
             //transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotationSpeed);

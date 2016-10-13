@@ -36,10 +36,12 @@ namespace ZombieSplasher
         void EnemySpawned(object sender, ActorPropertiesEventArgs e)
         {
             Debug.Log("LevelManager -> EnemySpawned()");
+            _defaultEnemiesLeft--;
         }
 
         void LiveLost()
         {
+            _livesLeft--;
             Debug.Log("LevelManager -> LiveLost()");
         }
 

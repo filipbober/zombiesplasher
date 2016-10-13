@@ -12,12 +12,16 @@ namespace ZombieSplasher
 
         public override void SubscribeEvents()
         {
-            //EventSystem
+            EnemyController.EnemyDown += EnemyDown;
+            EnemySpawner.ActorSpawned += EnemySpawned;
+            EnemyController.DestinationWasReached += LiveLost;
         }
 
         public override void UnsubscribeEvents()
         {
-
+            EnemyController.EnemyDown -= EnemyDown;
+            EnemySpawner.ActorSpawned -= EnemySpawned;
+            EnemyController.DestinationWasReached -= LiveLost;
         }
 
         void Awake()
@@ -26,20 +30,6 @@ namespace ZombieSplasher
                 Instance = this;
             else if (Instance != this)
                 Destroy(gameObject);
-        }
-
-        void OnEnable()
-        {
-            EnemyController.EnemyDown += EnemyDown;
-            EnemySpawner.ActorSpawned += EnemySpawned;
-            EnemyController.DestinationWasReached += LiveLost;
-        }
-
-        void OnDisable()
-        {
-            EnemyController.EnemyDown -= EnemyDown;
-            EnemySpawner.ActorSpawned -= EnemySpawned;
-            EnemyController.DestinationWasReached -= LiveLost;
         }
 
         void EnemyDown(object sender, ActorPropertiesEventArgs e)
