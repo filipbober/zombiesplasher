@@ -27,7 +27,7 @@ namespace ZombieSplasher
         public override void SubscribeEvents()
         {
             //FCB.EventSystem.EventManager.Instance.AddListener<ActorClickedEvent>(OnEnemyClicked);
-            _inputResponse.ActorClicked += EnemyClicked;
+            //_inputResponse.ActorClicked += EnemyClicked;
 
             // TODO: id should be Event owner id, not current gameobject (in this case it is the same)
             // Maybe implement interface ISingleEvent, which contains event and gameobject
@@ -39,7 +39,7 @@ namespace ZombieSplasher
 
         public override void UnsubscribeEvents()
         {
-            _inputResponse.ActorClicked -= EnemyClicked;
+            //_inputResponse.ActorClicked -= EnemyClicked;
             //FCB.EventSystem.SingleEventManager.Instance.RemoveListener<ActorClickedEvent>(gameObject.GetInstanceID(), OnEnemyClicked);
             FCB.EventSystem.SingleEventManager.Instance.RemoveListener<ActorClickedSingleEvent>(gameObject.GetInstanceID(), OnEnemyClicked);
 
@@ -135,22 +135,24 @@ namespace ZombieSplasher
             _mover.SetDestination(_currentWaypoint);
         }
 
-        protected void EnemyClicked(object sender, ActorPropertiesEventArgs e)
-        //protected void OnEnemyClicked(ActorPropertiesEvent e)
-        {
-            if (e.Sender == gameObject)
-            {
-                //FCB.EventSystem.EventManager.Instance.Raise(new SpawnCorpseEvent(gameObject, _actorProperties));
-                OnEnemyDown(new ActorPropertiesEventArgs(gameObject, _actorProperties));
-                //gameObject.SetActive(false);
-                Deactivate();
-            }
-        }
+        //protected void EnemyClicked(object sender, ActorPropertiesEventArgs e)
+        ////protected void OnEnemyClicked(ActorPropertiesEvent e)
+        //{
+        //    if (e.Sender == gameObject)
+        //    {
+        //        //FCB.EventSystem.EventManager.Instance.Raise(new SpawnCorpseEvent(gameObject, _actorProperties));
+        //        OnEnemyDown(new ActorPropertiesEventArgs(gameObject, _actorProperties));
+        //        //gameObject.SetActive(false);
+        //        Deactivate();
+        //    }
+        //}
 
         protected void OnEnemyClicked(ActorPropertiesEvent e)
         {
             Debug.Log("OnEnemyClicked, id =" + gameObject.GetInstanceID());
             Debug.Log("Sender = " + e.Sender.GetInstanceID());
+            Deactivate();
+            OnEnemyDown(new ActorPropertiesEventArgs(gameObject, _actorProperties));
         }
 
         protected void OnEnemyDown(ActorPropertiesEventArgs e)
@@ -159,7 +161,7 @@ namespace ZombieSplasher
             {
                 EnemyDown(this, e);
                 //FCB.EventSystem.EventManager.Instance.Raise(new 
-                FCB.EventSystem.EventManager.Instance.Raise(new SpawnCorpseEvent(e.Sender, e.ActorProperties));
+                FCB.EventSystem.EventManager.Instance.Raise(new SpawnCorpseEvent(e.Sender, e.ActorProperties));          
             }
         }
 
