@@ -7,5 +7,6 @@ namespace ZombieSplasher
         public const string Destination = "Destination";
         public const string Spawn = "Spawn";
         public const string Enemy = "Enemy";
+        public const string Terrain = "Terrain";
     }
 }

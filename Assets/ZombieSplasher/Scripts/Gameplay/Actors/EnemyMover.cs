@@ -1,5 +1,6 @@
 ﻿// Copyright (C) 2016 Filip Cyrus Bober
 
+using System;
 using UnityEngine;
 
 namespace ZombieSplasher
@@ -10,12 +11,23 @@ namespace ZombieSplasher
         private float _speed;
         private float _rotationSpeed;
 
+        private float _defaultSpeed;
+
+        public float DefaultSpeed
+        {
+            get
+            {
+                return _defaultSpeed;
+            }
+        }
 
         public void Initialize(Vector3 destinationPos, float speed, float rotationSpeed)
         {
             _destinationPos = destinationPos;
             _speed = speed;
             _rotationSpeed = rotationSpeed;
+
+            _defaultSpeed = speed;
         }
 
         public void SetDestination(Vector3 destinationPos)

@@ -32,7 +32,7 @@ namespace ZombieSplasher
             // TODO: id should be Event owner id, not current gameobject (in this case it is the same)
             // Maybe implement interface ISingleEvent, which contains event and gameobject
             //FCB.EventSystem.SingleEventManager.Instance.AddListener<ActorClickedEvent>(new FCB.EventSystem.SingleEvent(gameObject.GetInstanceID(), new ActorClickedEvent(gameObject, _actorProperties)), OnEnemyClicked);
-            FCB.EventSystem.SingleEventManager.Instance.AddListener<ActorClickedSingleEvent>(gameObject.GetInstanceID(), OnEnemyClicked);
+            FCB.EventSystem.SingleEventManager.Instance.AddListener<ActorClickedSingleEvent>(gameObject.GetInstanceID(), OnEnemyClicked);            
 
             _physicsEvents.DestinationReached += DestinationReached;
         }
@@ -153,7 +153,7 @@ namespace ZombieSplasher
             Debug.Log("Sender = " + e.Sender.GetInstanceID());
             Deactivate();
             OnEnemyDown(new ActorPropertiesEventArgs(gameObject, _actorProperties));
-        }
+        }        
 
         protected void OnEnemyDown(ActorPropertiesEventArgs e)
         {
