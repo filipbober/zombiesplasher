@@ -27,10 +27,37 @@ namespace ZombieSplasher
 
         void OnTriggerEnter(Collider other)
         {
+            CheckDestinationEnter(other);
+            CheckTerrainEnter(other);
+        }
+
+        void OnTriggerExit(Collider other)
+        {
+            CheckTerrainExit(other);
+        }
+
+        void CheckDestinationEnter(Collider other)
+        {
             if (other.CompareTag(GameTags.Destination))
-            {
                 OnDestinationReached(new ActorPropertiesEventArgs(gameObject, _actorProperties));
+        }
+
+        void CheckTerrainEnter(Collider other)
+        {
+            if (other.CompareTag(GameTags.Terrain))
+            {
+                var speedModifier = other.GetComponent<TerrainSettings>().SpeedModifier;
+                FCB.EventSystem.SingleEventManager.Instance.Raise(gameObject.GetInstanceID(), new TerrainEnterEvent(gameObject, speedModifier));
             }
         }
+
+        void CheckTerrainExit(Collider other)
+        {
+            if (other.CompareTag(GameTags.Terrain))
+            {
+                FCB.EventSystem.SingleEventManager.Instance.Raise(gameObject.GetInstanceID(), new TerrainExitEvent(gameObject));
+            }
+        }
+
     }
 }

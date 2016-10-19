@@ -32,7 +32,9 @@ namespace ZombieSplasher
             // TODO: id should be Event owner id, not current gameobject (in this case it is the same)
             // Maybe implement interface ISingleEvent, which contains event and gameobject
             //FCB.EventSystem.SingleEventManager.Instance.AddListener<ActorClickedEvent>(new FCB.EventSystem.SingleEvent(gameObject.GetInstanceID(), new ActorClickedEvent(gameObject, _actorProperties)), OnEnemyClicked);
-            FCB.EventSystem.SingleEventManager.Instance.AddListener<ActorClickedSingleEvent>(gameObject.GetInstanceID(), OnEnemyClicked);            
+            FCB.EventSystem.SingleEventManager.Instance.AddListener<ActorClickedSingleEvent>(gameObject.GetInstanceID(), OnEnemyClicked);
+            FCB.EventSystem.SingleEventManager.Instance.AddListener<TerrainEnterEvent>(gameObject.GetInstanceID(), OnTerrainEnter);
+            FCB.EventSystem.SingleEventManager.Instance.AddListener<TerrainExitEvent>(gameObject.GetInstanceID(), OnTerrainExit);
 
             _physicsEvents.DestinationReached += DestinationReached;
         }
@@ -42,9 +44,11 @@ namespace ZombieSplasher
             //_inputResponse.ActorClicked -= EnemyClicked;
             //FCB.EventSystem.SingleEventManager.Instance.RemoveListener<ActorClickedEvent>(gameObject.GetInstanceID(), OnEnemyClicked);
             FCB.EventSystem.SingleEventManager.Instance.RemoveListener<ActorClickedSingleEvent>(gameObject.GetInstanceID(), OnEnemyClicked);
+            FCB.EventSystem.SingleEventManager.Instance.RemoveListener<TerrainEnterEvent>(gameObject.GetInstanceID(), OnTerrainEnter);
+            FCB.EventSystem.SingleEventManager.Instance.RemoveListener<TerrainExitEvent>(gameObject.GetInstanceID(), OnTerrainExit);
 
             _physicsEvents.DestinationReached -= DestinationReached;
-        }
+        }        
 
         public void Initialize()
         {
@@ -153,7 +157,7 @@ namespace ZombieSplasher
             Debug.Log("Sender = " + e.Sender.GetInstanceID());
             Deactivate();
             OnEnemyDown(new ActorPropertiesEventArgs(gameObject, _actorProperties));
-        }        
+        }
 
         protected void OnEnemyDown(ActorPropertiesEventArgs e)
         {
@@ -161,7 +165,7 @@ namespace ZombieSplasher
             {
                 EnemyDown(this, e);
                 //FCB.EventSystem.EventManager.Instance.Raise(new 
-                FCB.EventSystem.EventManager.Instance.Raise(new SpawnCorpseEvent(e.Sender, e.ActorProperties));          
+                FCB.EventSystem.EventManager.Instance.Raise(new SpawnCorpseEvent(e.Sender, e.ActorProperties));
             }
         }
 
@@ -195,6 +199,16 @@ namespace ZombieSplasher
             {
                 _destinations[i] = destinations[i].transform;
             }
+        }
+
+        protected virtual void OnTerrainEnter(TerrainEnterEvent e)
+        {
+            _mover.SetSpeed(_properties.Speed * e.SpeedModifier);
+        }
+
+        protected virtual void OnTerrainExit(TerrainExitEvent e)
+        {
+            _mover.SetSpeed(_properties.Speed);
         }
 
         private Transform ComputeClosestDestination()

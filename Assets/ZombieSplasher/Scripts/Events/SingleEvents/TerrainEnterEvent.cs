@@ -2,12 +2,12 @@
 
 namespace ZombieSplasher
 {
-    public class TerrainChangedEvent : FCB.EventSystem.GameEvent, FCB.EventSystem.ISingleEvent
+    public class TerrainEnterEvent : FCB.EventSystem.GameEvent, FCB.EventSystem.ISingleEvent
     {
         public readonly GameObject Sender;
         public readonly float SpeedModifier;
 
-        public TerrainChangedEvent(GameObject sender, float speedModifier)
+        public TerrainEnterEvent(GameObject sender, float speedModifier)
         {
             Sender = sender;
             SpeedModifier = speedModifier;
