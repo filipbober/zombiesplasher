@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿// Copyright (C) 2016 Filip Cyrus Bober
+
+using UnityEngine;
 
 namespace ZombieSplasher
 {
@@ -35,10 +36,12 @@ namespace ZombieSplasher
         void EnemySpawned(object sender, ActorPropertiesEventArgs e)
         {
             Debug.Log("LevelManager -> EnemySpawned()");
+            _defaultEnemiesLeft--;
         }
 
         void LiveLost()
         {
+            _livesLeft--;
             Debug.Log("LevelManager -> LiveLost()");
         }
 

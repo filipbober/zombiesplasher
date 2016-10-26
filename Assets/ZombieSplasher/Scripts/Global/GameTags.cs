@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿// Copyright (C) 2016 Filip Cyrus Bober
 
 namespace ZombieSplasher
 {
@@ -8,5 +7,6 @@ namespace ZombieSplasher
         public const string Destination = "Destination";
         public const string Spawn = "Spawn";
         public const string Enemy = "Enemy";
+        public const string Terrain = "Terrain";
     }
 }

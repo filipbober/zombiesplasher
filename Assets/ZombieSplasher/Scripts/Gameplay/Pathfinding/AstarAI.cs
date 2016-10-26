@@ -1,5 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿
+// TODO: Rewrite this script
+
+using UnityEngine;
 //Note this line, if it is left out, the script won't know that the class 'Path' exists and it will throw compiler errors
 //This line should always be present at the top of scripts which use pathfinding
 using Pathfinding;

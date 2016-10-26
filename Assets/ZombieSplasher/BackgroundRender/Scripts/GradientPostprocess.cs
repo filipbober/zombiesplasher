@@ -34,9 +34,9 @@ namespace FCB.BackgroundRender
         {
             GetComponent<Camera>().depthTextureMode = DepthTextureMode.DepthNormals;
 
-            Camera camera = GetComponent<Camera>();
             _depthGradientMat.SetTexture(BgColorTextureProperty, _colorCamera.GetCameraViewTexture());
             _depthGradientMat.SetTexture(BgDepthTextureProperty, _depthCamera.GetCameraViewTexture());
+            _depthGradientMat.SetFloat(GradientProperty, _gradientValue);
         }
 
         void Update()

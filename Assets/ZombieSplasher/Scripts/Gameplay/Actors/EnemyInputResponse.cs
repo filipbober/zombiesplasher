@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿// Copyright (C) 2016 Filip Cyrus Bober
+
+using UnityEngine;
 using System;
 using UnityEngine.EventSystems;
 
@@ -27,7 +29,7 @@ namespace ZombieSplasher
         {
             //FCB.EventSystem.EventManager.Instance.Raise(new ActorClickedEvent(gameObject, _properties));
             //FCB.EventSystem.SingleEventManager.Instance.Raise(new FCB.EventSystem.SingleEvent(gameObject.GetInstanceID(), new ActorClickedEvent(gameObject, _properties)));
-            FCB.EventSystem.SingleEventManager.Instance.Raise(gameObject.GetInstanceID(), new ActorClickedEvent(gameObject, _properties));
+            FCB.EventSystem.SingleEventManager.Instance.Raise(gameObject.GetInstanceID(), new ActorClickedSingleEvent(gameObject, _properties));
 
 
             OnActorClicked(new ActorPropertiesEventArgs(gameObject, _properties));
