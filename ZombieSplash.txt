@@ -1,2 +1,0 @@
-A Star 2D
--http://hobblygobbly.tumblr.com/post/93960257057/how-to-setup-the-a-pathfinding-project-in-a-2d
