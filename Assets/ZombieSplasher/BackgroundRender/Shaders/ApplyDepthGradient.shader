@@ -12,6 +12,7 @@ Shader "Custom/ApplyDepthGradient"
 
 		_Gradient("3D Gradient [default 0]", Float) = 0
         _EnvGradient("Env Gradient [default 0]", Float) = 0
+        _IsCosOn("Is Cos On [default off = 0]", Float) = 0
     }
 
 	SubShader
@@ -30,10 +31,12 @@ Shader "Custom/ApplyDepthGradient"
 			float _DepthView = 1; // 1 - texture colors; 0 - depth (for debugging purpose)
 			sampler2D _BgColor;
 			sampler2D _BgDepth;
+            sampler2D _BgShaderDepth;
 			sampler2D _MainTex;
 			float4 _DynamicModelsColor;
 			uniform float _Gradient;
             uniform float _EnvGradient;
+            uniform float _IsCosOn; 
 
 			struct v2f
 			{
@@ -66,6 +69,8 @@ Shader "Custom/ApplyDepthGradient"
 				float3 normalValues;
 				float depthValue;
 
+                float3 shaderDepthValues;
+
 				DecodeDepthNormal(tex2D(_CameraDepthNormalsTexture, i.scrPos.xy), depthValue, normalValues);    
 	
 				//depthValue = depthValue - ((1- i.scrPos.y) * _Gradient);		// -0.18
@@ -74,10 +79,19 @@ Shader "Custom/ApplyDepthGradient"
                     float2 mirrorTexCoords = { i.uv.x,1 - i.uv.y };
 
                     float envDepth = tex2D(_BgDepth, mirrorTexCoords);
+                    //float envDepth = tex2D(_BgShaderDepth, mirrorTexCoords);
                     float dynamicDepth = depthValue;
 
                     dynamicDepth = depthValue - ((1 - i.scrPos.y) * _Gradient);
                     envDepth = envDepth - ((1 - i.scrPos.y) * _EnvGradient);
+
+                    // ---
+                    if (_IsCosOn > 0)
+                    {
+                        float angle = radians(90 - 57.8);
+                        envDepth = envDepth + cos(angle) * i.scrPos.y * _EnvGradient;
+                    }
+                    // ---
 
                     bool isObjectOcculedByBackground = (envDepth < dynamicDepth);
 
@@ -110,10 +124,19 @@ Shader "Custom/ApplyDepthGradient"
                     float2 mirrorTexCoords = { i.uv.x,1 - i.uv.y };
 
                     float envDepth = tex2D(_BgDepth, mirrorTexCoords);
+                    //float envDepth = tex2D(_BgShaderDepth, mirrorTexCoords);
                     float dynamicDepth = depthValue;
 
                     dynamicDepth = depthValue - ((1 - i.scrPos.y) * _Gradient);
                     envDepth = envDepth - ((1 - i.scrPos.y) * _EnvGradient);
+
+                    // ---
+                    if (_IsCosOn > 0)
+                    {
+                        float angle = radians(90 - 57.8);
+                        envDepth = envDepth + cos(angle) * i.scrPos.y * _EnvGradient;
+                    }
+                    // ---
 
                     bool isObjectOcculedByBackground = (envDepth < dynamicDepth);
 

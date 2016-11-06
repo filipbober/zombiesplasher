@@ -371,6 +371,8 @@ MonoBehaviour:
   _depthGradientMat: {fileID: 2100000, guid: 5102b491eea93b24aa3811fd023bbc84, type: 2}
   _colorCamera: {fileID: 11462214}
   _depthCamera: {fileID: 11453934}
+  _shaderCamera: {fileID: 114000010493891348, guid: 5b82cf180fd588949bd605907aa70b74,
+    type: 2}
   _gradientValue: -0.18
 --- !u!114 &11483236
 MonoBehaviour:

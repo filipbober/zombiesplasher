@@ -8,6 +8,7 @@ namespace FCB.BackgroundRender
         {
             public const string BgColorReference = "_BgColor";
             public const string BgDepthReference = "_BgDepth";
+            public const string BgShaderDepthTextureReference = "_BgShaderDepth";
 
             public const string GradientReference = "_Gradient";
             public const float GradientDefaultValue = -0.18f;

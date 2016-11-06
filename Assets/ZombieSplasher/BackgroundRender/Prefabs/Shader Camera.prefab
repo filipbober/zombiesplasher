@@ -14,6 +14,7 @@ GameObject:
   - 81: {fileID: 8142740}
   - 114: {fileID: 11469634}
   - 114: {fileID: 11411742}
+  - 114: {fileID: 114000010493891348}
   m_Layer: 0
   m_Name: Shader Camera
   m_TagString: Untagged
@@ -93,8 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ec549092bc06e4693e2dcb01786832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colorCamera: {fileID: 11462214, guid: f52059201ae207c458c30a7ab31db313, type: 2}
-  _depthCamera: {fileID: 11453934, guid: f52059201ae207c458c30a7ab31db313, type: 2}
+  _colorCamera: {fileID: 0}
+  _depthCamera: {fileID: 0}
   _backgroundRenderMat: {fileID: 2100000, guid: d26ff6fe31e918144babf60405e05bcd,
     type: 2}
 --- !u!114 &11469634
@@ -129,3 +130,14 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 117280}
   m_IsPrefabParent: 1
+--- !u!114 &114000010493891348
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 117280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487b0b2993240c94ea809ec6569f5635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

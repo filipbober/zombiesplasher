@@ -114,7 +114,7 @@ Material:
       second: 0
     - first:
         name: _EnvGradient
-      second: 0.12
+      second: 0
     - first:
         name: _FullGradient
       second: -0.06
@@ -124,6 +124,9 @@ Material:
     - first:
         name: _Gradient
       second: -0.18
+    - first:
+        name: _IsCosOn
+      second: 0
     - first:
         name: _Metallic
       second: 0

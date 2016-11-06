@@ -113,6 +113,9 @@ Material:
         name: _Glossiness
       second: 0.5
     - first:
+        name: _IsOn
+      second: 1
+    - first:
         name: _Metallic
       second: 0
     - first:
@@ -123,6 +126,9 @@ Material:
       second: 1
     - first:
         name: _OcclusionStrength
+      second: 1
+    - first:
+        name: _OnOff
       second: 1
     - first:
         name: _Parallax

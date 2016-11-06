@@ -53,6 +53,11 @@ Shader "Custom/RenderBackground"
 
 			fragOut frag(in v2f i)
 			{
+                fragOut oo;
+                oo.depth = 1;
+                oo.color = float4(oo.depth, oo.depth, oo.depth, 1.0);
+                return oo;
+
                 if (_IsOn > 0)
                 {
                     fragOut o;
@@ -69,7 +74,7 @@ Shader "Custom/RenderBackground"
 
                     DecodeDepthNormal(tex2D(_CameraDepthNormalsTexture, i.scrPos.xy), depthValue, normalValues);
 
-                    o.depth = depthValue * 1000;
+                    o.depth = depthValue;
                     o.color = tex2D(_Color, i.uv);
 
                     return o;

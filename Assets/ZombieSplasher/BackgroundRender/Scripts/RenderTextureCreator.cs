@@ -15,6 +15,7 @@ namespace FCB.BackgroundRender
                 CreateRenderTexture();
             }
 
+            Debug.Log("RenderTexture");
             return _renderTexture;
         }
 
