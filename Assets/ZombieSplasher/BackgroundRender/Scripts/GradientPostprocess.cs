@@ -19,7 +19,7 @@ namespace FCB.BackgroundRender
         [SerializeField]
         private float _gradientValue = ShaderConfig.GradientShader.GradientDefaultValue;
 
-        bool showNormalColors = true;
+        bool showNormalColors = false;
 
         private readonly string BgColorTextureProperty = ShaderConfig.GradientShader.BgColorReference;
         private readonly string BgDepthTextureProperty = ShaderConfig.GradientShader.BgDepthReference;

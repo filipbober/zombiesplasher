@@ -71,34 +71,7 @@ Shader "Custom/ApplyDepthGradient"
 				//depthValue = depthValue - ((1- i.scrPos.y) * _Gradient);		// -0.18
 				if (_DepthView == 1)
 				{
-					float2 mirrorTexCoords = { i.uv.x,1 - i.uv.y };
-
-					float envDepth = tex2D(_BgDepth, mirrorTexCoords);
-					float dynamicDepth = depthValue;
-
-                    dynamicDepth = depthValue - ((1 - i.scrPos.y) * _Gradient);
-                    envDepth = envDepth - ((1 - i.scrPos.y) * _EnvGradient);
-
-					bool isObjectOcculedByBackground = (envDepth < dynamicDepth);
-
-                    float4 dynamicObjectColor = tex2D(_MainTex, i.uv);
-                    float4 backgroundColor = tex2D(_BgColor, mirrorTexCoords);                     
-                    
-					if (isObjectOcculedByBackground)
-					{			
-                        o.color = backgroundColor;
-					}
-					else
-					{
-
-                        o.color = dynamicObjectColor;
-					}
-                    
-					return o;
-				}
-				else
-				{		
-					float2 mirrorTexCoords = { i.uv.x,1 - i.uv.y };
+                    float2 mirrorTexCoords = { i.uv.x,1 - i.uv.y };
 
                     float envDepth = tex2D(_BgDepth, mirrorTexCoords);
                     float dynamicDepth = depthValue;
@@ -111,26 +84,53 @@ Shader "Custom/ApplyDepthGradient"
                     //float4 dynamicObjectColor = dynamicDepth;
                     //float4 backgroundColor = envDepth;
 
-					if (isObjectOcculedByBackground)
-					{
-                        float4 color = float4(0.3, envDepth, 0.3, 1.0);
+                    if (isObjectOcculedByBackground)
+                    {
+                        float4 color = float4(envDepth, envDepth, envDepth, 1.0);
 
                         //o.color.x = backgroundColor + _DynamicModelsColor.z;
                         o.color = color;
-					}
-					else
-					{				 
-						//float4 color = float4(depthValue, depthValue, depthValue, 1.0);
-                        float4 color = float4(0, 0.5, depthValue, 1.0);
+                    }
+                    else
+                    {
+                        //float4 color = float4(depthValue, depthValue, depthValue, 1.0);
+                        float4 color = float4(depthValue, depthValue, depthValue, 1.0);
 
                         //color.x = (_DynamicModelsColor.x == 0) ? depthValue : _DynamicModelsColor.x;
                         //color.y = (_DynamicModelsColor.y == 0) ? depthValue : _DynamicModelsColor.y;
                         //color.z = (_DynamicModelsColor.z == 0) ? depthValue : _DynamicModelsColor.z;
 
-						o.color = color;
-					}
+                        o.color = color;
+                    }
 
-					return o;
+                    return o;
+				}
+				else
+				{		
+                    float2 mirrorTexCoords = { i.uv.x,1 - i.uv.y };
+
+                    float envDepth = tex2D(_BgDepth, mirrorTexCoords);
+                    float dynamicDepth = depthValue;
+
+                    dynamicDepth = depthValue - ((1 - i.scrPos.y) * _Gradient);
+                    envDepth = envDepth - ((1 - i.scrPos.y) * _EnvGradient);
+
+                    bool isObjectOcculedByBackground = (envDepth < dynamicDepth);
+
+                    float4 dynamicObjectColor = tex2D(_MainTex, i.uv);
+                    float4 backgroundColor = tex2D(_BgColor, mirrorTexCoords);
+
+                    if (isObjectOcculedByBackground)
+                    {
+                        o.color = backgroundColor;
+                    }
+                    else
+                    {
+
+                        o.color = dynamicObjectColor;
+                    }
+
+                    return o;					
 				}
 			}
 

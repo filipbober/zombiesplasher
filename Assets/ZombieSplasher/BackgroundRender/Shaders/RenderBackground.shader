@@ -7,6 +7,8 @@ Shader "Custom/RenderBackground"
         // Set from script
         _Color("Color camera view (RGB)", 2D) = "white" {}
 		_Depth("Depth camera view (RGB)", 2D) = "white" {}
+
+        _IsOn("IsOn [default On = 1]", Float) = 1
     }
 
     SubShader
@@ -19,13 +21,18 @@ Shader "Custom/RenderBackground"
 		    #pragma fragment frag
 		    #include "UnityCG.cginc"
 
+            sampler2D _CameraDepthNormalsTexture;
+
 			sampler2D _Color;
 			sampler2D _Depth;
 
+            uniform float _IsOn;
+
 			struct v2f
 			{
-				float4 position : POSITION;
+				float4 pos : SV_POSITION;
 				float2 uv : TEXCOORD0;
+                float4 scrPos: TEXCOORD1;
 			};
 
 			struct fragOut
@@ -37,7 +44,8 @@ Shader "Custom/RenderBackground"
 			v2f vert(appdata_base v)
 			{
 				v2f o;
-				o.position = mul(UNITY_MATRIX_MVP, v.vertex);
+				o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+                o.scrPos = ComputeScreenPos(o.pos);
 				o.uv = v.texcoord;
 
 				return o;
@@ -45,11 +53,27 @@ Shader "Custom/RenderBackground"
 
 			fragOut frag(in v2f i)
 			{
-				fragOut o;
-				o.color = tex2D(_Color, i.uv);
-				o.depth = tex2D(_Depth, i.uv);
+                if (_IsOn > 0)
+                {
+                    fragOut o;
+                    o.color = tex2D(_Color, i.uv);
+                    o.depth = tex2D(_Depth, i.uv);
+                    return o;
+                }
+                else
+                {
+                    fragOut o;
 
-				return o;
+                    float3 normalValues;
+                    float depthValue;
+
+                    DecodeDepthNormal(tex2D(_CameraDepthNormalsTexture, i.scrPos.xy), depthValue, normalValues);
+
+                    o.depth = depthValue * 1000;
+                    o.color = tex2D(_Color, i.uv);
+
+                    return o;
+                }
 			}
 
 			ENDCG
