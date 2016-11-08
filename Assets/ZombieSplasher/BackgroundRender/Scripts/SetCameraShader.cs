@@ -25,10 +25,5 @@ namespace FCB.BackgroundRender
             _backgroundRenderMat.SetTexture(DepthCameraView, _depthCamera.GetCameraViewTexture());
         }
 
-        void OnRenderImage(RenderTexture source, RenderTexture destination)
-        {
-            Graphics.Blit(null, destination, _backgroundRenderMat);
-        }
-
     }
 }

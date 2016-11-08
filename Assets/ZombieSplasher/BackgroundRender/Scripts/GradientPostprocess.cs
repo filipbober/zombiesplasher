@@ -8,6 +8,9 @@ namespace FCB.BackgroundRender
     public class GradientPostprocess : MonoBehaviour
     {
         [SerializeField]
+        private Material _backgroundRenderMat;
+
+        [SerializeField]
         private Material _depthGradientMat;
 
         [SerializeField]
@@ -65,6 +68,11 @@ namespace FCB.BackgroundRender
 
         void OnRenderImage(RenderTexture source, RenderTexture destination)
         {
+
+            //RenderTexture dst = new RenderTexture(source.width, source.height, source.depth);
+            //Graphics.Blit(source, dst, _backgroundRenderMat);
+            //Graphics.Blit(dst, destination, _depthGradientMat);
+
             Graphics.Blit(source, destination, _depthGradientMat);
         }
     }
