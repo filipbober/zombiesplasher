@@ -123,10 +123,10 @@ Material:
       second: 0.5
     - first:
         name: _Gradient
-      second: -0.18
+      second: 0
     - first:
         name: _IsCosOn
-      second: 0
+      second: 1
     - first:
         name: _Metallic
       second: 0

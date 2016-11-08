@@ -89,7 +89,7 @@ Shader "Custom/ApplyDepthGradient"
                     if (_IsCosOn > 0)
                     {
                         float angle = radians(90 - 57.8);
-                        envDepth = envDepth + cos(angle) * i.scrPos.y * _EnvGradient;
+                        envDepth = envDepth + sin(angle) * i.scrPos.y * _EnvGradient;
                     }
                     // ---
 
@@ -134,7 +134,7 @@ Shader "Custom/ApplyDepthGradient"
                     if (_IsCosOn > 0)
                     {
                         float angle = radians(90 - 57.8);
-                        envDepth = envDepth + cos(angle) * i.scrPos.y * _EnvGradient;
+                        envDepth = envDepth + sin(angle) * i.scrPos.y * _EnvGradient;
                     }
                     // ---
 
