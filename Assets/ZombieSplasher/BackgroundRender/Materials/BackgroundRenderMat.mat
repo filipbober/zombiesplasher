@@ -114,7 +114,7 @@ Material:
       second: 0.5
     - first:
         name: _IsOn
-      second: 1
+      second: 0
     - first:
         name: _Metallic
       second: 0

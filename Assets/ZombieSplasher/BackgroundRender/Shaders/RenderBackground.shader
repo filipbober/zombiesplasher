@@ -53,10 +53,10 @@ Shader "Custom/RenderBackground"
 
 			fragOut frag(in v2f i)
 			{
-                fragOut oo;
-                oo.depth = 1;
-                oo.color = float4(oo.depth, oo.depth, oo.depth, 1.0);
-                return oo;
+                //fragOut oo;
+                //oo.depth = 1;
+                //oo.color = float4(oo.depth, oo.depth, oo.depth, 1.0);
+                //return oo;
 
                 if (_IsOn > 0)
                 {
