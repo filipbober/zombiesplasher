@@ -64,6 +64,8 @@ namespace FCB.BackgroundRender
             {
                 _depthGradientMat.SetFloat(DepthColorViewProperty, DepthViewOff);
             }
+
+            
         }
 
         void OnRenderImage(RenderTexture source, RenderTexture destination)
@@ -74,6 +76,10 @@ namespace FCB.BackgroundRender
             //Graphics.Blit(dst, destination, _depthGradientMat);
 
             Graphics.Blit(source, destination, _depthGradientMat);
+            // ---
+            //var height = _depthGradientMat.GetFloat("_Gradient");
+            //Debug.Log(height);
+            // ---
         }
     }
 }

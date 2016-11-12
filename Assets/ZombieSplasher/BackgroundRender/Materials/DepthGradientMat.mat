@@ -114,7 +114,7 @@ Material:
       second: 0
     - first:
         name: _EnvGradient
-      second: 0
+      second: 5.01
     - first:
         name: _FullGradient
       second: -0.06
@@ -127,6 +127,9 @@ Material:
     - first:
         name: _IsCosOn
       second: 1
+    - first:
+        name: _MaxHeight
+      second: 0.1
     - first:
         name: _Metallic
       second: 0

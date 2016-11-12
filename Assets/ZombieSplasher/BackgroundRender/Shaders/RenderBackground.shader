@@ -33,7 +33,7 @@ Shader "Custom/RenderBackground"
 			{
 				float4 pos : SV_POSITION;
 				float2 uv : TEXCOORD0;
-                float4 scrPos: TEXCOORD1;
+                float4 scrPos: TEXCOORD1;                
 			};
 
 			struct fragOut
@@ -47,7 +47,7 @@ Shader "Custom/RenderBackground"
 				v2f o;
 				o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
                 o.scrPos = ComputeScreenPos(o.pos);
-				o.uv = v.texcoord.xy;
+				o.uv = v.texcoord.xy;                
 
 				return o;
 			}
@@ -59,9 +59,10 @@ Shader "Custom/RenderBackground"
                 //oo.color = float4(oo.depth, oo.depth, oo.depth, 1.0);
                 //return oo;
 
-                half4 depth = half4(Linear01Depth(tex2D(_CameraDepthTexture, i.uv).r);                
-                return depth;
-                // ---
+                //half4 depth = half4(Linear01Depth(tex2D(_CameraDepthTexture, i.uv).r);        
+                //o.color = depth;
+                //return o;
+                // ---                
 
                 if (_IsOn > 0)
                 {

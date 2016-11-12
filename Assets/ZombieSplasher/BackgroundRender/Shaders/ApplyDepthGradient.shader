@@ -11,7 +11,7 @@ Shader "Custom/ApplyDepthGradient"
 		_Depth("Depth (RGB)", 2D) = "white" {} 
 
 		_Gradient("3D Gradient [default 0]", Float) = 0
-        _EnvGradient("Env Gradient [default 0]", Float) = 0
+        _MaxHeight("_MaxHeight [default 0.1]", Float) = 0.1
         _IsCosOn("Is Cos On [default off = 0]", Float) = 0
     }
 
@@ -33,16 +33,19 @@ Shader "Custom/ApplyDepthGradient"
 			sampler2D _BgDepth;
             sampler2D _BgShaderDepth;
 			sampler2D _MainTex;
+            sampler2D _CameraDepthTexture;
 			float4 _DynamicModelsColor;
 			uniform float _Gradient;
-            uniform float _EnvGradient;
+            uniform float _MaxHeight;
             uniform float _IsCosOn; 
 
 			struct v2f
 			{
 				float4 pos : SV_POSITION;
-				half2 uv   : TEXCOORD0;
+				float2 uv   : TEXCOORD0;
 				float4 scrPos: TEXCOORD1;
+                float4 posInObjectCoords : TEXCOORD2;
+
 			};
 
 			v2f vert(appdata_base v)
@@ -52,13 +55,22 @@ Shader "Custom/ApplyDepthGradient"
 				o.scrPos = ComputeScreenPos(o.pos);
 				//o.scrPos.y = 1 - o.scrPos.y;
 				o.uv = v.texcoord.xy;
+                o.posInObjectCoords = v.vertex;
+
+
+                //float vz = mul(UNITY_MATRIX_MV, v.vertex).z;
+                //float depth = _offset + abs((1 - clamp(-vz / _farDepth, 0, 2)) * _depthScale);
+
+                //needs float _offset, _farDepth, _depthScale
 
 				return o;
 			}			
 
 			struct fragOut
 			{
-				half4 color : SV_Target;
+				//half4 color : SV_Target;
+                half4 color : COLOR;
+                //float depth : DEPTH;
 			};
 
 			fragOut frag(v2f i) //: COLOR
@@ -74,28 +86,66 @@ Shader "Custom/ApplyDepthGradient"
                 float dynamicDepth;
                 float3 dynamicNormals;
                 DecodeDepthNormal(tex2D(_CameraDepthNormalsTexture, i.scrPos.xy), dynamicDepth, dynamicNormals);
-                float backgroundDepth = tex2D(_BgDepth, mirrorTexCoords);
+                float backgroundDepth = tex2D(_BgDepth, mirrorTexCoords);                
 
+                // ---
+                //float height = i.posInObjectCoords.z;
+                //float height = 1 - ((1 - i.pos.z) / _MaxHeight);
+                float height = i.pos.z;
+                height = _MaxHeight;
+                dynamicDepth = 1 - height;
+
+                // 10 - max height
+                //dynamicDepth = 1 - (height / _MaxHeight);
+                //dynamicDepth = 1 - (height / _MaxHeight);
+                //dynamicDepth = 1 - (_MaxHeight / height);
+
+                //half4 depth = half4(Linear01Depth(tex2D(_CameraDepthTexture, i.uv).r);
+                //half4 depth = half4(Linear01Depth(tex2D(_CameraDepthTexture, i.uv).r);
+                //dynamicDepth = depth;
+
+                //if (i.posInObjectCoords.y > 0.0)
+                //{
+                //    //discard;
+                //    o.color = float4(0, 0, 0, 1);
+                //    //o.color = return float4(0.0, 1.0, 0.0, 1.0);
+                //    return o;
+                //}
+                // ---
+
+                //http://answers.unity3d.com/questions/187455/shader-get-vertex-height-relative-to-model.html
                 bool isBackgroundCloser = false;
                 if (backgroundDepth < dynamicDepth)
                     isBackgroundCloser = true;
 
+                //if (backgroundDepth > 0.95)
+                //    isBackgroundCloser = false;
 
-                if (_DepthView == 1)
-                {
+                //if (height <= 0.01)
+                //    isBackgroundCloser = true;
+
+                // ---
+                //if (dynamicDepth > 0 && dynamicDepth < 1.0)
+                //    isBackgroundCloser = false;
+                //else
+                //    isBackgroundCloser = true;
+                // ---
+
+                if (_DepthView > 0)
+                {                  
                     if (isBackgroundCloser)
                         o.color = backgroundDepth;
                     else
-                        o.color = dynamicDepth;
+                        o.color = dynamicDepth;       
                 }
                 else
                 {
                     if (isBackgroundCloser)
                         o.color = backgroundColor;
                     else
-                        o.color = dynamicColor;
+                        o.color = dynamicColor;                      
                 }
-
+                
                 return o;
 
 				//fragOut o;
@@ -117,13 +167,13 @@ Shader "Custom/ApplyDepthGradient"
     //                float dynamicDepth = depthValue;
 
     //                dynamicDepth = depthValue - ((1 - i.scrPos.y) * _Gradient);
-    //                envDepth = envDepth - ((1 - i.scrPos.y) * _EnvGradient);
+    //                envDepth = envDepth - ((1 - i.scrPos.y) * _MaxHeight);
 
     //                // ---
     //                if (_IsCosOn > 0)
     //                {
     //                    float angle = radians(90 - 57.8);
-    //                    envDepth = envDepth + sin(angle) * i.scrPos.y * _EnvGradient;
+    //                    envDepth = envDepth + sin(angle) * i.scrPos.y * _MaxHeight;
     //                }
     //                // ---
 
@@ -162,13 +212,13 @@ Shader "Custom/ApplyDepthGradient"
     //                float dynamicDepth = depthValue;
 
     //                dynamicDepth = depthValue - ((1 - i.scrPos.y) * _Gradient);
-    //                envDepth = envDepth - ((1 - i.scrPos.y) * _EnvGradient);
+    //                envDepth = envDepth - ((1 - i.scrPos.y) * _MaxHeight);
 
     //                // ---
     //                if (_IsCosOn > 0)
     //                {
     //                    float angle = radians(90 - 57.8);
-    //                    envDepth = envDepth + sin(angle) * i.scrPos.y * _EnvGradient;
+    //                    envDepth = envDepth + sin(angle) * i.scrPos.y * _MaxHeight;
     //                }
     //                // ---
 
