@@ -48,7 +48,7 @@ Shader "Custom/ApplyDepthGradient"
 				float4 scrPos: TEXCOORD1;
                 float4 posInObjectCoords : TEXCOORD2;
 
-                //float3 worldPos;
+                float3 worldPos : TEXCOORD3;
 			};
 
 			v2f vert(appdata_base v)
@@ -60,7 +60,7 @@ Shader "Custom/ApplyDepthGradient"
 				o.uv = v.texcoord.xy;
                 o.posInObjectCoords = v.vertex;
 
-                //o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
                 //float vz = mul(UNITY_MATRIX_MV, v.vertex).z;
                 //float depth = _offset + abs((1 - clamp(-vz / _farDepth, 0, 2)) * _depthScale);
 
@@ -94,11 +94,14 @@ Shader "Custom/ApplyDepthGradient"
                 // ---
                 //float height = i.posInObjectCoords.z;
                 //float height = 1 - ((1 - i.pos.z) / _MaxHeight);
-                float height = i.pos.z;
-                height = _MaxHeight;
-                dynamicDepth = 1 - height;
+                //float height = i.pos.z;
+                //height = _MaxHeight;
+                //dynamicDepth = 1 - height;
 
-                //float height = i.worldPos.y;
+                float height = 1 - (i.worldPos.z / _MaxHeight);
+
+                dynamicDepth = height;
+
 
                 // 10 - max height
                 //dynamicDepth = 1 - (height / _MaxHeight);
