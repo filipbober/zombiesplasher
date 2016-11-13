@@ -23,6 +23,8 @@ Shader "Custom/ApplyDepthGradient"
 		{
 
 			CGPROGRAM
+// Upgrade NOTE: excluded shader from DX11 and Xbox360; has structs without semantics (struct v2f members worldPos)
+//#pragma exclude_renderers d3d11 xbox360
 			#pragma vertex vert
 			#pragma fragment frag
 			#include "UnityCG.cginc"
@@ -46,6 +48,7 @@ Shader "Custom/ApplyDepthGradient"
 				float4 scrPos: TEXCOORD1;
                 float4 posInObjectCoords : TEXCOORD2;
 
+                //float3 worldPos;
 			};
 
 			v2f vert(appdata_base v)
@@ -57,7 +60,7 @@ Shader "Custom/ApplyDepthGradient"
 				o.uv = v.texcoord.xy;
                 o.posInObjectCoords = v.vertex;
 
-
+                //o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
                 //float vz = mul(UNITY_MATRIX_MV, v.vertex).z;
                 //float depth = _offset + abs((1 - clamp(-vz / _farDepth, 0, 2)) * _depthScale);
 
@@ -94,6 +97,8 @@ Shader "Custom/ApplyDepthGradient"
                 float height = i.pos.z;
                 height = _MaxHeight;
                 dynamicDepth = 1 - height;
+
+                //float height = i.worldPos.y;
 
                 // 10 - max height
                 //dynamicDepth = 1 - (height / _MaxHeight);
@@ -247,3 +252,65 @@ Shader "Custom/ApplyDepthGradient"
     
 	FallBack "Diffuse"
 }
+
+
+
+
+
+
+
+
+
+
+
+// http://answers.unity3d.com/questions/300106/shader-height-lines.html   
+//Shader "Custom/Height"
+//     {
+//     Properties
+//     {
+//         _Color("Color", Color) = (0.5, 0.5, 0.5, 0.5)
+//         _Step("Step", Float) = 50.0
+//     }
+//
+//         SubShader
+//     {
+//         Pass
+//     {
+//         CGPROGRAM
+//         // Upgrade NOTE: excluded shader from Xbox360; has structs without semantics (struct v2f members worldPos)
+//#pragma exclude_renderers xbox360
+//#pragma vertex vert
+//#pragma fragment frag
+//#include "UnityCG.cginc"
+//
+//         fixed4 _Color;
+//     float _Step;
+//
+//     struct v2f
+//     {
+//         float4 pos : SV_POSITION;
+//         float3 worldPos;
+//     };
+//
+//     v2f vert(appdata_base v)
+//     {
+//         v2f o;
+//         o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+//         o.worldPos = mul(_Object2World, v.vertex).xyz;
+//         return o;
+//     }
+//
+//     half4 frag(v2f i) : COLOR
+//     {
+//         return _Color * fixed4(
+//             fixed3(
+//                 1.0 - pow(
+//                 (float)((int)i.worldPos.y % (int)_Step) / _Step,
+//                     2)
+//             ),
+//             1);
+//     }
+//         ENDCG
+//     }
+//     }
+//     }

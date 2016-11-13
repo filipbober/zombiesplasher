@@ -165,6 +165,28 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 435694, guid: 7a4b22b5a336c3d4099fea529a68628d, type: 2}
   m_PrefabInternal: {fileID: 99403918}
+--- !u!84 &126788908
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_Width: 734
+  m_Height: 413
+  m_AntiAliasing: 1
+  m_DepthFormat: 2
+  m_ColorFormat: 0
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_TextureSettings:
+    m_FilterMode: 1
+    m_Aniso: 0
+    m_MipBias: 0
+    m_WrapMode: 1
 --- !u!1001 &180460667
 Prefab:
   m_ObjectHideFlags: 0
@@ -270,7 +292,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114000013310852912, guid: 4175133b5b4a7514496a3d9429902354, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 4175133b5b4a7514496a3d9429902354, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &233036022
@@ -529,28 +552,6 @@ Transform:
   - {fileID: 1183900261}
   m_Father: {fileID: 0}
   m_RootOrder: 7
---- !u!84 &479614396
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_Width: 734
-  m_Height: 413
-  m_AntiAliasing: 1
-  m_DepthFormat: 2
-  m_ColorFormat: 0
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_TextureSettings:
-    m_FilterMode: 1
-    m_Aniso: 0
-    m_MipBias: 0
-    m_WrapMode: 1
 --- !u!1 &480697668
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,11 +829,11 @@ Prefab:
     - target: {fileID: 2066510, guid: f52059201ae207c458c30a7ab31db313, type: 2}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 479614396}
+      objectReference: {fileID: 1703746659}
     - target: {fileID: 2003204, guid: f52059201ae207c458c30a7ab31db313, type: 2}
       propertyPath: m_TargetTexture
       value: 
-      objectReference: {fileID: 1397925872}
+      objectReference: {fileID: 126788908}
     - target: {fileID: 2003204, guid: f52059201ae207c458c30a7ab31db313, type: 2}
       propertyPath: m_Depth
       value: 1
@@ -861,6 +862,10 @@ Prefab:
       propertyPath: _backgroundRenderMat
       value: 
       objectReference: {fileID: 2100000, guid: d26ff6fe31e918144babf60405e05bcd, type: 2}
+    - target: {fileID: 145638, guid: f52059201ae207c458c30a7ab31db313, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f52059201ae207c458c30a7ab31db313, type: 2}
   m_IsPrefabParent: 0
@@ -1771,28 +1776,6 @@ Transform:
   - {fileID: 856602724}
   m_Father: {fileID: 1279985211}
   m_RootOrder: 0
---- !u!84 &1397925872
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_Width: 734
-  m_Height: 413
-  m_AntiAliasing: 1
-  m_DepthFormat: 2
-  m_ColorFormat: 0
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_TextureSettings:
-    m_FilterMode: 1
-    m_Aniso: 0
-    m_MipBias: 0
-    m_WrapMode: 1
 --- !u!4 &1410157831 stripped
 Transform:
   m_PrefabParentObject: {fileID: 490090, guid: f52059201ae207c458c30a7ab31db313, type: 2}
@@ -2298,6 +2281,28 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 399df4a813bed124ba323e59187cc04c, type: 2}
   m_IsPrefabParent: 0
+--- !u!84 &1703746659
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_Width: 734
+  m_Height: 413
+  m_AntiAliasing: 1
+  m_DepthFormat: 2
+  m_ColorFormat: 0
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_TextureSettings:
+    m_FilterMode: 1
+    m_Aniso: 0
+    m_MipBias: 0
+    m_WrapMode: 1
 --- !u!1 &1733387116
 GameObject:
   m_ObjectHideFlags: 0
