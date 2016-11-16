@@ -23,6 +23,9 @@ namespace FCB.BackgroundRender
         private RenderTextureCreator _shaderCamera;
 
         [SerializeField]
+        private RenderTextureCreator _3dDepthCamera;
+
+        [SerializeField]
         private float _gradientValue = ShaderConfig.GradientShader.GradientDefaultValue;
 
         bool showNormalColors = false;
@@ -47,6 +50,9 @@ namespace FCB.BackgroundRender
             _depthGradientMat.SetTexture(BgDepthTextureProperty, _depthCamera.GetCameraViewTexture());
             _depthGradientMat.SetTexture(BgShaderDepthTextureReference, _depthCamera.GetCameraViewTexture());
             _depthGradientMat.SetFloat(GradientProperty, _gradientValue);
+
+            // ---
+            _depthGradientMat.SetTexture("_3dDepth", _3dDepthCamera.GetCameraViewTexture());
         }
 
         void Update()

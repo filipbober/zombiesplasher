@@ -34,6 +34,7 @@ Shader "Custom/ApplyDepthGradient"
 			sampler2D _BgColor;
 			sampler2D _BgDepth;
             sampler2D _BgShaderDepth;
+            sampler2D _3dDepth;
 			sampler2D _MainTex;
             sampler2D _CameraDepthTexture;
 			float4 _DynamicModelsColor;
@@ -60,11 +61,16 @@ Shader "Custom/ApplyDepthGradient"
 				o.uv = v.texcoord.xy;
                 o.posInObjectCoords = v.vertex;
 
+                // Camera world pos...
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+                 //o.worldPos = mul(_Object2World, float4(0, 0, 0, 1)).xyz;
                 //float vz = mul(UNITY_MATRIX_MV, v.vertex).z;
                 //float depth = _offset + abs((1 - clamp(-vz / _farDepth, 0, 2)) * _depthScale);
 
                 //needs float _offset, _farDepth, _depthScale
+
+
+                //o.worldPos.x = normalize(-v.vertex).z;
 
 				return o;
 			}			
@@ -98,10 +104,15 @@ Shader "Custom/ApplyDepthGradient"
                 //height = _MaxHeight;
                 //dynamicDepth = 1 - height;
 
-                float height = 1 - (i.worldPos.z / _MaxHeight);
+                //float height = 10 - (i.worldPos.z / _MaxHeight);
+                //float height =  1 - (i.worldPos.y - _MaxHeight);
+                float height = 1 - (i.worldPos.z - _MaxHeight);
+                //dynamicDepth += height;
 
+                height = 1 - (i.worldPos.x + _MaxHeight);
+                height = i.posInObjectCoords.x + _MaxHeight;
+                height = i.worldPos.x + _MaxHeight;
                 dynamicDepth = height;
-
 
                 // 10 - max height
                 //dynamicDepth = 1 - (height / _MaxHeight);
