@@ -129,7 +129,7 @@ Material:
       second: 1
     - first:
         name: _MaxHeight
-      second: 1.17
+      second: 0.64
     - first:
         name: _Metallic
       second: 0
