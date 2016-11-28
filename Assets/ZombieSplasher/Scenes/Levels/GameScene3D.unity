@@ -362,16 +362,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
-<<<<<<< HEAD
-    - target: {fileID: 1000011393466632, guid: 4175133b5b4a7514496a3d9429902354, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-=======
     m_RemovedComponents:
     - {fileID: 114000013310852912, guid: 4175133b5b4a7514496a3d9429902354, type: 2}
->>>>>>> feature/shaders
   m_ParentPrefab: {fileID: 100100000, guid: 4175133b5b4a7514496a3d9429902354, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &233036022
@@ -1087,13 +1079,6 @@ Prefab:
     - target: {fileID: 2066510, guid: f52059201ae207c458c30a7ab31db313, type: 2}
       propertyPath: m_TargetTexture
       value: 
-<<<<<<< HEAD
-      objectReference: {fileID: 1772578044}
-    - target: {fileID: 2003204, guid: f52059201ae207c458c30a7ab31db313, type: 2}
-      propertyPath: m_TargetTexture
-      value: 
-      objectReference: {fileID: 1085501175}
-=======
       objectReference: {fileID: 464913775}
     - target: {fileID: 2003204, guid: f52059201ae207c458c30a7ab31db313, type: 2}
       propertyPath: m_TargetTexture
@@ -1159,7 +1144,6 @@ Prefab:
       propertyPath: m_BackGroundColor.a
       value: 0
       objectReference: {fileID: 0}
->>>>>>> feature/shaders
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f52059201ae207c458c30a7ab31db313, type: 2}
   m_IsPrefabParent: 0
@@ -1984,28 +1968,6 @@ Transform:
   - {fileID: 878723046}
   m_Father: {fileID: 0}
   m_RootOrder: 9
---- !u!84 &1085501175
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_Width: 732
-  m_Height: 412
-  m_AntiAliasing: 1
-  m_DepthFormat: 2
-  m_ColorFormat: 0
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_TextureSettings:
-    m_FilterMode: 1
-    m_Aniso: 0
-    m_MipBias: 0
-    m_WrapMode: 1
 --- !u!224 &1096712585
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2086,8 +2048,6 @@ Transform:
   - {fileID: 575950121}
   m_Father: {fileID: 448118187}
   m_RootOrder: 1
-<<<<<<< HEAD
-=======
 --- !u!1 &1247258776
 GameObject:
   m_ObjectHideFlags: 0
@@ -2237,7 +2197,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shader: {fileID: 4800000, guid: 7a8dfc21a245adf4788e72c43e8c14e4, type: 3}
   _div: 1
->>>>>>> feature/shaders
 --- !u!1 &1269230294
 GameObject:
   m_ObjectHideFlags: 0
@@ -3039,30 +2998,6 @@ Transform:
   - {fileID: 314348310}
   m_Father: {fileID: 1279985211}
   m_RootOrder: 1
-<<<<<<< HEAD
---- !u!84 &1772578044
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_Width: 732
-  m_Height: 412
-  m_AntiAliasing: 1
-  m_DepthFormat: 2
-  m_ColorFormat: 0
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_TextureSettings:
-    m_FilterMode: 1
-    m_Aniso: 0
-    m_MipBias: 0
-    m_WrapMode: 1
-=======
 --- !u!1 &1736697994
 GameObject:
   m_ObjectHideFlags: 0
@@ -3142,7 +3077,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 149625870}
   m_RootOrder: 1
->>>>>>> feature/shaders
 --- !u!1 &1861218904
 GameObject:
   m_ObjectHideFlags: 0
