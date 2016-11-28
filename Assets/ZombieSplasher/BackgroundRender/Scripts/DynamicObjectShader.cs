@@ -15,4 +15,9 @@ public class DynamicObjectShader : MonoBehaviour
             GetComponent<Camera>().SetReplacementShader(_shader, null);
     }
 
+    public void Update()
+    {
+
+    }
+
 }

@@ -94,7 +94,7 @@ Shader "Custom/ApplyDepthGradient"
 
                 float dynamicDepth;
                 float3 dynamicNormals;
-                DecodeDepthNormal(tex2D(_CameraDepthNormalsTexture, i.scrPos.xy), dynamicDepth, dynamicNormals);
+                //DecodeDepthNormal(tex2D(_CameraDepthNormalsTexture, i.scrPos.xy), dynamicDepth, dynamicNormals);
                 //float backgroundDepth = tex2D(_BgDepth, mirrorTexCoords);   
                 float backgroundDepth = tex2D(_BgDepth, mirrorTexCoords);
 
@@ -107,16 +107,17 @@ Shader "Custom/ApplyDepthGradient"
 
                 //float height = 10 - (i.worldPos.z / _MaxHeight);
                 //float height =  1 - (i.worldPos.y - _MaxHeight);
-                float height = 1 - (i.worldPos.z - _MaxHeight);
+                //float height = 1 - (i.worldPos.z - _MaxHeight);
                 //dynamicDepth += height;
 
                 //height = 1 - (i.worldPos.x + _MaxHeight);
                 //height = i.posInObjectCoords.x + _MaxHeight;
                 //height = i.worldPos.x + _MaxHeight;
                 //dynamicDepth = height;
-                dynamicDepth = tex2D(_3dDepth, mirrorTexCoords);
-                //dynamicDepth = pow(dynamicDepth, 3);
-                dynamicDepth = 1 - dynamicDepth;
+                //dynamicDepth = tex2D(_3dDepth, mirrorTexCoords);
+                //dynamicDepth = pow(dynamicDepth, 2);
+                //dynamicDepth = 1 - dynamicDepth;
+                //dynamicDepth += 0.01;
 
                 // 10 - max height
                 //dynamicDepth = 1 - (height / _MaxHeight);
@@ -136,12 +137,36 @@ Shader "Custom/ApplyDepthGradient"
                 //}
                 // ---
 
+
+
+
+
+                dynamicDepth = tex2D(_3dDepth, mirrorTexCoords);
+                dynamicDepth = 1 - dynamicDepth;
                 //http://answers.unity3d.com/questions/187455/shader-get-vertex-height-relative-to-model.html
                 bool isBackgroundCloser = false;
-                if (backgroundDepth < dynamicDepth)
+                if (backgroundDepth <= dynamicDepth)
                     isBackgroundCloser = true;
 
-                //if (dynamicDepth > 0.1)
+                //if (dynamicDepth >= 0.99)
+                //    isBackgroundCloser = true;
+
+
+                //dynamicDepth = tex2D(_3dDepth, mirrorTexCoords);
+                //dynamicDepth = dynamicDepth;
+                ////http://answers.unity3d.com/questions/187455/shader-get-vertex-height-relative-to-model.html
+                //bool isBackgroundCloser = false;
+                //if (backgroundDepth >= dynamicDepth)
+                //    isBackgroundCloser = true;
+
+                //if (dynamicDepth <= 0.01)
+                //    isBackgroundCloser = true;
+
+
+
+                //isBackgroundCloser = false;
+
+                //if (dynamicDepth > 0.9)
                 //    isBackgroundCloser = true;
 
                 //if (backgroundDepth > 0.95)

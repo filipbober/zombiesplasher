@@ -42,7 +42,7 @@ namespace FCB.BackgroundRender
 
         void Start()
         {
-            GetComponent<Camera>().depthTextureMode = DepthTextureMode.DepthNormals;
+            //GetComponent<Camera>().depthTextureMode = DepthTextureMode.DepthNormals;
 
             //_depthGradientMat.SetTexture(BgColorTextureProperty, _colorCamera.GetCameraViewTexture());
             //_depthGradientMat.SetTexture(BgDepthTextureProperty, _depthCamera.GetCameraViewTexture());

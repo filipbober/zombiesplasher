@@ -67,16 +67,29 @@
             {
 
                 fragOut o;
-                float2 mirrorTexCoords = { i.uv.x,1 - i.uv.y };
+                //float2 mirrorTexCoords = { i.uv.x,1 - i.uv.y };
+
+                // wysokosc od -1 do 7
 
                 //float depthValue = 1 - (i.worldPos.y / 10.0);
-                float depthValue = (i.worldPos.y / 4.0);
+                float depthValue = (i.worldPos.y / 8.0) + 1/8.0;
+                //depthValue = pow(depthValue, 2);
                 //if (i.worldPos.y < 1)
                 //    depthValue = 1;
 
                 //depthValue = 0.99;
+                //if (i.worldPos.y < 0.01)
+                //    depthValue = 0;
+
+
+                //if (i.worldPos.y < -1 || i.worldPos.y > 7)
+                //    depthValue = 0.0f;
+
+                
 
                 o.color = float4(depthValue, depthValue, depthValue, 1);
+
+                //o.color = float4(0.5, 0.5, 0.5, 1);
                 return o;
             }
 
