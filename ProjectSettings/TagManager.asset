@@ -17,11 +17,11 @@ TagManager:
   - 
   - 
   - Ground
-  - 3DObjects
+  - Actors
   - Collider
-  - Color
-  - Depth
-  - 
+  - BgColor2d
+  - BgDepth2d
+  - Transparent
   - 
   - 
   - 

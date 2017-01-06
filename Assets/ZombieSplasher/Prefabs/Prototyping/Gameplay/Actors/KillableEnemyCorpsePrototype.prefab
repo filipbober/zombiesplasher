@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 494978}
   - 33: {fileID: 3343604}
   - 23: {fileID: 2385388}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 427324}
   - 114: {fileID: 114000012569741750}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: KillableEnemyCorpsePrototype
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 425722}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 401684}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: enemy_corpse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
