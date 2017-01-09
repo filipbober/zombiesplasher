@@ -129,6 +129,10 @@ Shader "Custom/ApplyDepthGradient"
                     //else
                     //    o.color = dynamicColor;    
 
+                    // Alpha
+                    if (dynamicColor.a < 1.0)
+                        dynamicColor = dynamicColor * dynamicColor.a + (envColor2d * (1 - dynamicColor.a));
+
                     if (backgroundTop)
                     {
                         o.color = envColor2d;
@@ -148,6 +152,10 @@ Shader "Custom/ApplyDepthGradient"
                 //if ((backgroundTop) && transparentDepth < 1.0)
                 if (transparentDepth < 1.0 && ((abs(transparentDepth - dynamicDepth) > 0.001 || backgroundTop)))
                 {
+                    // Alpha
+                    if (transparentColor.a < 1.0)
+                        transparentColor = transparentColor * transparentColor.a + (envColor2d * (1 - transparentColor.a));
+
                     o.color = transparentColor;
                 }
                 

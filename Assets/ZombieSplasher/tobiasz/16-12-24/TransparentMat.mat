@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ZombieTransparentMat
+  m_Name: TransparentMat
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION _NORMALMAP
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
   m_LightmapFlags: 1
   m_CustomRenderQueue: 3000
   stringTagMap:
@@ -19,7 +19,7 @@ Material:
     - first:
         name: _BumpMap
       second:
-        m_Texture: {fileID: 2800000, guid: 3045e941b6bc187478a7c5bd16d2eb21, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -49,19 +49,19 @@ Material:
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: e4e559fe98ce79546b07691caab98c2f, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _MetallicGlossMap
       second:
-        m_Texture: {fileID: 2800000, guid: 6e047146b706f264fb7968aa3af2253b, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _OcclusionMap
       second:
-        m_Texture: {fileID: 2800000, guid: 7999515ebf58ecd47919419064f14068, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -81,9 +81,6 @@ Material:
         name: _DetailNormalMapScale
       second: 1
     - first:
-        name: _DiffuseThreshold
-      second: 0.1
-    - first:
         name: _DstBlend
       second: 10
     - first:
@@ -91,13 +88,10 @@ Material:
       second: 1
     - first:
         name: _Glossiness
-      second: 0.225
+      second: 0.5
     - first:
         name: _GlossyReflections
       second: 1
-    - first:
-        name: _LitOutlineThickness
-      second: 0.1
     - first:
         name: _Metallic
       second: 0
@@ -108,14 +102,8 @@ Material:
         name: _OcclusionStrength
       second: 1
     - first:
-        name: _Outline
-      second: 0.005
-    - first:
         name: _Parallax
       second: 0.02
-    - first:
-        name: _Shininess
-      second: 0.078125
     - first:
         name: _SmoothnessTextureChannel
       second: 0
@@ -129,24 +117,12 @@ Material:
         name: _UVSec
       second: 0
     - first:
-        name: _UnlitOutlineThickness
-      second: 0.4
-    - first:
         name: _ZWrite
       second: 0
     m_Colors:
     - first:
         name: _Color
-      second: {r: 0.1712803, g: 0.5294118, b: 0.2626655, a: 0}
+      second: {r: 1, g: 1, b: 1, a: 0.184}
     - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
-    - first:
-        name: _OutlineColor
-      second: {r: 0, g: 0, b: 0, a: 1}
-    - first:
-        name: _SpecColor
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _UnlitColor
-      second: {r: 0.5, g: 0.5, b: 0.5, a: 1}
