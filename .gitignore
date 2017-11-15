@@ -1,5 +1,9 @@
+#ignore
 Library/
 Builds/
 ZombieSplasher.CSharp.Editor.csproj
 ZombieSplasher.CSharp.csproj
 ZombieSplasher.sln
+
+#include
+!/Assets/AstarPathfindingProject/**
