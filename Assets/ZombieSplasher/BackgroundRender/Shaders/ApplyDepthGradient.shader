@@ -1,4 +1,6 @@
-﻿// Copyright (C) 2016 Filip Cyrus Bober
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Copyright (C) 2016 Filip Cyrus Bober
 
 Shader "Custom/ApplyDepthGradient" 
 {
@@ -46,7 +48,7 @@ Shader "Custom/ApplyDepthGradient"
             v2f vert(appdata_base v)
 			{
 				v2f o;
-				o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+				o.pos = UnityObjectToClipPos(v.vertex);
 				o.scrPos = ComputeScreenPos(o.pos);
 				o.uv = v.texcoord.xy;
 
