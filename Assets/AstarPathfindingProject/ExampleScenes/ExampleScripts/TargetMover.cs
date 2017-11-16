@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using Pathfinding.RVO;
 
 namespace Pathfinding {
 	/** Moves the target in example scenes.

@@ -1,30 +1,51 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Pathfinding {
-	/** GraphModifier for modifying graphs or processing graph data based on events.
+	/** GraphModifier is used for modifying graphs or processing graph data based on events.
 	 * This class is a simple container for a number of events.
 	 *
 	 * \warning Some events will be called both in play mode <b>and in editor mode</b> (at least the scan events).
 	 * So make sure your code handles both cases well. You may choose to ignore editor events.
 	 * \see Application.IsPlaying
 	 */
-	public abstract class GraphModifier : MonoBehaviour {
+	[ExecuteInEditMode]
+	public abstract class GraphModifier : VersionedMonoBehaviour {
 		/** All active graph modifiers */
 		private static GraphModifier root;
 
 		private GraphModifier prev;
 		private GraphModifier next;
 
-		public static void FindAllModifiers () {
-			var arr = FindObjectsOfType(typeof(GraphModifier)) as GraphModifier[];
+		/** Unique persistent ID for this component, used for serialization */
+		[SerializeField]
+		[HideInInspector]
+		protected ulong uniqueID;
 
-			for (int i = 0; i < arr.Length; i++) {
-				arr[i].OnEnable();
+		/** Maps persistent IDs to the component that uses it */
+		protected static Dictionary<ulong, GraphModifier> usedIDs = new Dictionary<ulong, GraphModifier>();
+
+		protected static List<T> GetModifiersOfType<T>() where T : GraphModifier {
+			var current = root;
+			var result = new List<T>();
+
+			while (current != null) {
+				var cast = current as T;
+				if (cast != null) result.Add(cast);
+				current = current.next;
+			}
+			return result;
+		}
+
+		public static void FindAllModifiers () {
+			var allModifiers = FindObjectsOfType(typeof(GraphModifier)) as GraphModifier[];
+
+			for (int i = 0; i < allModifiers.Length; i++) {
+				if (allModifiers[i].enabled) allModifiers[i].OnEnable();
 			}
 		}
 
-		/** GraphModifier event type.
-		 * \see GraphModifier */
+		/** GraphModifier event type */
 		public enum EventType {
 			PostScan = 1 << 0,
 			PreScan = 1 << 1,
@@ -63,11 +84,36 @@ namespace Pathfinding {
 			}
 		}
 
-		/** Adds this modifier to list of active modifiers.
-		 */
+		/** Adds this modifier to list of active modifiers */
 		protected virtual void OnEnable () {
-			OnDisable();
+			RemoveFromLinkedList();
+			AddToLinkedList();
+			ConfigureUniqueID();
+		}
 
+		/** Removes this modifier from list of active modifiers */
+		protected virtual void OnDisable () {
+			RemoveFromLinkedList();
+		}
+
+		protected override void Awake () {
+			base.Awake();
+			ConfigureUniqueID();
+		}
+
+		void ConfigureUniqueID () {
+			// Check if any other object is using the same uniqueID
+			// In that case this object may have been duplicated
+			GraphModifier usedBy;
+
+			if (usedIDs.TryGetValue(uniqueID, out usedBy) && usedBy != this) {
+				Reset();
+			}
+
+			usedIDs[uniqueID] = this;
+		}
+
+		void AddToLinkedList () {
 			if (root == null) {
 				root = this;
 			} else {
@@ -77,8 +123,7 @@ namespace Pathfinding {
 			}
 		}
 
-		/** Removes this modifier from list of active modifiers */
-		protected virtual void OnDisable () {
+		void RemoveFromLinkedList () {
 			if (root == this) {
 				root = next;
 				if (root != null) root.prev = null;
@@ -90,13 +135,9 @@ namespace Pathfinding {
 			next = null;
 		}
 
-		/* Called just before a graph is scanned.
-		 * Note that some other graphs might already be scanned */
-		//public virtual void OnGraphPreScan (NavGraph graph) {}
-
-		/* Called just after a graph has been scanned.
-		 * Note that some other graphs might not have been scanned at this point. */
-		//public virtual void OnGraphPostScan (NavGraph graph) {}
+		protected virtual void OnDestroy () {
+			usedIDs.Remove(uniqueID);
+		}
 
 		/** Called right after all graphs have been scanned.
 		 * FloodFill and other post processing has not been done.
@@ -105,6 +146,8 @@ namespace Pathfinding {
 		 * to ensure that these scripts get this call when scanning in Awake is to
 		 * set the Script Execution Order for AstarPath to some time later than default time
 		 * (see Edit -> Project Settings -> Script Execution Order).
+		 * \todo Is this still relevant? A call to FindAllModifiers should have before this method is called
+		 * so the above warning is probably not relevant anymore.
 		 *
 		 * \see OnLatePostScan
 		 */
@@ -116,6 +159,8 @@ namespace Pathfinding {
 		 * to ensure that these scripts get this call when scanning in Awake is to
 		 * set the Script Execution Order for AstarPath to some time later than default time
 		 * (see Edit -> Project Settings -> Script Execution Order).
+		 * \todo Is this still relevant? A call to FindAllModifiers should have before this method is called
+		 * so the above warning is probably not relevant anymore.
 		 *
 		 * \see OnLatePostScan
 		 * */
@@ -124,17 +169,12 @@ namespace Pathfinding {
 		/** Called at the end of the scanning procedure.
 		 * This is the absolute last thing done by Scan.
 		 *
-		 * \note This event will be called even if Script Execution Order has messed things up
-		 * (see the other two scan events).
 		 */
 		public virtual void OnLatePostScan () {}
 
 		/** Called after cached graphs have been loaded.
 		 * When using cached startup, this event is analogous to OnLatePostScan and implementing scripts
 		 * should do roughly the same thing for both events.
-		 *
-		 * \note This event will be called even if Script Execution Order has messed things up
-		 * (see the other two scan events).
 		 */
 		public virtual void OnPostCacheLoad () {}
 
@@ -144,5 +184,14 @@ namespace Pathfinding {
 		/** Called after graphs have been updated using GraphUpdateObjects.
 		 * Eventual flood filling has been done */
 		public virtual void OnGraphsPostUpdate () {}
+
+		void Reset () {
+			// Create a new random 64 bit value (62 bit actually because we skip negative numbers, but that's still enough by a huge margin)
+			var rnd1 = (ulong)Random.Range(0, int.MaxValue);
+			var rnd2 = ((ulong)Random.Range(0, int.MaxValue) << 32);
+
+			uniqueID = rnd1 | rnd2;
+			usedIDs[uniqueID] = this;
+		}
 	}
 }

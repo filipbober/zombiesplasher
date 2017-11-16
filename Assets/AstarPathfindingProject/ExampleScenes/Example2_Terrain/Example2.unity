@@ -37,9 +37,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
---- !u!127 &3
-LevelGameManager:
-  m_ObjectHideFlags: 0
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -68,6 +65,7 @@ LightmapSettings:
     m_TextureCompression: 0
     m_FinalGather: 0
     m_FinalGatherRayCount: 1024
+    m_ReflectionCompression: 2
   m_LightmapSnapshot: {fileID: 0}
   m_RuntimeCPUUsage: 25
 --- !u!1 &5
@@ -844,10 +842,12 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
 --- !u!20 &58
 Camera:
   m_ObjectHideFlags: 0
@@ -876,10 +876,12 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
 --- !u!23 &59
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -898,7 +900,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -922,7 +926,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -946,7 +952,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -970,7 +978,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -994,7 +1004,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -1018,7 +1030,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -1042,7 +1056,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -1066,7 +1082,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -1090,7 +1108,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -1114,7 +1134,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -1138,7 +1160,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -1162,7 +1186,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -1186,7 +1212,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -1210,7 +1238,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -1573,6 +1603,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183748dd497aa473a98ff0cd8cb67fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1
+  uniqueID: 2657363569931778259
   updateError: .200000003
   checkTime: .100000001
 --- !u!114 &106
@@ -1586,6 +1618,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183748dd497aa473a98ff0cd8cb67fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1
+  uniqueID: 4581527146247409781
   updateError: .200000003
   checkTime: .100000001
 --- !u!114 &107
@@ -1599,6 +1633,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efee954c69f0d421086729bb8df1137f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1
+  uniqueID: 0
   points:
   - {x: 345.92038, y: 9.71988392, z: 361.26474}
   - {x: 356.050262, y: 9.77652359, z: 333.962585}
@@ -1622,14 +1658,14 @@ MonoBehaviour:
   setWalkability: 0
   applyOnStart: 1
   applyOnScan: 1
-  useWorldSpace: 1
   updatePhysics: 0
   resetPenaltyOnPhysics: 1
   updateErosion: 1
-  lockToY: 0
-  lockToYValue: 0
   modifyTag: 1
   setTag: 1
+  legacyMode: 1
+  serializedVersion: 1
+  legacyUseWorldSpace: 1
 --- !u!114 &108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1641,17 +1677,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f35b84b127b849e38b74966118e7e0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1
   repathRate: .100000001
   target: {fileID: 53}
   canSearch: 1
   canMove: 1
   speed: 24
-  turningSpeed: 5
+  rotationSpeed: 450
   slowdownDistance: 7
   pickNextWaypointDist: 10
-  forwardLook: 9
   endReachedDistance: 2
-  closestOnPathCheck: 1
   anim: {fileID: 97}
   sleepVelocity: .800000012
   animationSpeed: .100000001
@@ -1667,10 +1702,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1
   drawGizmos: 1
   detailedGizmos: 0
   startEndModifier:
-    priority: 2
     addPoints: 0
     exactStartPoint: 3
     exactEndPoint: 3
@@ -1695,7 +1730,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77f586f285b3847808d79083bd19ef1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  priority: 1
+  version: 1
+  unwrap: 1
+  splitAtEveryPortal: 0
 --- !u!114 &111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1712,6 +1749,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   target: {fileID: 53}
   onlyOnDoubleClick: 0
+  use2D: 0
 --- !u!114 &112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1728,6 +1766,7 @@ MonoBehaviour:
     m_Bits: 4294967289
   target: {fileID: 53}
   onlyOnDoubleClick: 0
+  use2D: 0
 --- !u!218 &113
 Terrain:
   m_ObjectHideFlags: 0
@@ -1770,8 +1809,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  astarData:
-    dataString: UEsDBBQAAAgIAAAIIezTGI5OMQIAAE8EAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFdUllv2kAQ/ivVPjuRMcYtvCWQ0FZpgkKrPlR5GOwxXrHetfYoR8R/z+xijIks2fKc3zHvbO14wSbv7D8Ih2zCMBvEmBZZkhRpmmTZzTgZwjhLsnQ0HmbptzE7RgxMg7l9BcsVmwwixo2q0Wqe38m1oClxxJzkpdL1Q7HGqTLWsEkJwmDEtLK+T/qlu1C6D+8DvWl0jtKibpPJqJ+mv6MfnAuoGyyW/IBt3Sg+1dGXKqQq8JRMbkc0UQnBTbvR7hvPcgqNcYQ0YgUHgu43phGrkK8rS329rpeyNGgDBg37GdfEPAxj98pWNKEGs+kpmBzPc35dJ4bx1yHlSq3q7+2eQeyB24rnm1fY52BsJ1M/OOswDjz/LYgNrAT+rVA+q7lWThZdnzOYzLq/jsW0wpzAWO3wDO8q5JorPwatH0dPbzcVvF4Rgdvh+PJ/t+MmFFJgKZSXNckihprU/0Fgg8kmaEkxj+GPwd+wvlxCG37k2lhKhGHgrHricjPXvLhUnqMzbuwTr3mQjoz2PFbKaapkD0FSouzsVGmJPnji1qAEYfcL2mavDf2U6fZ9ij9CbpXud7R3fl0egufaJA7e9lMLtfUejoJJP13dLBSXdomg8+riO+6s0zgDC94RaienL/YaYpvTZumEoFsKy4jovzii543YVyAlCh9iz0r6C+9/3shQLokUiMUJWWBF7smzWpJujeT0BnyZa2j8iRcatnN+qFWnKZelWuYaUb6E3gDv+AFQSwMEFAAACAAAAAgh7B5/XXYyAAAAMgAAABIAJABncmFwaDBfZWRpdG9yLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF7ImxvY2tlZCI6dHJ1ZSwic2hvd0V4dHJhIjpmYWxzZSwicGl2b3QiOiJDZW50ZXIifVBLAwQUAAAICAAACCHspCkpcHMAAACBAAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAR2MsQ6CMBBA/+VmJHA9T8vqwEbcDUOTO6GDLSnFhBj/Xer2hvfeB96aVh8DdGDqC1QwJbfMK3TtgZuXgx6g3DZKwohChMwni8ZZRqazNUxXC2MFeV90cC/9F3eX56cP4sNU98lLX67FClH0FreQi9aM3x9QSwECLQAUAAAICAAACCHs0xiOTjECAABPBAAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAIAAAACCHsHn9ddjIAAAAyAAAAEgAkAAAAAAAAAAAAAAB+AgAAZ3JhcGgwX2VkaXRvci5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAgh7KQpKXBzAAAAgQAAAAkAJAAAAAAAAAAAAAAABAMAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAwADABwBAADCAwAAAAA=
+  version: 1
+  data:
+    dataString: UEsDBBQAAAgIAAAIIezxYbQ4WwIAABYFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFtU99v2jAQ/ldQnrcKAmRjbxu0bFNbUNm0h6kP1+RCLBw7ss+jUPG/9+wEcOmkSI6/++H7vrt7ScA2mNMDkNDJl97gQy8RVtdIRuRf1Voig30GnRKlNvV1scaptmQZLkFaZJPR5KMVQy+95LkL2HXn3p+9A//lqAjN2SsdX/oxEjydyiXUDRYrscdzwLh/DOC/4Kh0gZ1PejX2b2gphe2KSWjXeFMyhcY6psIOhQAmF8oY8bVCsa7Ih8fBi7K0SF1hBnYzYVijNmvyTVPlM9VgN21t/0C6UEKoqU1598467H8aBofS6Pr78d1BP5CiSuSbB9jlYCmSNoZn58oHQaMtyA08SfxTobrXc6OdKqJYZzGdRfcTu2mFua+NjMNTvRega953c3Du5iHwf55KUT95alfDSYuspA6Spxnf0XB7fnDJYTxspzKjvorfFn/BOp6jznAjjCU2dS+CI30r1GZuRBF7H/GZsHQratGK6WfC83nSznjv5Dro7Ok7mmqjMMAdywYVSNot+V26bPuFLXr5wnIDOWnzNuq4ORchAT75p/2297Fxqbehw+O2gT9d3Sy1ULRCMHkVZbSV3t6hrRaOpFB45uQN96z7VCvVDq39T9jKmRLyKIzwmZzBGRCE1eGaeLTiebIsaYhQTko/xoGHT/6XWfjv0ctcAb8rA5zcaxWW7s356Idn7UTxdj0SzAZ9HBVZmhajUZplHyfpECZZmo3Gk2E2+jxJwvYIxaqDXLaidbLz0KkzF8WL4jP6kenNDTRhXwsD27nY1zoaAKFKvcoNolq0GQLZwytQSwMEFAAACAgAAAgh7G7hdEs0AAAANwAAABIAJABncmFwaDBfZWRpdG9yLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVsrJT85OTVGyUigpKk3VUVAqzsgvd60oKUoECqUl5hSDxAoyy/JLgHwl59S8ktQipVoAUEsDBBQAAAgIAAAIIey656w7bAAAAHcAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0DPQUVBKL0osyCgGChiCOKWZKSB2tFKqmaFBqkmKmZFRiomJkZmZrqWRcaKlmZGZiamlsZmJhaVSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAAgh7PFhtDhbAgAAFgUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAgh7G7hdEs0AAAANwAAABIAJAAAAAAAAAAAAAAAqAIAAGdyYXBoMF9lZGl0b3IuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAIIey656w7bAAAAHcAAAAJACQAAAAAAAAAAAAAADADAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAMAAwAcAQAA5wMAAAAA
     upgradeData: 
     data_backup: 
     file_cachedStartup: {fileID: 0}
@@ -1798,7 +1838,6 @@ MonoBehaviour:
     _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: .5}
     _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: .5}
     _MeshEdgeColor: {r: 0, g: 0, b: 0, a: .5}
-    _MeshColor: {r: .125, g: .68599999, b: 0, a: .189999998}
     _AreaColors: []
   tagNames:
   - Basic Ground
@@ -1838,15 +1877,14 @@ MonoBehaviour:
   threadCount: 1
   maxFrameTime: 10
   minAreaSize: 10
-  limitGraphUpdates: 1
-  maxGraphUpdateFreq: .200000003
+  batchGraphUpdates: 0
+  graphUpdateBatchingInterval: .200000003
   euclideanEmbedding:
     mode: 0
     seed: 0
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
   showGraphs: 1
-  lastUniqueAreaIndex: 44
 --- !u!196 &115
 NavMeshSettings:
   serializedVersion: 2

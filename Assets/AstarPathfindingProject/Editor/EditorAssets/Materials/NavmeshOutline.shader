@@ -1,71 +1,87 @@
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
 Shader "Hidden/AstarPathfindingProject/Navmesh Outline" {
-Properties {
-	_Color ("Main Color", Color) = (1,1,1,0.5)
-	_MainTex ("Texture", 2D) = "white" { }
-	_Scale ("Scale", float) = 1
-	_FadeColor ("Fade Color", Color) = (1,1,1,0.3)
-}
-SubShader {
-
-	Pass {
-		ZTest LEqual
-		Lighting Off
+	Properties {
+		_Color ("Main Color", Color) = (1,1,1,0.5)
+		_FadeColor ("Fade Color", Color) = (1,1,1,0.3)
+		_PixelWidth ("Width (px)", Float) = 4
+	}
+	SubShader {
 		Blend SrcAlpha OneMinusSrcAlpha
 		ZWrite Off
 		Offset -2, -50
 
-		CGPROGRAM
-		#pragma vertex vert
-		#pragma fragment frag
+		Pass {
+			ZTest LEqual
+			
+			CGPROGRAM
+			#pragma vertex vert
+			#pragma fragment frag
 
-		float4 _Color;
-		sampler2D _MainTex;
-		float _Scale;
+			#include "UnityCG.cginc"
+			#include "Navmesh.cginc"
+			
+			float4 _Color;
+			float _PixelWidth;
+			
+			// Number of screen pixels that the _Falloff texture corresponds to
+			static const float FalloffTextureScreenPixels = 2;
+			
+			line_v2f vert (appdata_color v, out float4 outpos : SV_POSITION) {
+				line_v2f o = line_vert(v, _PixelWidth, outpos);
+				o.col = v.color * _Color;
+				if (!IsGammaSpaceCompatibility()) {
+					o.col.rgb = GammaToLinearSpace(o.col.rgb);
+				}
+				return o;
+			}
 
-		struct appdata_color {
-			float4 vertex : POSITION;
-			fixed4 color : COLOR;
-			float4 normal : NORMAL;
-		};
-
-		struct v2f {
-			float4  pos : SV_POSITION;
-			float2  uv : TEXCOORD0;
-			half4 col : COLOR;
-		};
-
-		v2f vert (appdata_color v) {
-			v2f o;
-			float4 p1 = UnityObjectToClipPos(v.vertex);
-			float4 p2 = UnityObjectToClipPos(v.vertex + v.normal);
-			float4 p1s = p1/p1.w;
-			float4 p2s = p2/p2.w;
-
-			float4 delta = p2s - p1s;
-			float2 screenSpaceNormal = float2(-delta.y, delta.x);
-			screenSpaceNormal = normalize(screenSpaceNormal) / _ScreenParams.xy;
-			float4 sn = float4(screenSpaceNormal.x, screenSpaceNormal.y, 0, 0) * (v.color.a-0.5);
-			o.pos = p1s + sn*8;
-
-			// Multiply by w because homogeneous coordinates
-			o.pos *= p1.w;
-
-			o.col = v.color;
-			o.col.a = 1;
-			o.uv = float2(v.color.a, 0);
-			return o;
+			half4 frag (line_v2f i, UNITY_VPOS_TYPE screenPos : VPOS) : COLOR {
+				float2 p = (i.screenPos.xy/i.screenPos.w) - (i.originScreenPos.xy / i.originScreenPos.w);
+				// Handle DirectX properly. See https://docs.unity3d.com/Manual/SL-PlatformDifferences.html
+				p.y *= _ProjectionParams.x;
+				float dist = dot(p*_ScreenParams.xy, i.normal) / _PixelWidth;
+				float FalloffFractionOfWidth = FalloffTextureScreenPixels/(_PixelWidth*0.5);
+				float a = lineAA((abs(dist*4) - (1 - FalloffFractionOfWidth))/FalloffFractionOfWidth);
+				return i.col * float4(1,1,1,a);
+			}
+			ENDCG
 		}
 
-		half4 frag (v2f i) : COLOR {
-			return tex2D(_MainTex, i.uv) * i.col;
+		Pass {
+			ZTest Greater
+			
+			CGPROGRAM
+			#pragma vertex vert
+			#pragma fragment frag
+
+			#include "UnityCG.cginc"
+			#include "Navmesh.cginc"
+
+			float4 _Color;
+			float4 _FadeColor;
+			float _PixelWidth;
+			
+			static const float FalloffTextureScreenPixels = 2;
+			
+			line_v2f vert (appdata_color v, out float4 outpos : SV_POSITION) {
+				line_v2f o = line_vert(v, _PixelWidth, outpos);
+				o.col = v.color * _Color * _FadeColor;
+				if (!IsGammaSpaceCompatibility()) {
+					o.col.rgb = GammaToLinearSpace(o.col.rgb);
+				}
+				return o;
+			}
+
+			half4 frag (line_v2f i, UNITY_VPOS_TYPE screenPos : VPOS) : COLOR {
+				float2 p = (i.screenPos.xy/i.screenPos.w) - (i.originScreenPos.xy / i.originScreenPos.w);
+				// Handle DirectX properly. See https://docs.unity3d.com/Manual/SL-PlatformDifferences.html
+				p.y *= _ProjectionParams.x;
+				float dist = dot(p*_ScreenParams.xy, i.normal) / _PixelWidth;
+				float FalloffFractionOfWidth = FalloffTextureScreenPixels/(_PixelWidth*0.5);
+				float a = lineAA((abs(dist*4) - (1 - FalloffFractionOfWidth))/FalloffFractionOfWidth);
+				return i.col * float4(1,1,1,a);
+			}
+			ENDCG
 		}
-		ENDCG
-
-		}
-
-
 	}
-Fallback "None"
+	Fallback Off
 }

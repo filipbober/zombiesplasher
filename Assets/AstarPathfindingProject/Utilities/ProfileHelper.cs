@@ -3,7 +3,9 @@
 #pragma warning disable 0414
 #pragma warning disable 0429
 //#define PROFILE // Uncomment to enable profiling
+//#define KEEP_SAMPLES
 using System;
+using System.Collections.Generic;
 
 namespace Pathfinding {
 	public class Profile {
@@ -15,6 +17,7 @@ namespace Pathfinding {
 		long mem;
 		long smem;
 
+
 		int control = 1 << 30;
 		const bool dontCountFirst = false;
 
@@ -25,6 +28,15 @@ namespace Pathfinding {
 		public Profile (string name) {
 			this.name = name;
 			watch = new System.Diagnostics.Stopwatch();
+		}
+
+		public static void WriteCSV (string path, params Profile[] profiles) {
+		}
+
+		public void Run (System.Action action) {
+			Start();
+			action();
+			Stop();
 		}
 
 		[System.Diagnostics.ConditionalAttribute("PROFILE")]

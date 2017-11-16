@@ -1,7 +1,6 @@
 #pragma warning disable 414
 using System.Collections.Generic;
 using UnityEngine;
-using Pathfinding;
 
 namespace Pathfinding {
 	public enum HeuristicOptimizationMode {

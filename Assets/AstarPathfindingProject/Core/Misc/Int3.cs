@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Pathfinding {
 	/** Holds a coordinate in integers */
-	public struct Int3 {
+	public struct Int3 : System.IEquatable<Int3> {
 		public int x;
 		public int y;
 		public int z;
@@ -22,8 +22,7 @@ namespace Pathfinding {
 		/** 1 divided by #Precision */
 		public const float PrecisionFactor = 0.001F;
 
-		private static Int3 _zero = new Int3(0, 0, 0);
-		public static Int3 zero { get { return _zero; } }
+		public static Int3 zero { get { return new Int3(); } }
 
 		public Int3 (Vector3 position) {
 			x = (int)System.Math.Round(position.x*FloatPrecision);
@@ -75,7 +74,6 @@ namespace Pathfinding {
 			return lhs;
 		}
 
-		// REMOVE!
 		public static Int3 operator + (Int3 lhs, Int3 rhs) {
 			lhs.x += rhs.x;
 			lhs.y += rhs.y;
@@ -103,14 +101,6 @@ namespace Pathfinding {
 			lhs.x = (int)System.Math.Round(lhs.x * rhs);
 			lhs.y = (int)System.Math.Round(lhs.y * rhs);
 			lhs.z = (int)System.Math.Round(lhs.z * rhs);
-
-			return lhs;
-		}
-
-		public static Int3 operator * (Int3 lhs, Vector3 rhs) {
-			lhs.x = (int)System.Math.Round(lhs.x * rhs.x);
-			lhs.y = (int)System.Math.Round(lhs.y * rhs.y);
-			lhs.z = (int)System.Math.Round(lhs.z * rhs.z);
 
 			return lhs;
 		}
@@ -223,8 +213,8 @@ namespace Pathfinding {
 			}
 		}
 
-		public static implicit operator string (Int3 ob) {
-			return ob.ToString();
+		public static implicit operator string (Int3 obj) {
+			return obj.ToString();
 		}
 
 		/** Returns a nicely formatted string representing the vector */
@@ -232,15 +222,23 @@ namespace Pathfinding {
 			return "( "+x+", "+y+", "+z+")";
 		}
 
-		public override bool Equals (System.Object o) {
-			if (o == null) return false;
+		public override bool Equals (System.Object obj) {
+			if (obj == null) return false;
 
-			var rhs = (Int3)o;
+			var rhs = (Int3)obj;
 
 			return x == rhs.x &&
 				   y == rhs.y &&
 				   z == rhs.z;
 		}
+
+		#region IEquatable implementation
+
+		public bool Equals (Int3 other) {
+			return x == other.x && y == other.y && z == other.z;
+		}
+
+		#endregion
 
 		public override int GetHashCode () {
 			return x*73856093 ^ y*19349663 ^ z*83492791;
@@ -248,7 +246,7 @@ namespace Pathfinding {
 	}
 
 	/** Two Dimensional Integer Coordinate Pair */
-	public struct Int2 {
+	public struct Int2 : System.IEquatable<Int2> {
 		public int x;
 		public int y;
 
@@ -290,6 +288,14 @@ namespace Pathfinding {
 
 			return x == rhs.x && y == rhs.y;
 		}
+
+		#region IEquatable implementation
+
+		public bool Equals (Int2 other) {
+			return x == other.x && y == other.y;
+		}
+
+		#endregion
 
 		public override int GetHashCode () {
 			return x*49157+y*98317;

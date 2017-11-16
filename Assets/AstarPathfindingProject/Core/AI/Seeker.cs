@@ -4,15 +4,17 @@ using Pathfinding;
 
 /** Handles path calls for a single unit.
  * \ingroup relevant
- * This is a component which is meant to be attached to a single unit (AI, Robot, Player, whatever) to handle it's pathfinding calls.
+ * This is a component which is meant to be attached to a single unit (AI, Robot, Player, whatever) to handle its pathfinding calls.
  * It also handles post-processing of paths using modifiers.
+ *
+ * \shadowimage{seeker_inspector.png}
+ *
  * \see \ref calling-pathfinding
+ * \see \ref modifiers
  */
 [AddComponentMenu("Pathfinding/Seeker")]
 [HelpURL("http://arongranberg.com/astar/docs/class_seeker.php")]
-public class Seeker : MonoBehaviour, ISerializationCallbackReceiver {
-	//====== SETTINGS ======
-
+public class Seeker : VersionedMonoBehaviour {
 	/** Enables drawing of the last calculated path using Gizmos.
 	 * The path will show up in green.
 	 *
@@ -61,8 +63,6 @@ public class Seeker : MonoBehaviour, ISerializationCallbackReceiver {
 	 */
 	[HideInInspector]
 	public int[] tagPenalties = new int[32];
-
-	//====== SETTINGS ======
 
 	/** Callback for when a path is completed.
 	 * Movement scripts should register to this delegate.\n
@@ -117,7 +117,8 @@ public class Seeker : MonoBehaviour, ISerializationCallbackReceiver {
 	}
 
 	/** Initializes a few variables */
-	void Awake () {
+	protected override void Awake () {
+		base.Awake();
 		startEndModifier.Awake(this);
 	}
 
@@ -128,6 +129,30 @@ public class Seeker : MonoBehaviour, ISerializationCallbackReceiver {
 	 */
 	public Path GetCurrentPath () {
 		return path;
+	}
+
+	/** Stop calculating the current path request.
+	 * If this Seeker is currently calculating a path it will be canceled.
+	 * The callback (usually to a method named OnPathComplete) will soon be called
+	 * with a path that has the 'error' field set to true.
+	 *
+	 * This does not stop the character from moving, it just aborts
+	 * the path calculation.
+	 *
+	 * \param pool If true then the path will be pooled when the pathfinding system is done with it.
+	 */
+	public void CancelCurrentPathRequest (bool pool = true) {
+		if (!IsDone()) {
+			path.Error();
+			if (pool) {
+				// Make sure the path has had its reference count incremented and decremented once.
+				// If this is not done the system will think no pooling is used at all and will not pool the path.
+				// The particular object that is used as the parameter (in this case 'path') doesn't matter at all
+				// it just has to be *some* object.
+				path.Claim(path);
+				path.Release(path);
+			}
+		}
 	}
 
 	/** Cleans up some variables.
@@ -159,16 +184,16 @@ public class Seeker : MonoBehaviour, ISerializationCallbackReceiver {
 	}
 
 	/** Called by modifiers to register themselves */
-	public void RegisterModifier (IPathModifier mod) {
-		modifiers.Add(mod);
+	public void RegisterModifier (IPathModifier modifier) {
+		modifiers.Add(modifier);
 
 		// Sort the modifiers based on their specified order
 		modifiers.Sort((a, b) => a.Order.CompareTo(b.Order));
 	}
 
 	/** Called by modifiers when they are disabled or destroyed */
-	public void DeregisterModifier (IPathModifier mod) {
-		modifiers.Remove(mod);
+	public void DeregisterModifier (IPathModifier modifier) {
+		modifiers.Remove(modifier);
 	}
 
 	/** Post Processes the path.
@@ -216,7 +241,7 @@ public class Seeker : MonoBehaviour, ISerializationCallbackReceiver {
 	 * \version Behaviour changed in 3.2
 	 */
 	public bool IsDone () {
-		return path == null || path.GetState() >= PathState.Returned;
+		return path == null || path.PipelineState >= PathState.Returned;
 	}
 
 	/** Called when a path has completed.
@@ -276,13 +301,16 @@ public class Seeker : MonoBehaviour, ISerializationCallbackReceiver {
 	/** Returns a new path instance.
 	 * The path will be taken from the path pool if path recycling is turned on.\n
 	 * This path can be sent to #StartPath(Path,OnPathDelegate,int) with no change, but if no change is required #StartPath(Vector3,Vector3,OnPathDelegate) does just that.
-	 * \code var seeker = GetComponent<Seeker>();
+	 * \code
+	 * var seeker = GetComponent<Seeker>();
 	 * Path p = seeker.GetNewPath (transform.position, transform.position+transform.forward*100);
 	 * // Disable heuristics on just this path for example
 	 * p.heuristic = Heuristic.None;
 	 * seeker.StartPath (p, OnPathComplete);
 	 * \endcode
+	 * \deprecated Use ABPath.Construct(start, end, null) instead.
 	 */
+	[System.Obsolete("Use ABPath.Construct(start, end, null) instead")]
 	public ABPath GetNewPath (Vector3 start, Vector3 end) {
 		// Construct a path with start and end points
 		return ABPath.Construct(start, end, null);
@@ -313,37 +341,41 @@ public class Seeker : MonoBehaviour, ISerializationCallbackReceiver {
 	 * \param start		The start point of the path
 	 * \param end		The end point of the path
 	 * \param callback	The function to call when the path has been calculated
-	 * \param graphMask	Mask used to specify which graphs should be searched for close nodes. See Pathfinding.NNConstraint.graphMask.
+	 * \param graphMask	Mask used to specify which graphs should be searched for close nodes. See #Pathfinding.NNConstraint.graphMask.
 	 *
 	 * \a callback will be called when the path has completed.
 	 * \a Callback will not be called if the path is canceled (e.g when a new path is requested before the previous one has completed) */
 	public Path StartPath (Vector3 start, Vector3 end, OnPathDelegate callback, int graphMask) {
-		return StartPath(GetNewPath(start, end), callback, graphMask);
+		return StartPath(ABPath.Construct(start, end, null), callback, graphMask);
 	}
 
 	/** Call this function to start calculating a path.
 	 *
 	 * \param p			The path to start calculating
 	 * \param callback	The function to call when the path has been calculated
-	 * \param graphMask	Mask used to specify which graphs should be searched for close nodes. See Pathfinding.NNConstraint.graphMask.
+	 * \param graphMask	Mask used to specify which graphs should be searched for close nodes. See #Pathfinding.NNConstraint.graphMask.
 	 *
-	 * \a callback will be called when the path has completed.
-	 * \a Callback will not be called if the path is canceled (e.g when a new path is requested before the previous one has completed)
+	 * The \a callback will be called when the path has been calculated (which may be several frames into the future).
+	 * The \a callback will not be called if a new path request is started before this path request has been calculated.
+	 *
+	 * \version Since 3.8.3 this method works properly if a MultiTargetPath is used.
+	 * It now behaves identically to the StartMultiTargetPath(MultiTargetPath) method.
 	 */
 	public Path StartPath (Path p, OnPathDelegate callback = null, int graphMask = -1) {
+		p.callback += onPathDelegate;
+
 		p.enabledTags = traversableTags;
 		p.tagPenalties = tagPenalties;
-		p.callback += onPathDelegate;
 		p.nnConstraint.graphMask = graphMask;
 
 		StartPathInternal(p, callback);
-		return path;
+		return p;
 	}
 
 	/** Internal method to start a path and mark it as the currently active path */
 	void StartPathInternal (Path p, OnPathDelegate callback) {
 		// Cancel a previously requested path is it has not been processed yet and also make sure that it has not been recycled and used somewhere else
-		if (path != null && path.GetState() <= PathState.Processing && lastPathID == path.pathID) {
+		if (path != null && path.PipelineState <= PathState.Processing && path.CompleteState != PathCompleteState.Error && lastPathID == path.pathID) {
 			path.Error();
 			path.LogError("Canceled path because a new one was requested.\n"+
 				"This happens when a new path is requested from the seeker when one was already being calculated.\n" +
@@ -393,15 +425,11 @@ public class Seeker : MonoBehaviour, ISerializationCallbackReceiver {
 		}
 	}
 
-	/** Handle serialization backwards compatibility */
-	void ISerializationCallbackReceiver.OnBeforeSerialize () {
-	}
-
-	/** Handle serialization backwards compatibility */
-	void ISerializationCallbackReceiver.OnAfterDeserialize () {
-		if (traversableTagsCompatibility != null && traversableTagsCompatibility.tagsChange != -1) {
+	protected override int OnUpgradeSerializedData (int version) {
+		if (version == 0 && traversableTagsCompatibility != null && traversableTagsCompatibility.tagsChange != -1) {
 			traversableTags = traversableTagsCompatibility.tagsChange;
 			traversableTagsCompatibility = new TagMask(-1, -1);
 		}
+		return 1;
 	}
 }

@@ -5,6 +5,9 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+#if UNITY_5_5_OR_NEWER
+using UnityEngine.Profiling;
+#endif
 
 namespace Pathfinding {
 	public class AstarProfiler {
@@ -60,7 +63,7 @@ namespace Pathfinding {
 
 		[System.Diagnostics.Conditional("ASTAR_UNITY_PRO_PROFILER")]
 		public static void EndProfile () {
-			UnityEngine.Profiling.Profiler.EndSample();
+			Profiler.EndSample();
 		}
 
 		[System.Diagnostics.Conditional("ProfileAstar")]

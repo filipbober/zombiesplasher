@@ -861,7 +861,7 @@ GameObject:
   - 143: {fileID: 494}
   - 114: {fileID: 498}
   - 114: {fileID: 499}
-  - 114: {fileID: 495}
+  - 114: {fileID: 128}
   m_Layer: 2
   m_Name: Player
   m_TagString: Untagged
@@ -922,6 +922,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  repathRate: .5
+  target: {fileID: 249}
+  canSearch: 1
+  canMove: 1
+  speed: 5
+  rotationSpeed: 360
+  slowdownDistance: .699999988
+  pickNextWaypointDist: 1
+  endReachedDistance: .100000001
 --- !u!4 &129
 Transform:
   m_ObjectHideFlags: 0
@@ -3231,28 +3252,6 @@ CharacterController:
   m_SkinWidth: .0799999982
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5ac18cdd242041b6bebc0e95b624c85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  repathRate: .5
-  target: {fileID: 249}
-  canSearch: 1
-  canMove: 1
-  speed: 5
-  turningSpeed: 4
-  slowdownDistance: .699999988
-  pickNextWaypointDist: 1
-  forwardLook: .800000012
-  endReachedDistance: .100000001
-  closestOnPathCheck: 1
 --- !u!114 &497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3264,8 +3263,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  astarData:
-    dataString: UEsDBBQAAAgIAAAIIewo2APtbQEAAEACAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFdUctuwjAQ/BXks0FpHk1A4lRaVLWiCGjva2cTLBw78qMQqv57nSBaVFnaw+zO7Mz6i9RelGT2RT5BeiQzkiR3ecqmnKUMS4RonBYxlFlRYMYzhkVJvikxWruetIKm56x0iXaFR0LJrmt75F0J1z2qWiic7AwoW2nT0NENTEcfaKzQah5NhkdHD146b3Cu0DsDko7WnknBX7Db6QOqufJShhXL9+dFWDHN4yqOCgZZlFfsLhljnjOWwzRlKaZJMu2NWgTD9zuoB08O6hrLINHAaSGsA8WD2YwSKRrhbJ/oRGYRJd1Qz6H2YaHjYEPeCqRFSrzFeLHed1Zw+wu6veCHzb/JW3ADpfBhPp7cF0ETuQ/pP8N6Z3wYBe/0q1CH4ZRXsAF7uPmbcRbc6NYFs2d80mbbgrG4NNDur4ybbry4giJcXYBcowLpLtF0i+raVpdPXGuh3EWMktLAcSnOjbZ/IpXecoOo3gbuEPH7B1BLAwQUAAAICAAACCHsQjM3nXYAAACEAAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAR2MsQ6CMBBA/+VmbIptQ2V1YDPshqHlTrjBK4FiYoz/LnV7w3vvAy9aN04CLRjVKA0VTGtY5g3a+sCd8aA7GFM3Nl7GaCMhBX2y/hzQeU9udJE8wlBBfi90C0/6F33I84MFWSbVJ5bclW3RJCFd0y65eHr4/gBQSwECLQAUAAAICAAACCHsKNgD7W0BAABAAgAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAACCHsQjM3nXYAAACEAAAACQAkAAAAAAAAAAAAAAC6AQAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAHsCAAAAAA==
+  version: 1
+  data:
+    dataString: UEsDBBQAAAgIAAAIIewjyFmnOwEAAAUCAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlkctuwjAQRX8l8rqgNI8m6ZoWdUMRjw8Y25PEIrEj2wEC4t9rJ1RQdTXWmTt3rsZXopWy5D24khW06B5kpTiaFZ7IS0B2QzeyvRR2+JCVkDjfaZCmVLr1guX+a+EFRRaVUZhTSMOspK/xDLOM0gyKhCaYxHFBbk5tEDSrd1BNnhaqCrm3aeG8EMaCZH5d6kgjWmGNDxaQsyuhY8O9XnwNvKGGgYHx+UtoDDrSG4wW63owgpknbGvBDpt/6me8AS56PxPN33LvjazXRhx9Iqt7HGOawxTpCE3vG7N0zKE66/Je8FPpbQfa4FJDVz8Gq17wv4Mkjl+zhBaMJhQ5QjhL8gh4mueYspRizsnoLNzlBTRrlNDY3wOoDuXDXN4/bq2EtNNiR7mG01JcWmUeSiFLtWUaUX5PDuMdbj9QSwMEFAAACAgAAAgh7Dyo8lBtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPQM9BRUEovSizIKAYKGII4pZkpIHa0krGxoblJkmVykklSakpqooGuiYVRYoqphUWqabJpUqpFilIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrpeQH5mXok7yGyl2FoAUEsBAi0AFAAACAgAAAgh7CPIWac7AQAABQIAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAgh7Dyo8lBtAAAAeAAAAAkAJAAAAAAAAAAAAAAAiAEAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABAAgAAAAA=
     upgradeData: 
     data_backup: 
     file_cachedStartup: {fileID: 0}
@@ -3292,7 +3292,6 @@ MonoBehaviour:
     _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: .5}
     _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: .5}
     _MeshEdgeColor: {r: 0, g: 0, b: 0, a: .5}
-    _MeshColor: {r: .125, g: .68599999, b: 0, a: .189999998}
     _AreaColors: []
   tagNames:
   - Basic Ground
@@ -3332,15 +3331,14 @@ MonoBehaviour:
   threadCount: 0
   maxFrameTime: 1
   minAreaSize: 10
-  limitGraphUpdates: 1
-  maxGraphUpdateFreq: .200000003
+  batchGraphUpdates: 0
+  graphUpdateBatchingInterval: .200000003
   euclideanEmbedding:
     mode: 0
     seed: 0
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
   showGraphs: 1
-  lastUniqueAreaIndex: 0
 --- !u!114 &498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3352,6 +3350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1
   drawGizmos: 1
   detailedGizmos: 1
   startEndModifier:
@@ -3379,6 +3378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6a34d769a1e4ac7b0b30e433aa443c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1
   smoothType: 0
   subdivisions: 0
   iterations: 12
@@ -4331,6 +4331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca327ce4e754a4597a70fb963758f8bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1
+  uniqueID: 0
   end: {fileID: 2115164596}
   costFactor: 1
   oneWay: 0
@@ -6455,6 +6457,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca327ce4e754a4597a70fb963758f8bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1
+  uniqueID: 8037638413456692153
   end: {fileID: 1806939817}
   costFactor: 1
   oneWay: 0

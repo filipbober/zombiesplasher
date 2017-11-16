@@ -12,53 +12,62 @@ SceneSettings:
     backfaceThreshold: 100
 --- !u!104 &2
 RenderSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 6
   m_Fog: 0
   m_FogColor: {r: .5, g: .5, b: .5, a: 1}
   m_FogMode: 3
   m_FogDensity: .00999999978
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientLight: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+  m_AmbientSkyColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+  m_AmbientEquatorColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+  m_AmbientGroundColor: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+  m_AmbientIntensity: 1
+  m_AmbientMode: 3
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: .5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
-  m_ObjectHideFlags: 0
---- !u!127 &3
-LevelGameManager:
-  m_ObjectHideFlags: 0
+  m_DefaultReflectionMode: 0
+  m_DefaultReflectionResolution: 128
+  m_ReflectionBounces: 1
+  m_ReflectionIntensity: 1
+  m_CustomReflection: {fileID: 0}
+  m_Sun: {fileID: 0}
 --- !u!157 &4
 LightmapSettings:
   m_ObjectHideFlags: 0
-  m_LightProbes: {fileID: 0}
-  m_Lightmaps: []
+  serializedVersion: 5
+  m_GIWorkflowMode: 1
   m_LightmapsMode: 1
-  m_BakedColorSpace: 0
-  m_UseDualLightmapsInForward: 0
+  m_GISettings:
+    serializedVersion: 2
+    m_BounceScale: 1
+    m_IndirectOutputScale: 1
+    m_AlbedoBoost: 1
+    m_TemporalCoherenceThreshold: 1
+    m_EnvironmentLightingMode: 0
+    m_EnableBakedLightmaps: 1
+    m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
+    serializedVersion: 3
     m_Resolution: 1
-    m_LastUsedResolution: 0
+    m_BakeResolution: 1
     m_TextureWidth: 1024
     m_TextureHeight: 1024
-    m_BounceBoost: 1
-    m_BounceIntensity: 1
-    m_SkyLightColor: {r: .860000014, g: .930000007, b: 1, a: 1}
-    m_SkyLightIntensity: 0
-    m_Quality: 0
-    m_Bounces: 1
-    m_FinalGatherRays: 1000
-    m_FinalGatherContrastThreshold: .0500000007
-    m_FinalGatherGradientThreshold: 0
-    m_FinalGatherInterpolationPoints: 15
-    m_AOAmount: 0
     m_AOMaxDistance: 1
-    m_AOContrast: 1
-    m_LODSurfaceMappingDistance: 1
     m_Padding: 2
+    m_CompAOExponent: 0
+    m_LightmapParameters: {fileID: 0}
     m_TextureCompression: 0
-    m_LockAtlas: 0
+    m_FinalGather: 0
+    m_FinalGatherRayCount: 1024
+    m_ReflectionCompression: 2
+  m_LightmapSnapshot: {fileID: 0}
+  m_RuntimeCPUUsage: 25
 --- !u!1 &5
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +173,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 6}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.7170682, y: -1.8904314, z: -.896556854}
+  m_LocalPosition: {x: -9.44999981, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -176,7 +185,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 8}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.7170682, y: -1.8904314, z: -.896556854}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -233,12 +242,14 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
 --- !u!23 &27
-Renderer:
+MeshRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -246,15 +257,21 @@ Renderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 2100000, guid: 3219de2d574674beb889c87b844502b5, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
 --- !u!33 &29
@@ -274,7 +291,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300002, guid: 7fdfb9a3e0fdf4df880ebc7fa5f56398, type: 3}
 --- !u!81 &32
@@ -365,6 +381,7 @@ MonoBehaviour:
     m_Bits: 4294966781
   target: {fileID: 16}
   onlyOnDoubleClick: 1
+  use2D: 0
 --- !u!114 &43
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,22 +393,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  astarData:
-    dataString: UEsDBBQAAAgIAAAIIez6cHWQAQEAAIMBAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1j09LAzEQxb/KMudYUsR1WehJpAdxLVi9yjSZ1GA2WfJn7bb0u5tsFb1IYCDvzW947wT7pCW0JxjRJIIWZCNlU0t+K+QN4o5fcdlwJa6XDam6Fg2HM4Pgkhf0SOG9oB32hbQ49ll5owP2g6H6+w8MttNQFl6sjtO93WtLi8Ky6o/CqlfyQTu74ov5seoumZg8rSyl6NGwapN2RosHmrbug+zKJmNKGqdUoFiSHKDlDKZ5HvPMpncRYz77jx0EmpxtyQCFSB4jdYSeQuyczHr0iRjoHFOj2ZBFEy+4G8j+2PbSv8OxtFp7HEpp6fFzrY+9C79nlHsWnsg+zbRCE+j8BVBLAwQUAAAICAAACCHsfeIlS3UAAACEAAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAR2MsQ6CMBBA/+VmJEeIpWF1cJK4G4azd6UdbAktJIbw71K3N7z3dthkST4G6KGtO6hgWmh2CfrmxNXzSS9gzawVY2f4SvTGC7JGa9pGi1XKaISxgvydZaCP/IsnZWd9YB+meqDtIcndy7iIIbLc4hpyMXE8flBLAQItABQAAAgIAAAIIez6cHWQAQEAAIMBAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAIIex94iVLdQAAAIQAAAAJACQAAAAAAAAAAAAAAE4BAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAADgIAAAAA
+  version: 1
+  data:
+    dataString: UEsDBBQAAAgIAAAIIexF0+fxHwEAAPUBAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGFUU1vwjAM/StVzhtKQXTVjpsmToNJ3aRpl8lLHIiUOlU+gIL470tKJ9Au5GLHz89+to/M2+gEvqLfsMfiyJbQYnIYwbZNsW/cQ9sZrMY/uyvYe98NKR+kQ/9Ca004GfinBFqlPIZcqmD7ZHiK9aM9ZFvkLGcDBG3pVp4XYHKvMvnKJp3yyUaSvtEHvHCn5aTm6ZXlvyLldDKbnwtt7C5rXMVgkt6EBRdxBJZW4rMlQpE1+QQqMB6vaE10CsQVjRAc+tAkIzYrMv3n1wVcRy3P6rZg4rArWUtZV5I/CDkH+OH3XNZciVlZo6oqUXM2yNRppRrMGxKY8DeJ7ZCuOo8HWsI2K1s46IarSAe7hT601l9yNSnbCIdIq3ONYa7TL1BLAwQUAAAICAAACCHsSXTLG28AAAB6AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9Az0FFQSi9KLMgoBgoYgjilmSkgdrRSikVKioVZioF5coppYmKSga5BioVBWrKxoUVqmplZsoWBUixQfUllQapfYm4qRE9AYklGWmZeSmZeup5fYplvanGGO8h0pdhaAFBLAQItABQAAAgIAAAIIexF0+fxHwEAAPUBAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAIIexJdMsbbwAAAHoAAAAJACQAAAAAAAAAAAAAAGwBAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAJgIAAAAA
     upgradeData: 
     data_backup: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
     cacheStartup: 0
   showNavGraphs: 1
-  showUnwalkableNodes: 1
+  showUnwalkableNodes: 0
   debugMode: 0
   debugFloor: 0
   debugRoof: 1
   manualDebugFloorRoof: 0
-  showSearchTree: 1
+  showSearchTree: 0
   unwalkableNodeDebugSize: .300000012
-  logPathResults: 2
+  logPathResults: 1
   maxNearestNodeDistance: 10
   scanOnStartup: 1
   fullGetNearestSearch: 0
@@ -404,7 +422,6 @@ MonoBehaviour:
     _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: .5}
     _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: .5}
     _MeshEdgeColor: {r: 0, g: 0, b: 0, a: .5}
-    _MeshColor: {r: .125, g: .68599999, b: 0, a: .189999998}
     _AreaColors: []
   tagNames:
   - Basic Ground
@@ -444,8 +461,8 @@ MonoBehaviour:
   threadCount: 0
   maxFrameTime: 1
   minAreaSize: 10
-  limitGraphUpdates: 1
-  maxGraphUpdateFreq: .200000003
+  batchGraphUpdates: 0
+  graphUpdateBatchingInterval: .200000003
   euclideanEmbedding:
     mode: 0
     seed: 0
@@ -454,8 +471,10 @@ MonoBehaviour:
   showGraphs: 1
 --- !u!196 &48
 NavMeshSettings:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
+    serializedVersion: 2
     agentRadius: .5
     agentHeight: 2
     agentSlope: 45
@@ -464,10 +483,9 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     accuratePlacement: 0
     minRegionArea: 2
-    widthInaccuracy: 16.666666
-    heightInaccuracy: 10
-    tileSizeHint: 0
-  m_NavMesh: {fileID: 0}
+    cellSize: .166666657
+    manualCellSize: 0
+  m_NavMeshData: {fileID: 0}
 --- !u!1 &578526423
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,7 +504,7 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!23 &578526424
-Renderer:
+MeshRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -494,15 +512,21 @@ Renderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 2100000, guid: b71b71b0a1f9a48768a27ca6eefcfbdf, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
 --- !u!33 &578526425
@@ -598,10 +622,10 @@ Light:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 852869452}
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 6
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: .699999988
+  m_Intensity: 1.39999998
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -610,21 +634,18 @@ Light:
     m_Resolution: 3
     m_Strength: .913999975
     m_Bias: .0560000017
-    m_Softness: 4
-    m_SoftnessFade: 1
+    m_NormalBias: .400000006
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
-  m_ActuallyLightmapped: 0
   m_Flare: {fileID: 0}
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_Lightmapping: 1
-  m_ShadowSamples: 1
+  m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
-  m_IndirectIntensity: 1
   m_AreaSize: {x: 1, y: 1}
 --- !u!4 &852869454
 Transform:
@@ -702,10 +723,12 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
+  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
 --- !u!1 &1797897902
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,7 +741,7 @@ GameObject:
   - 114: {fileID: 1797897908}
   - 114: {fileID: 1797897907}
   - 114: {fileID: 1797897906}
-  - 114: {fileID: 1797897905}
+  - 114: {fileID: 1797897904}
   m_Layer: 1
   m_Name: Player
   m_TagString: Untagged
@@ -740,7 +763,7 @@ Transform:
   - {fileID: 578526426}
   m_Father: {fileID: 0}
   m_RootOrder: 6
---- !u!114 &1797897905
+--- !u!114 &1797897904
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -748,20 +771,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1797897902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5ac18cdd242041b6bebc0e95b624c85, type: 3}
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1
   repathRate: .100000001
   target: {fileID: 16}
   canSearch: 1
   canMove: 1
   speed: 2.20000005
-  turningSpeed: 8
+  rotationSpeed: 720
   slowdownDistance: .200000003
   pickNextWaypointDist: .699999988
-  forwardLook: .400000006
   endReachedDistance: .200000003
-  closestOnPathCheck: 1
 --- !u!114 &1797897906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,7 +795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb6a34d769a1e4ac7b0b30e433aa443c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  priority: 1
+  version: 1
   smoothType: 3
   subdivisions: 2
   iterations: 5
@@ -794,7 +816,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77f586f285b3847808d79083bd19ef1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  priority: 2
+  version: 1
+  unwrap: 1
+  splitAtEveryPortal: 0
 --- !u!114 &1797897908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,10 +830,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  version: 1
   drawGizmos: 1
   detailedGizmos: 0
   startEndModifier:
-    priority: 3
     addPoints: 0
     exactStartPoint: 3
     exactEndPoint: 3
@@ -829,6 +853,9 @@ CharacterController:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1797897902}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Height: .699999988
   m_Radius: .342999995
