@@ -80,8 +80,8 @@ Shader "Custom/RenderBackground"
 
                     float3 normalValues;
                     float depthValue;
-                    float2 mirrorTexCoords = { i.uv.x,1 - i.uv.y };
-                    //float2 mirrorTexCoords = { i.uv.x, i.uv.y };
+                    //float2 mirrorTexCoords = { i.uv.x,1 - i.uv.y };
+                    float2 mirrorTexCoords = { i.uv.x, i.uv.y };
 
                     DecodeDepthNormal(tex2D(_CameraDepthNormalsTexture, i.scrPos.xy), depthValue, normalValues);
 

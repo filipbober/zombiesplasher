@@ -64,7 +64,8 @@ Shader "Custom/ApplyDepthGradient"
 			{
 
                 fragOut o;
-                float2 mirrorTexCoords = { i.uv.x,1 - i.uv.y };
+                //float2 mirrorTexCoords = { i.uv.x,1 - i.uv.y };
+                float2 mirrorTexCoords = { i.uv.x, i.uv.y };
 
                 float4 envColor2d = tex2D(_bgColor, mirrorTexCoords);
                 float envDepth2d = tex2D(_bgDepth, mirrorTexCoords);
