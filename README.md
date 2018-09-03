@@ -8,11 +8,10 @@ All the graphics, visuals, models and a lot of shader ideas and calculations cre
 
 # Screenshots
 Gameview
-![alt text](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
 ![gameview](https://github.com/filipbober/zombiesplasher/blob/master/screenshots/game_view.png)
 
 Game and a corresponding scene view
-![game_and_scene](https://github.com/filipbober/zombiesplasher/blob/master/screenshots/game_and_scene_view.png|alt=game_and_scene)
+![game_and_scene](https://github.com/filipbober/zombiesplasher/blob/master/screenshots/game_and_scene_view.png)
 
 Color and depth backgrounds
-![color_and_depth](https://github.com/filipbober/zombiesplasher/blob/master/screenshots/color_and_depth.png|alt=color_and_depth)
+![color_and_depth](https://github.com/filipbober/zombiesplasher/blob/master/screenshots/color_and_depth.png)
