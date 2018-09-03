@@ -1,4 +1,10 @@
+#ignore
 Library/
-Build/
-Temp/
-*.csproj
+Builds/
+ZombieSplasher.CSharp.Editor.csproj
+ZombieSplasher.CSharp.csproj
+ZombieSplasher.sln
+
+#include
+!/Assets/AstarPathfindingProject/**
+.vs/
